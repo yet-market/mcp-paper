@@ -1,0 +1,4 @@
+# Claude 3.5 Haiku Anthropic API Requirements
+anthropic>=0.40.0
+fastmcp>=2.5.1
+python-dotenv>=1.0.0
