@@ -87,4 +87,4 @@ if __name__ == "__main__":
     if args.transport == "stdio":
         mcp.run()
     else:
-        mcp.run_server(host=args.host, port=args.port)
+        mcp.run(transport=args.transport, host=args.host, port=args.port)
