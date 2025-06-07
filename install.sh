@@ -10,8 +10,8 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Default installation directory
-INSTALL_DIR="/opt/mcp-paper"
-SERVICE_USER="mcp-paper"
+INSTALL_DIR="/opt/mcp-sparql"
+SERVICE_USER="mcp-sparql"
 
 # Print colored output
 print_status() {
@@ -92,14 +92,14 @@ if [ "$INSTALL_SYSTEMD" = true ]; then
     print_status "Installing systemd service..."
     
     # Create log directory
-    mkdir -p /var/log/mcp-paper
-    chown "$SERVICE_USER:$SERVICE_USER" /var/log/mcp-paper
+    mkdir -p /var/log/mcp-sparql
+    chown "$SERVICE_USER:$SERVICE_USER" /var/log/mcp-sparql
     
     # Create config directory
-    mkdir -p /etc/mcp-paper
+    mkdir -p /etc/mcp-sparql
     
     # Create a default environment file
-    cat > /etc/mcp-paper/env <<EOF
+    cat > /etc/mcp-sparql/env <<EOF
 # MCP Paper Server environment configuration
 
 # Transport configuration  
@@ -124,9 +124,9 @@ SPARQL_CACHE_STRATEGY=lru
 EOF
     
     # Create systemd service file
-    cat > /etc/systemd/system/mcp-paper.service <<EOF
+    cat > /etc/systemd/system/mcp-sparql.service <<EOF
 [Unit]
-Description=MCP Paper Server
+Description=MCP SPARQL Server
 After=network.target
 Documentation=https://github.com/yet-market/mcp-paper
 
@@ -135,7 +135,7 @@ Type=simple
 User=$SERVICE_USER
 Group=$SERVICE_USER
 WorkingDirectory=$INSTALL_DIR/server
-EnvironmentFile=-/etc/mcp-paper/env
+EnvironmentFile=-/etc/mcp-sparql/env
 ExecStart=$INSTALL_DIR/server/venv/bin/python server.py
 ExecReload=/bin/kill -s HUP \$MAINPID
 Restart=always
@@ -146,7 +146,7 @@ TimeoutStopSec=10
 NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/var/log/mcp-paper
+ReadWritePaths=/var/log/mcp-sparql
 PrivateTmp=true
 ProtectKernelTunables=true
 ProtectKernelModules=true
@@ -161,9 +161,9 @@ WantedBy=multi-user.target
 EOF
 
     # Create HTTP service variant
-    cat > /etc/systemd/system/mcp-paper-http.service <<EOF
+    cat > /etc/systemd/system/mcp-sparql-http.service <<EOF
 [Unit]
-Description=MCP Paper Server (HTTP)
+Description=MCP SPARQL Server (HTTP)
 After=network.target
 Documentation=https://github.com/yet-market/mcp-paper
 
@@ -172,7 +172,7 @@ Type=simple
 User=$SERVICE_USER
 Group=$SERVICE_USER
 WorkingDirectory=$INSTALL_DIR/server
-EnvironmentFile=-/etc/mcp-paper/env
+EnvironmentFile=-/etc/mcp-sparql/env
 ExecStart=$INSTALL_DIR/server/venv/bin/python server.py --transport streamable-http --host localhost --port 8000
 ExecReload=/bin/kill -s HUP \$MAINPID
 Restart=always
@@ -183,7 +183,7 @@ TimeoutStopSec=10
 NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/var/log/mcp-paper
+ReadWritePaths=/var/log/mcp-sparql
 PrivateTmp=true
 ProtectKernelTunables=true
 ProtectKernelModules=true
@@ -206,7 +206,7 @@ EOF
     # Create start script
     cat > "$INSTALL_DIR/start.sh" <<'EOF'
 #!/bin/bash
-# Start MCP Paper Server services
+# Start MCP SPARQL Server services
 
 set -e
 
@@ -216,18 +216,18 @@ print_status() {
 
 if [ "$1" = "stdio" ]; then
     print_status "Starting stdio service..."
-    sudo systemctl start mcp-paper
-    sudo systemctl enable mcp-paper
+    sudo systemctl start mcp-sparql
+    sudo systemctl enable mcp-sparql
     echo "✅ stdio service started"
 elif [ "$1" = "http" ]; then
     print_status "Starting HTTP service..."
-    sudo systemctl start mcp-paper-http
-    sudo systemctl enable mcp-paper-http
+    sudo systemctl start mcp-sparql-http
+    sudo systemctl enable mcp-sparql-http
     echo "✅ HTTP service started at http://localhost:8000/mcp/"
 else
     print_status "Starting HTTP service (default)..."
-    sudo systemctl start mcp-paper-http
-    sudo systemctl enable mcp-paper-http
+    sudo systemctl start mcp-sparql-http
+    sudo systemctl enable mcp-sparql-http
     echo "✅ HTTP service started at http://localhost:8000/mcp/"
     echo "Use './start.sh stdio' to start stdio service instead"
 fi
@@ -236,7 +236,7 @@ EOF
     # Create stop script
     cat > "$INSTALL_DIR/stop.sh" <<'EOF'
 #!/bin/bash
-# Stop MCP Paper Server services
+# Stop MCP SPARQL Server services
 
 set -e
 
@@ -246,16 +246,16 @@ print_status() {
 
 if [ "$1" = "stdio" ]; then
     print_status "Stopping stdio service..."
-    sudo systemctl stop mcp-paper
+    sudo systemctl stop mcp-sparql
     echo "✅ stdio service stopped"
 elif [ "$1" = "http" ]; then
     print_status "Stopping HTTP service..."
-    sudo systemctl stop mcp-paper-http
+    sudo systemctl stop mcp-sparql-http
     echo "✅ HTTP service stopped"
 else
     print_status "Stopping all services..."
-    sudo systemctl stop mcp-paper-http 2>/dev/null || true
-    sudo systemctl stop mcp-paper 2>/dev/null || true
+    sudo systemctl stop mcp-sparql-http 2>/dev/null || true
+    sudo systemctl stop mcp-sparql 2>/dev/null || true
     echo "✅ All services stopped"
 fi
 EOF
@@ -263,11 +263,11 @@ EOF
     # Create restart script
     cat > "$INSTALL_DIR/restart.sh" <<'EOF'
 #!/bin/bash
-# Restart MCP Paper Server
+# Restart MCP SPARQL Server
 
 set -e
 
-echo "🔄 Restarting MCP Paper Server..."
+echo "🔄 Restarting MCP SPARQL Server..."
 
 # Stop the server first
 echo "⏹️  Stopping server..."
@@ -284,18 +284,18 @@ EOF
     # Create status script
     cat > "$INSTALL_DIR/status.sh" <<'EOF'
 #!/bin/bash
-# Check MCP Paper Server service status
+# Check MCP SPARQL Server service status
 
-echo "=== MCP Paper Server Status ==="
+echo "=== MCP SPARQL Server Status ==="
 echo
 
 echo "📋 Available Services:"
-echo "  - mcp-paper.service      (stdio transport)"
-echo "  - mcp-paper-http.service (HTTP transport)"
+echo "  - mcp-sparql.service      (stdio transport)"
+echo "  - mcp-sparql-http.service (HTTP transport)"
 echo
 
 echo "🔍 Service Status:"
-for service in mcp-paper mcp-paper-http; do
+for service in mcp-sparql mcp-sparql-http; do
     if sudo systemctl is-active --quiet $service; then
         status="✅ RUNNING"
     else
@@ -306,9 +306,9 @@ done
 
 echo
 
-if sudo systemctl is-active --quiet mcp-paper-http; then
+if sudo systemctl is-active --quiet mcp-sparql-http; then
     echo "🌐 HTTP Service Details:"
-    sudo systemctl status mcp-paper-http --no-pager -l | head -10
+    sudo systemctl status mcp-sparql-http --no-pager -l | head -10
     echo
     echo "📍 MCP Endpoint: http://localhost:8000/mcp/"
 fi
@@ -318,25 +318,25 @@ echo "  ./start.sh [stdio|http]  - Start service"
 echo "  ./stop.sh [stdio|http]   - Stop service"
 echo "  ./restart.sh [stdio|http] - Restart service"
 echo "  ./logs.sh [stdio|http]   - View logs"
-echo "  sudo systemctl restart mcp-paper-http"
+echo "  sudo systemctl restart mcp-sparql-http"
 EOF
 
     # Create logs script
     cat > "$INSTALL_DIR/logs.sh" <<'EOF'
 #!/bin/bash
-# View MCP Paper Server logs
+# View MCP SPARQL Server logs
 
 if [ "$1" = "stdio" ]; then
     echo "📜 Viewing stdio service logs (Ctrl+C to exit):"
-    sudo journalctl -u mcp-paper -f
+    sudo journalctl -u mcp-sparql -f
 elif [ "$1" = "http" ]; then
     echo "📜 Viewing HTTP service logs (Ctrl+C to exit):"
-    sudo journalctl -u mcp-paper-http -f
+    sudo journalctl -u mcp-sparql-http -f
 else
     echo "📜 Viewing HTTP service logs (Ctrl+C to exit):"
     echo "Use './logs.sh stdio' for stdio service logs"
     echo
-    sudo journalctl -u mcp-paper-http -f
+    sudo journalctl -u mcp-sparql-http -f
 fi
 EOF
     
@@ -351,25 +351,25 @@ EOF
     
     # Stop any running services before starting
     print_status "Stopping existing services..."
-    systemctl stop mcp-paper 2>/dev/null || true
-    systemctl stop mcp-paper-http 2>/dev/null || true
+    systemctl stop mcp-sparql 2>/dev/null || true
+    systemctl stop mcp-sparql-http 2>/dev/null || true
     
     # Start and enable the HTTP service (most common for nginx integration)
-    print_status "Starting MCP Paper HTTP service..."
-    systemctl start mcp-paper-http
-    systemctl enable mcp-paper-http
+    print_status "Starting MCP SPARQL HTTP service..."
+    systemctl start mcp-sparql-http
+    systemctl enable mcp-sparql-http
     
     # Wait a moment for service to start
     sleep 2
     
     # Check service status
-    if systemctl is-active --quiet mcp-paper-http; then
+    if systemctl is-active --quiet mcp-sparql-http; then
         print_status "✅ HTTP service started successfully!"
         echo
         echo "🌐 MCP Server is running at: http://localhost:8000/mcp/"
         echo
         print_status "Service status:"
-        systemctl status mcp-paper-http --no-pager -l
+        systemctl status mcp-sparql-http --no-pager -l
         
         # Run basic connectivity test
         echo
@@ -381,17 +381,17 @@ EOF
         fi
     else
         print_error "❌ HTTP service failed to start!"
-        echo "Check logs with: journalctl -u mcp-paper-http -f"
+        echo "Check logs with: journalctl -u mcp-sparql-http -f"
         exit 1
     fi
     
     echo
     echo "📋 Available services:"
-    echo "  - mcp-paper.service      (stdio transport)"
-    echo "  - mcp-paper-http.service (HTTP transport for nginx) ✅ RUNNING"
+    echo "  - mcp-sparql.service      (stdio transport)"
+    echo "  - mcp-sparql-http.service (HTTP transport for nginx) ✅ RUNNING"
     echo
     echo "🔧 Configuration:"
-    echo "  Edit: /etc/mcp-paper/env"
+    echo "  Edit: /etc/mcp-sparql/env"
     echo
     echo "📜 Management scripts created:"
     echo "  ./start.sh    - Start services"
@@ -401,8 +401,8 @@ EOF
     echo "  ./logs.sh     - View logs"
     echo
     echo "📊 Quick commands:"
-    echo "  journalctl -u mcp-paper-http -f     # View HTTP service logs"
-    echo "  systemctl restart mcp-paper-http    # Restart HTTP service"
+    echo "  journalctl -u mcp-sparql-http -f     # View HTTP service logs"
+    echo "  systemctl restart mcp-sparql-http    # Restart HTTP service"
     
 else
     print_status "Creating local management scripts..."
