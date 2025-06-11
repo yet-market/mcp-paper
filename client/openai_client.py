@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """
-CLI Client for Luxembourg Legal Intelligence MCP Server
-Interactive workflow with phase control and content extraction
+Simple Client for Luxembourg Legal Intelligence MCP Server
+Workflow Edition using the new streamlined 13-tool workflow system
 """
 
 import os
 import json
 import asyncio
-import argparse
 from typing import Dict, List, Any, Optional
 import anthropic
 from groq import AsyncGroq
@@ -21,15 +20,16 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 
-class InteractiveLegalClient:
-    """Interactive CLI client with phase control for Luxembourg Legal Intelligence."""
+class LegalIntelligenceClient:
+    """Client for the new 13-tool Luxembourg Legal Intelligence workflow system."""
 
     def __init__(self):
-        # Model configuration
-        self.model_provider = os.getenv("MODEL_PROVIDER", "groq")
+        # Model configuration - easy to change
+        self.model_provider = os.getenv("MODEL_PROVIDER", "groq")  # anthropic or groq
+        # URL of the MCP endpoint (must include '/mcp' path)
         self.mcp_server_url = "http://localhost:8080/mcp"
 
-        # Initialize AI client
+        # Initialize the appropriate client and model
         if self.model_provider == "groq":
             self.groq_api_key = os.getenv("GROQ_API_KEY")
             if not self.groq_api_key:
@@ -45,87 +45,10 @@ class InteractiveLegalClient:
             self.client = anthropic.AsyncAnthropic(api_key=self.api_key)
             self.is_groq = False
 
-        self.available_tools = []
-        self._tools_initialized = False
+        # Updated system prompt for the new workflow tools
+        self.system_prompt = """Vous êtes un assistant juridique expert en droit luxembourgeois avec accès à un système de recherche légale professionnel en 4 phases.
 
-    async def initialize_tools(self):
-        """Initialize MCP tools."""
-        if self._tools_initialized:
-            return
-
-        logger.info("🔧 Initializing workflow tools...")
-        try:
-            transport = StreamableHttpTransport(url=self.mcp_server_url)
-            async with Client(transport) as client:
-                tools = await client.list_tools()
-
-                expected_tools = [
-                    # Phase 1: Discovery
-                    "find_most_cited_laws", "find_most_changed_laws",
-                    "find_newest_active_laws", "find_highest_authority_laws",
-                    # Phase 2: Analysis
-                    "compare_results", "check_connections",
-                    # Phase 3: Relationships
-                    "find_what_law_references", "find_what_references_law", "find_amendment_chain",
-                    # Phase 4: Final
-                    "verify_still_valid", "rank_by_importance", "create_final_map",
-                    # Content & Bonus
-                    "extract_content", "basic_document_search"
-                ]
-
-                self.available_tools = []
-                for tool in tools:
-                    if tool.name in expected_tools:
-                        claude_tool = {
-                            "name": tool.name,
-                            "description": tool.description,
-                            "input_schema": tool.inputSchema
-                        }
-                        self.available_tools.append(claude_tool)
-
-            self._tools_initialized = True
-            logger.info(f"✅ Initialized {len(self.available_tools)} workflow tools")
-
-        except Exception as e:
-            logger.error(f"❌ Failed to initialize tools: {e}")
-            self.available_tools = []
-
-    async def call_mcp_tool(self, tool_name: str, tool_input: Dict[str, Any]) -> Dict[str, Any]:
-        """Call MCP tool and return result."""
-        try:
-            transport = StreamableHttpTransport(url=self.mcp_server_url)
-            async with Client(transport) as client:
-                result = await client.call_tool(tool_name, tool_input)
-                return {
-                    "success": True,
-                    "result": result,
-                    "tool_name": tool_name,
-                    "tool_input": tool_input
-                }
-        except Exception as e:
-            logger.error(f"❌ MCP tool call failed: {e}")
-            return {
-                "success": False,
-                "error": str(e),
-                "tool_name": tool_name,
-                "tool_input": tool_input
-            }
-
-    def get_phase_tools(self, phase: int) -> List[str]:
-        """Get tools for a specific phase."""
-        phase_tools = {
-            1: ["find_most_cited_laws", "find_most_changed_laws", "find_newest_active_laws", "find_highest_authority_laws"],
-            2: ["compare_results", "check_connections"],
-            3: ["find_what_law_references", "find_what_references_law", "find_amendment_chain"],
-            4: ["verify_still_valid", "rank_by_importance", "create_final_map"]
-        }
-        return phase_tools.get(phase, [])
-
-    def get_system_prompt(self, target_phase: int, include_content: bool = False) -> str:
-        """Generate system prompt based on target phase."""
-        base_prompt = """Vous êtes un assistant juridique expert en droit luxembourgeois avec accès à un système de recherche légale professionnel en 4 phases.
-
-OUTILS DISPONIBLES (workflow par phases) :
+OUTILS DISPONIBLES (13 outils organisés en workflow) :
 
 🏗️ PHASE 1 - DÉCOUVERTE (Trouver les grandes lois) :
 - find_most_cited_laws : Lois les plus citées = importantes
@@ -147,81 +70,211 @@ OUTILS DISPONIBLES (workflow par phases) :
 - rank_by_importance : Classer par ordre d'importance
 - create_final_map : Créer la carte complète des lois
 
-📄 EXTRACTION DE CONTENU :
-- extract_content : Extraire le texte légal complet des documents
+🎁 BONUS :
+- basic_document_search : Recherche simple par mots-clés
 
-"""
+STRATÉGIE RECOMMANDÉE :
+1. Pour une recherche complète : Suivez les 4 phases dans l'ordre
+2. Pour une recherche rapide : Utilisez basic_document_search
+3. Pour analyser une loi spécifique : Utilisez les outils de Phase 3
 
-        if target_phase == 1:
-            strategy = """STRATÉGIE POUR PHASE 1 UNIQUEMENT :
-1. Exécutez les 4 outils de Phase 1 pour découvrir les lois importantes
-2. Analysez les résultats pour identifier les patterns
-3. Répondez avec une synthèse des lois découvertes"""
+Utilisez ces outils de manière stratégique selon la complexité de la question. Répondez en français en vous basant exclusivement sur les résultats des outils."""
 
-        elif target_phase == 2:
-            strategy = """STRATÉGIE POUR PHASES 1-2 :
-1. Exécutez TOUS les 4 outils de Phase 1
-2. Utilisez compare_results pour analyser les recoupements
-3. Utilisez check_connections pour voir les relations
-4. Synthétisez les lois les plus importantes avec leurs connexions"""
+        self.available_tools = []
+        self._tools_initialized = False
 
-        elif target_phase == 3:
-            strategy = """STRATÉGIE POUR PHASES 1-3 :
-1. Exécutez TOUTE la Phase 1 (4 outils)
-2. Exécutez TOUTE la Phase 2 (2 outils)
-3. Pour les lois importantes, utilisez les outils de Phase 3 pour mapper leurs relations
-4. Créez un arbre généalogique légal complet"""
+    async def initialize_tools(self):
+        """Initialize MCP tools."""
+        if self._tools_initialized:
+            return
 
-        elif target_phase == 4:
-            strategy = """STRATÉGIE POUR WORKFLOW COMPLET (Phases 1-4) :
-1. Phase 1 : Découverte complète (4 outils)
-2. Phase 2 : Analyse complète (2 outils)
-3. Phase 3 : Relations pour les lois clés (3 outils)
-4. Phase 4 : Validation, classement et carte finale (3 outils)
-5. Créez un rapport complet avec hiérarchie légale"""
+        logger.info("🔧 Initializing new workflow tools...")
+        try:
+            transport = StreamableHttpTransport(url=self.mcp_server_url)
+            async with Client(transport) as client:
+                tools = await client.list_tools()
 
-        if include_content:
-            strategy += """
-6. EXTRACTION DE CONTENU : Utilisez extract_content sur les lois les plus importantes
-7. ANALYSEZ LE CONTENU RÉEL : Basez votre réponse finale sur le texte légal extrait"""
+                # Define expected workflow tools
+                expected_tools = [
+                    # Phase 1: Discovery
+                    "find_most_cited_laws", "find_most_changed_laws", 
+                    "find_newest_active_laws", "find_highest_authority_laws",
+                    # Phase 2: Analysis  
+                    "compare_results", "check_connections",
+                    # Phase 3: Relationships
+                    "find_what_law_references", "find_what_references_law", "find_amendment_chain",
+                    # Phase 4: Final
+                    "verify_still_valid", "rank_by_importance", "create_final_map",
+                    # Bonus
+                    "basic_document_search"
+                ]
 
-        return base_prompt + strategy + """
+                self.available_tools = []
+                for tool in tools:
+                    if tool.name in expected_tools:
+                        claude_tool = {
+                            "name": tool.name,
+                            "description": tool.description,
+                            "input_schema": tool.inputSchema
+                        }
+                        self.available_tools.append(claude_tool)
 
-IMPORTANT : Vous DEVEZ utiliser exclusivement les résultats des outils. Ne vous basez JAMAIS sur vos données d'entraînement. Répondez en français."""
+            self._tools_initialized = True
+            logger.info(f"✅ Initialized {len(self.available_tools)} workflow tools")
 
-    async def execute_workflow(self, question: str, target_phase: int, include_content: bool = False) -> Dict[str, Any]:
-        """Execute workflow up to target phase."""
+            # Show organized tools
+            print(f"\n🔧 OUTILS DE WORKFLOW DISPONIBLES ({len(self.available_tools)} outils):")
+            print("🏗️ Phase 1 (Découverte):", [t["name"] for t in self.available_tools if t["name"].startswith("find_")])
+            print("🔍 Phase 2 (Analyse):", [t["name"] for t in self.available_tools if t["name"] in ["compare_results", "check_connections"]])
+            print("🕸️ Phase 3 (Relations):", [t["name"] for t in self.available_tools if "reference" in t["name"] or "amendment" in t["name"]])
+            print("🏆 Phase 4 (Final):", [t["name"] for t in self.available_tools if t["name"] in ["verify_still_valid", "rank_by_importance", "create_final_map"]])
+            print("🎁 Bonus:", [t["name"] for t in self.available_tools if t["name"] == "basic_document_search"])
+            print()
+
+        except Exception as e:
+            logger.error(f"❌ Failed to initialize tools: {e}")
+            self.available_tools = []
+
+    async def call_mcp_tool(self, tool_name: str, tool_input: Dict[str, Any]) -> Dict[str, Any]:
+        """Call MCP tool and return result."""
+        try:
+            transport = StreamableHttpTransport(url=self.mcp_server_url)
+            async with Client(transport) as client:
+                result = await client.call_tool(tool_name, tool_input)
+
+                return {
+                    "success": True,
+                    "result": result,
+                    "tool_name": tool_name,
+                    "tool_input": tool_input
+                }
+
+        except Exception as e:
+            logger.error(f"❌ MCP tool call failed: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "tool_name": tool_name,
+                "tool_input": tool_input
+            }
+
+    def format_tool_result(self, tool_result: Dict[str, Any]) -> str:
+        """Format tool execution result for Claude."""
+        if not tool_result["success"]:
+            return f"❌ Erreur lors de l'exécution de l'outil {tool_result['tool_name']}: {tool_result['error']}"
+
+        result = tool_result["result"]
+        tool_name = tool_result["tool_name"]
+
+        # Enhanced formatting for workflow tools
+        if tool_name in ["find_most_cited_laws", "find_most_changed_laws", "find_newest_active_laws", "find_highest_authority_laws"]:
+            if isinstance(result, dict) and result.get("success"):
+                laws_count = result.get("total_found", 0)
+                method = result.get("method", "unknown")
+                keywords = result.get("keywords", [])
+                phase = "🏗️ PHASE 1 - DÉCOUVERTE"
+                return f"{phase} - {tool_name.upper()}\n📊 Méthode: {method}\n🔍 Mots-clés: {keywords}\n📋 Trouvé: {laws_count} lois\n\n{json.dumps(result, ensure_ascii=False, indent=2)}"
+
+        elif tool_name == "compare_results":
+            if isinstance(result, dict) and result.get("success"):
+                total_laws = result.get("statistics", {}).get("total_laws", 0)
+                multi_method = result.get("statistics", {}).get("multi_method_count", 0)
+                high_confidence = result.get("statistics", {}).get("high_confidence_count", 0)
+                phase = "🔍 PHASE 2 - ANALYSE"
+                return f"{phase} - COMPARAISON DES RÉSULTATS\n📊 Total: {total_laws} lois\n🎯 Multi-méthodes: {multi_method} lois\n✅ Haute confiance: {high_confidence} lois\n\n{json.dumps(result, ensure_ascii=False, indent=2)}"
+
+        elif tool_name == "check_connections":
+            if isinstance(result, dict) and result.get("success"):
+                connections = result.get("statistics", {}).get("total_connections", 0)
+                connected_laws = result.get("statistics", {}).get("connected_laws", 0)
+                phase = "🔍 PHASE 2 - ANALYSE"
+                return f"{phase} - VÉRIFICATION DES CONNEXIONS\n🔗 Connexions: {connections}\n📋 Lois connectées: {connected_laws}\n\n{json.dumps(result, ensure_ascii=False, indent=2)}"
+
+        elif tool_name in ["find_what_law_references", "find_what_references_law"]:
+            if isinstance(result, dict) and result.get("success"):
+                total_found = result.get("total_found", 0)
+                relationship_type = result.get("relationship_type", "unknown")
+                phase = "🕸️ PHASE 3 - RELATIONS"
+                return f"{phase} - {tool_name.upper()}\n📊 Type: {relationship_type}\n📋 Trouvé: {total_found} relations\n\n{json.dumps(result, ensure_ascii=False, indent=2)}"
+
+        elif tool_name == "find_amendment_chain":
+            if isinstance(result, dict) and result.get("success"):
+                total_amendments = result.get("total_amendments", 0)
+                incoming = len(result.get("incoming_amendments", []))
+                outgoing = len(result.get("outgoing_amendments", []))
+                phase = "🕸️ PHASE 3 - RELATIONS"
+                return f"{phase} - CHAÎNE D'AMENDEMENTS\n📝 Total: {total_amendments} amendements\n⬇️ Entrants: {incoming}\n⬆️ Sortants: {outgoing}\n\n{json.dumps(result, ensure_ascii=False, indent=2)}"
+
+        elif tool_name == "verify_still_valid":
+            if isinstance(result, dict) and result.get("success"):
+                total_checked = result.get("statistics", {}).get("total_checked", 0)
+                valid_count = result.get("statistics", {}).get("valid_count", 0)
+                validity_rate = result.get("statistics", {}).get("validity_rate", 0)
+                phase = "🏆 PHASE 4 - FINALISATION"
+                return f"{phase} - VÉRIFICATION DE VALIDITÉ\n📊 Vérifiées: {total_checked} lois\n✅ Valides: {valid_count} lois\n📈 Taux: {validity_rate:.1%}\n\n{json.dumps(result, ensure_ascii=False, indent=2)}"
+
+        elif tool_name == "rank_by_importance":
+            if isinstance(result, dict) and result.get("success"):
+                total_laws = result.get("statistics", {}).get("total_laws", 0)
+                average_score = result.get("statistics", {}).get("average_score", 0)
+                critical_laws = len(result.get("critical_laws", []))
+                phase = "🏆 PHASE 4 - FINALISATION"
+                return f"{phase} - CLASSEMENT PAR IMPORTANCE\n📊 Total: {total_laws} lois\n🎯 Score moyen: {average_score}\n🔥 Critiques: {critical_laws} lois\n\n{json.dumps(result, ensure_ascii=False, indent=2)}"
+
+        elif tool_name == "create_final_map":
+            if isinstance(result, dict) and result.get("success"):
+                total_mapped = result.get("summary", {}).get("total_laws_mapped", 0)
+                core_framework = result.get("summary", {}).get("core_legal_framework", 0)
+                total_relationships = result.get("summary", {}).get("total_relationships", 0)
+                phase = "🏆 PHASE 4 - FINALISATION"
+                return f"{phase} - CARTE LÉGALE FINALE\n🗺️ Lois cartographiées: {total_mapped}\n🏛️ Cadre central: {core_framework} lois\n🔗 Relations: {total_relationships}\n\n{json.dumps(result, ensure_ascii=False, indent=2)}"
+
+        elif tool_name == "basic_document_search":
+            if isinstance(result, dict) and result.get("success"):
+                total_found = result.get("total_found", 0)
+                keywords = result.get("keywords", [])
+                phase = "🎁 BONUS"
+                return f"{phase} - RECHERCHE SIMPLE\n🔍 Mots-clés: {keywords}\n📋 Trouvé: {total_found} documents\n\n{json.dumps(result, ensure_ascii=False, indent=2)}"
+
+        # Default formatting
+        try:
+            return json.dumps(result, ensure_ascii=False, indent=2, default=str)
+        except (TypeError, AttributeError):
+            return str(result)
+
+    async def chat(self, message: str) -> Dict[str, Any]:
+        """Enhanced chat with professional legal research workflow."""
+        start_time = time.time()
+
         await self.initialize_tools()
 
-        start_time = time.time()
-        system_prompt = self.get_system_prompt(target_phase, include_content)
-
-        messages = [{"role": "user", "content": question}]
+        messages = [{"role": "user", "content": message}]
         tools_used = []
-        max_iterations = 30
+        max_iterations = 25  # Increased for comprehensive workflow
         iteration = 0
 
-        print(f"\n🎯 EXÉCUTION WORKFLOW - PHASES 1-{target_phase}")
-        if include_content:
-            print("📄 + EXTRACTION DE CONTENU ACTIVÉE")
-        print(f"📝 Question: {question}")
+        print(f"\n🧠 RECHERCHE LÉGALE WORKFLOW PROFESSIONNEL")
+        print(f"📝 Question: {message}")
+        print(f"🔧 Outils disponibles: {len(self.available_tools)} (workflow complet)")
         print("=" * 80)
 
         while iteration < max_iterations:
             iteration += 1
 
             try:
-                # Prepare request
+                # Prepare request parameters based on provider
                 if self.is_groq:
-                    groq_messages = [{"role": "system", "content": system_prompt}] + messages
+                    # Groq/Llama format (OpenAI-compatible)
+                    groq_messages = [{"role": "system", "content": self.system_prompt}] + messages
                     request_params = {
                         "model": self.model,
-                        "max_tokens": 6000,
-                        "temperature": 0.1,
+                        "max_tokens": 4000,
+                        "temperature": 0.3,
                         "messages": groq_messages
                     }
 
                     if self.available_tools:
+                        # Convert Anthropic MCP tools to OpenAI format
                         groq_tools = []
                         for tool in self.available_tools:
                             groq_tools.append({
@@ -237,11 +290,12 @@ IMPORTANT : Vous DEVEZ utiliser exclusivement les résultats des outils. Ne vous
 
                     response = await self.client.chat.completions.create(**request_params)
                 else:
+                    # Anthropic format
                     request_params = {
                         "model": self.model,
-                        "max_tokens": 6000,
-                        "temperature": 0.1,
-                        "system": system_prompt,
+                        "max_tokens": 4000,
+                        "temperature": 0.3,
+                        "system": self.system_prompt,
                         "messages": messages
                     }
 
@@ -250,9 +304,11 @@ IMPORTANT : Vous DEVEZ utiliser exclusivement les résultats des outils. Ne vous
 
                     response = await self.client.messages.create(**request_params)
 
-                # Handle response
+                # Handle response based on provider
                 if self.is_groq:
+                    # Groq/OpenAI format
                     if response.choices[0].finish_reason == "tool_calls":
+                        # Handle tool calls for Groq
                         assistant_message = {
                             "role": "assistant",
                             "content": response.choices[0].message.content or ""
@@ -270,109 +326,97 @@ IMPORTANT : Vous DEVEZ utiliser exclusivement les résultats des outils. Ne vous
                                 })
                         messages.append(assistant_message)
 
-                        tool_results = []
+                        tool_results_for_claude = []
+
                         for tool_call in response.choices[0].message.tool_calls:
                             tool_name = tool_call.function.name
                             tool_input = json.loads(tool_call.function.arguments)
+                            tool_use_id = tool_call.id
 
+                            # Show which phase this tool belongs to
                             phase_info = self.get_tool_phase(tool_name)
                             print(f"\n{phase_info} - EXÉCUTION: {tool_name}")
-                            print(f"📥 Paramètres: {json.dumps(tool_input, ensure_ascii=False, indent=2)}")
+                            print(f"📥 Paramètres: {json.dumps(tool_input, ensure_ascii=False)}")
 
                             tool_result = await self.call_mcp_tool(tool_name, tool_input)
                             tools_used.append({"name": tool_name, "iteration": iteration, "phase": phase_info})
 
-                            if tool_result["success"]:
-                                print(f"✅ Succès: {tool_name}")
-                                if tool_name == "extract_content" and tool_result["result"]:
-                                    # Show content extraction summary
-                                    result_data = tool_result["result"]
-                                    success_count = result_data.get("success_count", 0)
-                                    total = result_data.get("total_processed", 0)
-                                    print(f"📄 Contenu extrait: {success_count}/{total} documents")
-                            else:
-                                print(f"❌ Erreur: {tool_result['error']}")
+                            formatted_result = self.format_tool_result(tool_result)
+                            print(f"📤 Résultat:")
+                            print("─" * 60)
+                            print(formatted_result)
+                            print("─" * 60)
 
-                            # Handle TextContent objects from Groq
-                            try:
-                                formatted_result = json.dumps(tool_result["result"], ensure_ascii=False, indent=2)
-                            except TypeError:
-                                # Fallback for non-serializable objects
-                                formatted_result = str(tool_result["result"])
-
-                            tool_results.append({
+                            tool_results_for_claude.append({
                                 "role": "tool",
-                                "tool_call_id": tool_call.id,
+                                "tool_call_id": tool_use_id,
                                 "content": formatted_result
                             })
 
-                        messages.extend(tool_results)
+                        messages.extend(tool_results_for_claude)
                         continue
 
                     else:
-                        # Final response
+                        # Final response from Groq
                         final_response = response.choices[0].message.content or ""
-                        processing_time = time.time() - start_time
 
-                        phases_used = list(set([tool.get("phase", "Unknown") for tool in tools_used]))
+                        processing_time = time.time() - start_time
 
                         print(f"\n✅ WORKFLOW TERMINÉ")
                         print(f"🔧 Outils utilisés: {len(tools_used)}")
                         print(f"⏱️ Temps: {processing_time:.2f}s")
-                        print(f"🎯 Phases: {', '.join(phases_used)}")
+                        print(f"🎯 Phases couvertes: {self.get_phases_used(tools_used)}")
                         print("=" * 80)
 
                         return {
                             "response": final_response,
                             "tools_used": tools_used,
-                            "phases_used": phases_used,
+                            "iterations": iteration,
                             "processing_time": processing_time,
-                            "target_phase": target_phase,
-                            "content_extracted": include_content and any(t["name"] == "extract_content" for t in tools_used),
-                            "success": True
+                            "provider": f"groq_{self.model}",
+                            "phases_used": self.get_phases_used(tools_used)
                         }
 
                 elif response.stop_reason == "tool_use":
-                    assistant_message = {"role": "assistant", "content": response.content}
+                    assistant_message = {
+                        "role": "assistant",
+                        "content": response.content
+                    }
                     messages.append(assistant_message)
 
-                    tool_results = []
+                    tool_results_for_claude = []
+
                     for content_block in response.content:
                         if content_block.type == "tool_use":
                             tool_name = content_block.name
                             tool_input = content_block.input
+                            tool_use_id = content_block.id
 
+                            # Show which phase this tool belongs to
                             phase_info = self.get_tool_phase(tool_name)
                             print(f"\n{phase_info} - EXÉCUTION: {tool_name}")
-                            print(f"📥 Paramètres: {json.dumps(tool_input, ensure_ascii=False, indent=2)}")
+                            print(f"📥 Paramètres: {json.dumps(tool_input, ensure_ascii=False)}")
 
                             tool_result = await self.call_mcp_tool(tool_name, tool_input)
                             tools_used.append({"name": tool_name, "iteration": iteration, "phase": phase_info})
 
-                            if tool_result["success"]:
-                                print(f"✅ Succès: {tool_name}")
-                                if tool_name == "extract_content" and tool_result["result"]:
-                                    result_data = tool_result["result"]
-                                    success_count = result_data.get("success_count", 0)
-                                    total = result_data.get("total_processed", 0)
-                                    print(f"📄 Contenu extrait: {success_count}/{total} documents")
-                            else:
-                                print(f"❌ Erreur: {tool_result['error']}")
+                            formatted_result = self.format_tool_result(tool_result)
+                            print(f"📤 Résultat:")
+                            print("─" * 60)
+                            print(formatted_result)
+                            print("─" * 60)
 
-                            # Handle TextContent objects from Anthropic
-                            try:
-                                formatted_result = json.dumps(tool_result["result"], ensure_ascii=False, indent=2)
-                            except TypeError:
-                                # Fallback for non-serializable objects
-                                formatted_result = str(tool_result["result"])
-
-                            tool_results.append({
+                            tool_results_for_claude.append({
                                 "type": "tool_result",
-                                "tool_use_id": content_block.id,
+                                "tool_use_id": tool_use_id,
                                 "content": formatted_result
                             })
 
-                    messages.append({"role": "user", "content": tool_results})
+                    messages.append({
+                        "role": "user",
+                        "content": tool_results_for_claude
+                    })
+
                     continue
 
                 else:
@@ -383,22 +427,20 @@ IMPORTANT : Vous DEVEZ utiliser exclusivement les résultats des outils. Ne vous
                             final_response += content_block.text
 
                     processing_time = time.time() - start_time
-                    phases_used = list(set([tool.get("phase", "Unknown") for tool in tools_used]))
 
                     print(f"\n✅ WORKFLOW TERMINÉ")
                     print(f"🔧 Outils utilisés: {len(tools_used)}")
                     print(f"⏱️ Temps: {processing_time:.2f}s")
-                    print(f"🎯 Phases: {', '.join(phases_used)}")
+                    print(f"🎯 Phases couvertes: {self.get_phases_used(tools_used)}")
                     print("=" * 80)
 
                     return {
                         "response": final_response,
                         "tools_used": tools_used,
-                        "phases_used": phases_used,
+                        "iterations": iteration,
                         "processing_time": processing_time,
-                        "target_phase": target_phase,
-                        "content_extracted": include_content and any(t["name"] == "extract_content" for t in tools_used),
-                        "success": True
+                        "provider": f"anthropic_{self.model}",
+                        "phases_used": self.get_phases_used(tools_used)
                     }
 
             except Exception as e:
@@ -406,164 +448,91 @@ IMPORTANT : Vous DEVEZ utiliser exclusivement les résultats des outils. Ne vous
                 return {
                     "response": f"Erreur: {str(e)}",
                     "tools_used": tools_used,
-                    "error": str(e),
-                    "success": False
+                    "error": str(e)
                 }
 
         return {
             "response": "Limite d'itérations atteinte.",
             "tools_used": tools_used,
-            "warning": "Max iterations reached",
-            "success": False
+            "warning": "Max iterations reached"
         }
 
     def get_tool_phase(self, tool_name: str) -> str:
-        """Get phase for a tool."""
-        phase_map = {
-            # Phase 1
-            "find_most_cited_laws": "🏗️ PHASE 1",
-            "find_most_changed_laws": "🏗️ PHASE 1",
-            "find_newest_active_laws": "🏗️ PHASE 1",
-            "find_highest_authority_laws": "🏗️ PHASE 1",
-            # Phase 2
-            "compare_results": "🔍 PHASE 2",
-            "check_connections": "🔍 PHASE 2",
-            # Phase 3
-            "find_what_law_references": "🕸️ PHASE 3",
-            "find_what_references_law": "🕸️ PHASE 3",
-            "find_amendment_chain": "🕸️ PHASE 3",
-            # Phase 4
-            "verify_still_valid": "🏆 PHASE 4",
-            "rank_by_importance": "🏆 PHASE 4",
-            "create_final_map": "🏆 PHASE 4",
-            # Content & Bonus
-            "extract_content": "📄 CONTENU",
-            "basic_document_search": "🎁 BONUS"
-        }
-        return phase_map.get(tool_name, "❓ UNKNOWN")
-
-    def show_phase_options(self):
-        """Show available phase options."""
-        print("\n🎯 OPTIONS DE WORKFLOW DISPONIBLES:")
-        print("=" * 50)
-        print("1️⃣  Phase 1 uniquement (Découverte)")
-        print("    - Trouve les lois importantes par 4 méthodes")
-        print("    - Rapide, vue d'ensemble")
-        print()
-        print("2️⃣  Phases 1-2 (Découverte + Analyse)")
-        print("    - Phase 1 + comparaison des résultats")
-        print("    - Identifie les lois qui reviennent souvent")
-        print()
-        print("3️⃣  Phases 1-3 (+ Relations)")
-        print("    - Phases 1-2 + arbre généalogique légal")
-        print("    - Comprend comment les lois se connectent")
-        print()
-        print("4️⃣  Phases 1-4 (Workflow complet)")
-        print("    - Toutes les phases + validation et classement")
-        print("    - Analyse complète, carte légale finale")
-        print()
-        print("🚀 Full (Workflow complet + Extraction de contenu)")
-        print("    - Workflow complet + texte légal des documents")
-        print("    - Analyse basée sur le contenu réel des lois")
-        print("=" * 50)
-
-
-async def main():
-    """Main CLI interface."""
-    parser = argparse.ArgumentParser(description="Luxembourg Legal Intelligence CLI")
-    parser.add_argument("--question", "-q", help="Question légale à poser")
-    parser.add_argument("--phase", "-p", help="Phase cible (1, 2, 3, 4, ou 'full')")
-    parser.add_argument("--interactive", "-i", action="store_true", help="Mode interactif")
-
-    args = parser.parse_args()
-
-    client = InteractiveLegalClient()
-
-    print("🏛️ LUXEMBOURG LEGAL INTELLIGENCE - CLI WORKFLOW")
-    print("=" * 60)
-    print(f"🤖 Modèle: {client.model_provider.upper()} - {client.model}")
-    print("=" * 60)
-
-    if args.interactive or not (args.question and args.phase):
-        # Interactive mode
-        while True:
-            try:
-                client.show_phase_options()
-
-                # Get question
-                if not args.question:
-                    question = input("\n📝 Votre question légale: ").strip()
-                    if not question:
-                        print("❌ Question requise!")
-                        continue
-                else:
-                    question = args.question
-                    print(f"\n📝 Question: {question}")
-
-                # Get phase
-                if not args.phase:
-                    phase_input = input("\n🎯 Choisissez la phase (1/2/3/4/full): ").strip().lower()
-                else:
-                    phase_input = args.phase.lower()
-                    print(f"🎯 Phase sélectionnée: {phase_input}")
-
-                # Parse phase
-                include_content = False
-                if phase_input == "full":
-                    target_phase = 4
-                    include_content = True
-                elif phase_input in ["1", "2", "3", "4"]:
-                    target_phase = int(phase_input)
-                else:
-                    print("❌ Phase invalide! Utilisez 1, 2, 3, 4, ou 'full'")
-                    continue
-
-                # Execute workflow
-                result = await client.execute_workflow(question, target_phase, include_content)
-
-                if result["success"]:
-                    print(f"\n📄 RÉPONSE FINALE:")
-                    print("=" * 80)
-                    print(result["response"])
-                    print("=" * 80)
-
-                    # Show summary
-                    print(f"\n📊 RÉSUMÉ:")
-                    print(f"✅ Phase cible: {result['target_phase']}")
-                    print(f"🔧 Outils utilisés: {len(result['tools_used'])}")
-                    print(f"⏱️ Temps: {result['processing_time']:.2f}s")
-                    if result.get('content_extracted'):
-                        print("📄 Contenu extrait: OUI")
-                    print(f"🎯 Phases exécutées: {', '.join(result['phases_used'])}")
-                else:
-                    print(f"❌ Erreur: {result.get('response', 'Erreur inconnue')}")
-
-                # Continue or exit
-                if args.question and args.phase:
-                    break  # Non-interactive mode, exit after one execution
-
-                continue_choice = input("\n🔄 Continuer? (o/n): ").strip().lower()
-                if continue_choice != 'o':
-                    break
-
-            except KeyboardInterrupt:
-                print("\n👋 Au revoir!")
-                break
-            except Exception as e:
-                print(f"❌ Erreur: {e}")
-                break
-    else:
-        # Direct execution mode
-        include_content = args.phase.lower() == "full"
-        target_phase = 4 if include_content else int(args.phase)
-
-        result = await client.execute_workflow(args.question, target_phase, include_content)
-
-        if result["success"]:
-            print(f"\n📄 RÉPONSE:")
-            print(result["response"])
+        """Get the phase emoji and name for a tool."""
+        if tool_name.startswith("find_"):
+            return "🏗️ PHASE 1"
+        elif tool_name in ["compare_results", "check_connections"]:
+            return "🔍 PHASE 2"
+        elif "reference" in tool_name or "amendment" in tool_name:
+            return "🕸️ PHASE 3"
+        elif tool_name in ["verify_still_valid", "rank_by_importance", "create_final_map"]:
+            return "🏆 PHASE 4"
+        elif tool_name == "basic_document_search":
+            return "🎁 BONUS"
         else:
-            print(f"❌ Erreur: {result.get('response', 'Erreur inconnue')}")
+            return "❓ UNKNOWN"
+
+    def get_phases_used(self, tools_used: List[Dict]) -> List[str]:
+        """Get unique phases used in the workflow."""
+        phases = set()
+        for tool in tools_used:
+            phase = tool.get("phase", "❓ UNKNOWN")
+            phases.add(phase)
+        return sorted(list(phases))
+
+
+async def test_legal_workflow():
+    """Test the Luxembourg Legal Intelligence workflow system."""
+    client = LegalIntelligenceClient()
+
+    print("🏛️ LUXEMBOURG LEGAL INTELLIGENCE - WORKFLOW EDITION")
+    print("=" * 80)
+    print("🎯 13 Specialized Workflow Tools organized in 4 phases")
+    print("🏗️ Phase 1: Discovery (4 tools) - Find big laws")
+    print("🔍 Phase 2: Analysis (2 tools) - Check results") 
+    print("🕸️ Phase 3: Relationships (3 tools) - Build family tree")
+    print("🏆 Phase 4: Final (3 tools) - Complete picture")
+    print("🎁 Bonus: Simple search (1 tool)")
+    print("⚡ Smart workflow strategy with phase-based progression")
+    print(f"🤖 AI Model: {client.model_provider.upper()} - {client.model}")
+    print("=" * 80)
+
+    test_question = "Quelles sont les lois fondamentales pour créer une SARL au Luxembourg ?"
+
+    print(f"\n🧪 TEST DU WORKFLOW LÉGAL COMPLET")
+    print(f"📝 Question: {test_question}")
+
+    try:
+        result = await client.chat(test_question)
+
+        print(f"\n📋 RÉSULTATS DU WORKFLOW:")
+        print(f"✅ Réponse: {len(result['response'])} caractères")
+        print(f"🔧 Outils: {len(result.get('tools_used', []))}")
+        print(f"⏱️ Temps: {result.get('processing_time', 0):.2f}s")
+        print(f"🎯 Phases: {', '.join(result.get('phases_used', []))}")
+
+        print(f"\n📄 RÉPONSE COMPLÈTE:")
+        print("=" * 80)
+        print(result['response'])
+        print("=" * 80)
+
+        # Show workflow details
+        if result.get('tools_used'):
+            print(f"\n🔧 WORKFLOW EXÉCUTÉ:")
+            phases = {}
+            for tool in result['tools_used']:
+                phase = tool.get('phase', '❓ UNKNOWN')
+                if phase not in phases:
+                    phases[phase] = []
+                phases[phase].append(f"{tool['name']} (iter {tool['iteration']})")
+            
+            for phase, tools in phases.items():
+                print(f"   {phase}:")
+                for tool in tools:
+                    print(f"      • {tool}")
+
+    except Exception as e:
+        print(f"❌ Erreur: {e}")
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(test_legal_workflow())
