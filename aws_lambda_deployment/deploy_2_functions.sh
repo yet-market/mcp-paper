@@ -11,7 +11,8 @@ PROJECT_NAME="luxembourg-legal-assistant"
 AWS_REGION="eu-west-2"
 AWS_PROFILE="yet"
 ENVIRONMENT="prod"
-MCP_SERVER_URL="https://yet-mcp-legilux.site/mcp/"
+# Default MCP server URL (can be overridden by .env file)
+DEFAULT_MCP_SERVER_URL="https://yet-mcp-legilux.site/mcp/"
 
 # Function names
 API_FUNCTION_NAME="$PROJECT_NAME-api"
@@ -81,6 +82,14 @@ load_api_keys() {
         log_warning "OPENAI_API_KEY not found in .env - GPT-4.1-nano provider will not work"
     else
         log_success "✅ OPENAI_API_KEY found"
+    fi
+    
+    # Set MCP server URL with fallback to default
+    if [ -z "$MCP_SERVER_URL" ]; then
+        MCP_SERVER_URL="$DEFAULT_MCP_SERVER_URL"
+        log_info "Using default MCP server URL: $MCP_SERVER_URL"
+    else
+        log_info "Using MCP server URL from .env: $MCP_SERVER_URL"
     fi
 }
 

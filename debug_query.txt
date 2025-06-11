@@ -1,0 +1,184 @@
+INFO:__main__:
+📁 Running baseline foundation discovery queries...
+INFO:__main__:
+🔍 Testing Pure Citation Analysis...
+INFO:__main__:✅ Pure Citation Analysis: Found 2 results in 0.28s
+INFO:__main__:   Result 1:
+INFO:__main__:     cited_doc: http://data.legilux.public.lu/eli/etat/adm/amin/2021/03/02/b1008/jo
+INFO:__main__:     title: Arrêté ministériel du 2 mars 2021 portant agrément d’un atelier tachygraphique (STOLL TRUCKS, SARL U...
+INFO:__main__:     date: 2021-03-02
+INFO:__main__:     citation_count: 1
+INFO:__main__:   Result 2:
+INFO:__main__:     cited_doc: http://data.legilux.public.lu/eli/etat/adm/amin/2021/06/16/b2488/jo
+INFO:__main__:     title: Arrêté ministériel du 16 juin 2021 portant agrément d’un atelier tachygraphique (STOLL TRUCKS, SARL ...
+INFO:__main__:     date: 2021-06-16
+INFO:__main__:     citation_count: 1
+INFO:__main__:
+🔍 Testing Active Modification Analysis...
+INFO:__main__:✅ Active Modification Analysis: Found 0 results in 0.29s
+INFO:__main__:
+🔍 Testing Legal Status Priority...
+INFO:__main__:✅ Legal Status Priority: Found 15 results in 0.20s
+INFO:__main__:   Result 1:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/adm/amin/2025/05/28/b2241/jo
+INFO:__main__:     title: Arrêté ministériel du 28 mai 2025 portant agrément à l’organisation « Microtarians SARL-S » pour l’e...
+INFO:__main__:     date: 2025-05-28
+INFO:__main__:     type_doc: http://data.legilux.public.lu/resource/authority/resource-type/AMIN
+INFO:__main__:   Result 2:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/adm/amin/2025/01/13/b399/jo
+INFO:__main__:     title: Arrêté ministériel du 13 janvier 2025 portant agrément à l’organisation « Happykids sarl » pour l’ex...
+INFO:__main__:     date: 2025-01-13
+INFO:__main__:     type_doc: http://data.legilux.public.lu/resource/authority/resource-type/AMIN
+INFO:__main__:   Result 3:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/adm/amin/2024/12/16/b4824/jo
+INFO:__main__:     title: Arrêté ministériel du 16 décembre 2024 portant agrément de la société Be Proud SARL-S en tant que so...
+INFO:__main__:     date: 2024-12-16
+INFO:__main__:     type_doc: http://data.legilux.public.lu/resource/authority/resource-type/AMIN
+INFO:__main__:
+🔍 Testing Cross-Reference Validation...
+INFO:__main__:✅ Cross-Reference Validation: Found 0 results in 0.82s
+INFO:__main__:
+🔍 Testing Subject Domain Authority...
+INFO:__main__:✅ Subject Domain Authority: Found 15 results in 0.15s
+INFO:__main__:   Result 1:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/leg/argd/1842/02/08/n1/jo
+INFO:__main__:     title: Traité du 8 février 1842 concernant le rattachement du Grand-Duché de Luxembourg à l'union douanière...
+INFO:__main__:     date: 1842-02-08
+INFO:__main__:     type_doc: http://data.legilux.public.lu/resource/authority/resource-type/ARGD
+INFO:__main__:     authority: http://data.legilux.public.lu/resource/authority/legal-institution/MFI
+INFO:__main__:     subject: http://data.legilux.public.lu/resource/authority/legal-subject/774
+INFO:__main__:   Result 2:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/leg/argd/1842/02/08/n1/jo
+INFO:__main__:     title: Traité du 8 février 1842 concernant le rattachement du Grand-Duché de Luxembourg à l'union douanière...
+INFO:__main__:     date: 1842-02-08
+INFO:__main__:     type_doc: http://data.legilux.public.lu/resource/authority/resource-type/ARGD
+INFO:__main__:     authority: http://data.legilux.public.lu/resource/authority/legal-institution/MFI
+INFO:__main__:     subject: http://data.legilux.public.lu/resource/authority/legal-subject/620
+INFO:__main__:   Result 3:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/leg/argd/1842/02/08/n1/jo
+INFO:__main__:     title: Traité du 8 février 1842 concernant le rattachement du Grand-Duché de Luxembourg à l'union douanière...
+INFO:__main__:     date: 1842-02-08
+INFO:__main__:     type_doc: http://data.legilux.public.lu/resource/authority/resource-type/ARGD
+INFO:__main__:     authority: http://data.legilux.public.lu/resource/authority/legal-institution/MAE
+INFO:__main__:     subject: http://data.legilux.public.lu/resource/authority/legal-subject/774
+INFO:__main__:
+📁 Running enhanced foundation discovery queries...
+INFO:__main__:
+🔍 Testing Enhanced Citation Analysis...
+INFO:__main__:✅ Enhanced Citation Analysis: Found 15 results in 0.26s
+INFO:__main__:   Result 1:
+INFO:__main__:     cited_doc: http://data.legilux.public.lu/eli/etat/leg/loi/1824/05/31/n1/jo
+INFO:__main__:     title: Loi du 31 mai 1824, portant quelques dispositions nouvelles, relatives à la perception des droits de...
+INFO:__main__:     date: 1824-05-31
+INFO:__main__:     citation_count: 668
+INFO:__main__:   Result 2:
+INFO:__main__:     cited_doc: http://data.legilux.public.lu/eli/etat/leg/loi/1915/08/10/n1/jo
+INFO:__main__:     title: Loi du 10 août 1915 concernant les sociétés commerciales.
+INFO:__main__:     date: 1915-08-10
+INFO:__main__:     citation_count: 146
+INFO:__main__:   Result 3:
+INFO:__main__:     cited_doc: http://data.legilux.public.lu/eli/etat/leg/loi/2016/10/28/n2/jo
+INFO:__main__:     title: Loi du 28 octobre 2016 \n1. relative à la reconnaissance des qualifications professionnelles; \n2. p...
+INFO:__main__:     date: 2016-10-28
+INFO:__main__:     citation_count: 112
+INFO:__main__:
+🔍 Testing Historical Foundation Laws...
+INFO:__main__:✅ Historical Foundation Laws: Found 20 results in 0.12s
+INFO:__main__:   Result 1:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/leg/argd/1842/02/08/n1/jo
+INFO:__main__:     title: Traité du 8 février 1842 concernant le rattachement du Grand-Duché de Luxembourg à l'union douanière...
+INFO:__main__:     date: 1842-02-08
+INFO:__main__:   Result 2:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/leg/argd/1845/09/02/n1/jo
+INFO:__main__:     title: Arrêté royal grand-ducal du 2 septembre 1845, litt. B, autorisant la constitution définitive d'une S...
+INFO:__main__:     date: 1845-09-02
+INFO:__main__:   Result 3:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/leg/a/1847/01/22/n2/jo
+INFO:__main__:     title: Arrêté du 22 janvier 1847 relatif à la demande de la société Auguste Metz et Comp. en établissement ...
+INFO:__main__:     date: 1847-01-22
+INFO:__main__:
+🔍 Testing Most Modified Foundation Laws...
+INFO:__main__:✅ Most Modified Foundation Laws: Found 15 results in 0.30s
+INFO:__main__:   Result 1:
+INFO:__main__:     modified_doc: http://data.legilux.public.lu/eli/etat/leg/loi/1915/08/10/n1/jo
+INFO:__main__:     title: Loi du 10 août 1915 concernant les sociétés commerciales.
+INFO:__main__:     mod_count: 63
+INFO:__main__:   Result 2:
+INFO:__main__:     modified_doc: http://data.legilux.public.lu/eli/etat/leg/loi/2002/12/19/n1/jo
+INFO:__main__:     title: Loi du 19 décembre 2002 concernant le registre de commerce et des sociétés ainsi que la comptabilité...
+INFO:__main__:     mod_count: 26
+INFO:__main__:   Result 3:
+INFO:__main__:     modified_doc: http://data.legilux.public.lu/eli/etat/leg/loi/2004/11/12/n1/jo
+INFO:__main__:     title: Loi du 12 novembre 2004 relative à la lutte contre le blanchiment et contre le financement du terror...
+INFO:__main__:     mod_count: 20
+INFO:__main__:
+🔍 Testing LOI Foundation Documents...
+INFO:__main__:✅ LOI Foundation Documents: Found 20 results in 0.26s
+INFO:__main__:   Result 1:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/leg/loi/2025/02/17/a67/jo
+INFO:__main__:     title: Loi du 17 février 2025 modifiant :\n1° la loi modifiée du 10 août 1915 concernant les sociétés comme...
+INFO:__main__:     date: 2025-02-17
+INFO:__main__:   Result 2:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/leg/loi/2025/02/06/a38/jo
+INFO:__main__:     title: Loi du 6 février 2025 portant :\n1° mise en œuvre du règlement (UE) 2023/606 du Parlement européen e...
+INFO:__main__:     date: 2025-02-06
+INFO:__main__:   Result 3:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/leg/loi/2024/06/05/a258/jo
+INFO:__main__:     title: Loi du 5 juin 2024 portant approbation du Protocole d’adhésion à l’accord commercial entre l’Union e...
+INFO:__main__:     date: 2024-06-05
+INFO:__main__:
+🔍 Testing Cross-Referenced Commercial Laws...
+INFO:__main__:✅ Cross-Referenced Commercial Laws: Found 15 results in 1.51s
+INFO:__main__:   Result 1:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/adm/amin/2025/03/25/b1519/jo
+INFO:__main__:     title: Arrêté ministériel du 25 mars 2025 portant réaccréditation du programme d’études en alternance menan...
+INFO:__main__:     date: 2025-03-25
+INFO:__main__:   Result 2:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/leg/loi/2025/02/17/a67/jo
+INFO:__main__:     title: Loi du 17 février 2025 modifiant :\n1° la loi modifiée du 10 août 1915 concernant les sociétés comme...
+INFO:__main__:     date: 2025-02-17
+INFO:__main__:   Result 3:
+INFO:__main__:     doc: http://data.legilux.public.lu/eli/etat/leg/loi/2025/02/06/a38/jo
+INFO:__main__:     title: Loi du 6 février 2025 portant :\n1° mise en œuvre du règlement (UE) 2023/606 du Parlement européen e...
+INFO:__main__:     date: 2025-02-06
+INFO:__main__:
+📁 Running SARL creation experiments...
+INFO:__main__:
+🔍 Testing Baseline keywords - Conditions...
+INFO:__main__:✅ Baseline keywords - Conditions: Found 0 results in 0.94s
+INFO:__main__:
+--- Debug Ranking Query for Baseline keywords ---
+PREFIX jolux: <http://data.legilux.public.lu/resource/ontology/jolux#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+
+SELECT
+  ?doc ?title ?date ?type_doc ?authority
+  (COUNT(DISTINCT ?citing)   AS ?citCount)
+  (COUNT(DISTINCT ?modifier) AS ?modCount)
+  (IF(EXISTS { ?repealer jolux:repeals ?doc }, 0, 1) AS ?active)
+  (IF(?type_doc = jolux:Loi, 5,
+    IF(?type_doc = jolux:ReglementGrandDucal, 3,
+    IF(?type_doc = jolux:ArreteMinisteriel, 1, 1))) AS ?typeWeight)
+  (YEAR(NOW()) - YEAR(xsd:date(?date)) AS ?ageYears)
+  (?citCount * 4 + ?modCount * 2 + ?active * 3 + ?typeWeight * 5 + ?ageYears * 1 AS ?score)
+WHERE {
+    ?doc jolux:isRealizedBy/jolux:title ?title .
+    
+FILTER(
+    CONTAINS(LCASE(?title), "sarl") &&
+    CONTAINS(LCASE(?title), "condition") &&
+    CONTAINS(LCASE(?title), "creation")
+)
+
+    ?doc jolux:dateDocument     ?date  .
+    OPTIONAL { ?doc jolux:typeDocument      ?type_doc }
+    OPTIONAL { ?doc jolux:responsibilityOf  ?authority }
+    OPTIONAL { ?citing   jolux:cites    ?doc }
+    OPTIONAL { ?modifier jolux:modifies ?doc }
+    OPTIONAL { ?repealer jolux:repeals  ?doc }
+}
+GROUP BY ?doc ?title ?date ?type_doc ?authority
+ORDER BY DESC(?score)
+LIMIT 50
+
+--- End Debug ---

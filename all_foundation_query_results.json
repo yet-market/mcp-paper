@@ -1,0 +1,2300 @@
+{
+  "Pure Citation Analysis": {
+    "success": true,
+    "results": [
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2021/03/02/b1008/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 2 mars 2021 portant agr\u00e9ment d\u2019un atelier tachygraphique (STOLL TRUCKS, SARL UNIPERSONNELLE)."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2021-03-02"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "1"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2021/06/16/b2488/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 16 juin 2021 portant agr\u00e9ment d\u2019un atelier tachygraphique (STOLL TRUCKS, SARL UNIPERSONNELLE)."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2021-06-16"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "1"
+        }
+      }
+    ],
+    "count": 2,
+    "execution_time": 0.2045760154724121
+  },
+  "Active Modification Analysis": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.25317978858947754
+  },
+  "Legal Status Priority": {
+    "success": true,
+    "results": [
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2025/05/28/b2241/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 28 mai 2025 portant agr\u00e9ment \u00e0 l\u2019organisation \u00ab\u00a0Microtarians SARL-S\u00a0\u00bb pour l\u2019exercice de son activit\u00e9 dans le cadre du service volontaire des jeunes."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-05-28"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2025/01/13/b399/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 13 janvier 2025 portant agr\u00e9ment \u00e0 l\u2019organisation \u00ab\u00a0Happykids sarl\u00a0\u00bb pour l\u2019exercice de son activit\u00e9 dans le cadre du service volontaire des jeunes."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-01-13"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/12/16/b4824/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 16 d\u00e9cembre 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 Be Proud SARL-S en tant que soci\u00e9t\u00e9 d\u2019impact soci\u00e9tal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-12-16"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/10/25/b4310/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 25 octobre 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 Accelerating Impact Finance Luxembourg SARL en tant que soci\u00e9t\u00e9 d\u2019impact soci\u00e9tal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-10-25"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/10/25/b4308/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 25 octobre 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 Letsch\u2019GO SARL-S en tant que soci\u00e9t\u00e9 d\u2019impact soci\u00e9tal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-10-25"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/10/25/b4309/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 25 octobre 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 Action Logement Luxembourg SARL en tant que soci\u00e9t\u00e9 d\u2019impact soci\u00e9tal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-10-25"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/10/25/b4311/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 25 octobre 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 Addvntur SARL en tant que soci\u00e9t\u00e9 d\u2019impact soci\u00e9tal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-10-25"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/07/19/b2845/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 19 juillet 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 Real Impact Hub SARL en tant que soci\u00e9t\u00e9 d\u2019impact soci\u00e9tal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-07-19"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/07/02/b2631/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 2 juillet 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 Clean Something For Nothing SARL-S en tant que soci\u00e9t\u00e9 d\u2019impact."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-07-02"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/07/02/b2607/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 2 juillet 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 BrainPower SARL-S en tant que soci\u00e9t\u00e9 d\u2019impact soci\u00e9tal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-07-02"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/07/02/b2629/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 2 juillet 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 1000Deeg SARL-S en tant que soci\u00e9t\u00e9 d\u2019impact soci\u00e9tal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-07-02"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/07/02/b2608/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 2 juillet 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 Observatoire Luxembourgeois du Bien-\u00eatre au travail SARL-S en tant que soci\u00e9t\u00e9 d\u2019impact soci\u00e9tal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-07-02"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/05/06/b2023/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 6 mai 2024 portant agr\u00e9ment d\u2019un atelier tachygraphique (STOLL TRUCKS, SARL UNIPERSONNELLE)."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-05-06"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/04/02/b1623/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 2 avril 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 \u00ab\u00a0Formation-S\u00e9curit\u00e9 Laurent GARCIA SARL\u00a0\u00bb en tant qu\u2019organisme formateur en mati\u00e8re de secours."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-04-02"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/03/27/b1551/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 27 mars 2024 portant agr\u00e9ment de la soci\u00e9t\u00e9 Ludoly SARL-S en tant que soci\u00e9t\u00e9 d\u2019impact soci\u00e9tal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-03-27"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        }
+      }
+    ],
+    "count": 15,
+    "execution_time": 0.18681979179382324
+  },
+  "Cross-Reference Validation": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.7858960628509521
+  },
+  "Subject Domain Authority": {
+    "success": true,
+    "results": [
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1842/02/08/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Trait\u00e9 du 8 f\u00e9vrier 1842 concernant le rattachement du Grand-Duch\u00e9 de Luxembourg \u00e0 l'union douani\u00e8re et commerciale allemande.\\n (Publi\u00e9 par l'Arr\u00eat\u00e9 Royal Grand-ducal du 17 f\u00e9vrier 1854- M\u00e9morial 47, page 385)\\n Vertrag vom 8. Februar 1842, \u00fcber den Anschlu\u00df des Gro\u00dfherzogthums Luxemburg an den Deutschen Zoll- und Handels-Verein."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1842-02-08"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MFI"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/774"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1842/02/08/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Trait\u00e9 du 8 f\u00e9vrier 1842 concernant le rattachement du Grand-Duch\u00e9 de Luxembourg \u00e0 l'union douani\u00e8re et commerciale allemande.\\n (Publi\u00e9 par l'Arr\u00eat\u00e9 Royal Grand-ducal du 17 f\u00e9vrier 1854- M\u00e9morial 47, page 385)\\n Vertrag vom 8. Februar 1842, \u00fcber den Anschlu\u00df des Gro\u00dfherzogthums Luxemburg an den Deutschen Zoll- und Handels-Verein."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1842-02-08"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MFI"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/620"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1842/02/08/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Trait\u00e9 du 8 f\u00e9vrier 1842 concernant le rattachement du Grand-Duch\u00e9 de Luxembourg \u00e0 l'union douani\u00e8re et commerciale allemande.\\n (Publi\u00e9 par l'Arr\u00eat\u00e9 Royal Grand-ducal du 17 f\u00e9vrier 1854- M\u00e9morial 47, page 385)\\n Vertrag vom 8. Februar 1842, \u00fcber den Anschlu\u00df des Gro\u00dfherzogthums Luxemburg an den Deutschen Zoll- und Handels-Verein."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1842-02-08"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MAE"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/774"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1842/02/08/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Trait\u00e9 du 8 f\u00e9vrier 1842 concernant le rattachement du Grand-Duch\u00e9 de Luxembourg \u00e0 l'union douani\u00e8re et commerciale allemande.\\n (Publi\u00e9 par l'Arr\u00eat\u00e9 Royal Grand-ducal du 17 f\u00e9vrier 1854- M\u00e9morial 47, page 385)\\n Vertrag vom 8. Februar 1842, \u00fcber den Anschlu\u00df des Gro\u00dfherzogthums Luxemburg an den Deutschen Zoll- und Handels-Verein."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1842-02-08"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MAE"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/620"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1845/09/02/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 2 septembre 1845, litt. B, autorisant la constitution d\u00e9finitive d'une Soci\u00e9t\u00e9 pour la recherche et la conservation des monuments historiques dans le Grand-Duch\u00e9 de Luxembourg."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1845-09-02"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MAC"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/474"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1850/03/30/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 30 mars 1850, n\u00b0 685, concernant un subside suppl\u00e9mentaire accord\u00e9 \u00e0 la Soci\u00e9t\u00e9 pour la recherche et la conservation des anciens monuments dans le Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1850-03-30"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MAC"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/877"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1850/03/30/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 30 mars 1850, n\u00b0 685, concernant un subside suppl\u00e9mentaire accord\u00e9 \u00e0 la Soci\u00e9t\u00e9 pour la recherche et la conservation des anciens monuments dans le Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1850-03-30"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MI"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/877"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1850/05/19/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 19 mai 1850, N\u00b0 1060, concernant la soci\u00e9t\u00e9 anonyme dite: Soci\u00e9t\u00e9 de ganterie fran\u00e7aise de l'Union, \u00e0 Luxembourg."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1850-05-19"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MJ"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/559"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1850/12/03/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 3 d\u00e9cembre 1850, autorisant la constitution d\u00e9finitive d'une Soci\u00e9t\u00e9 de sciences naturelles dans le Grande-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1850-12-03"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MAC"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/759"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1851/03/07/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 7 mars 1851, N\u00b0 228, accordant la franchise de port \u00e0 la Soci\u00e9t\u00e9 de sciences naturelles du Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1851-03-07"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MAC"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/854"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1851/03/07/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 7 mars 1851, N\u00b0 228, accordant la franchise de port \u00e0 la Soci\u00e9t\u00e9 de sciences naturelles du Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1851-03-07"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MAC"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/817"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1851/03/07/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 7 mars 1851, N\u00b0 228, accordant la franchise de port \u00e0 la Soci\u00e9t\u00e9 de sciences naturelles du Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1851-03-07"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/ME"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/854"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1851/03/07/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 7 mars 1851, N\u00b0 228, accordant la franchise de port \u00e0 la Soci\u00e9t\u00e9 de sciences naturelles du Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1851-03-07"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/ME"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/817"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1857/03/02/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 2 mars 1857 portant autorisation de la soci\u00e9t\u00e9 royale grand-ducale des chemins de fer Guillaume-Luxembourg, et approbation de ses statuts."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1857-03-02"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MTR"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/961"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1859/06/20/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 20 juin 1859 - Concession \u00e0 la Soci\u00e9t\u00e9 Guillaume-Luxembourg, d'un embranchement de chemin de fer de Bettembourg vers deux points des mini\u00e8res du canton d'Esch."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1859-06-20"
+        },
+        "type_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/ARGD"
+        },
+        "authority": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-institution/MTR"
+        },
+        "subject": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/legal-subject/961"
+        }
+      }
+    ],
+    "count": 15,
+    "execution_time": 0.14773011207580566
+  },
+  "Enhanced Citation Analysis": {
+    "success": true,
+    "results": [
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1824/05/31/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 31 mai 1824, portant quelques dispositions nouvelles, relatives \u00e0 la perception des droits de timbre et d'enregistrement."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1824-05-31"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "668"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1915/08/10/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1915-08-10"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "146"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2016/10/28/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 28 octobre 2016 \\n1. relative \u00e0 la reconnaissance des qualifications professionnelles; \\n2. portant cr\u00e9ation d\u2019un registre des titres professionnels et d\u2019un registre des titres de formation; \\n3. modifiant \\na) la loi modifi\u00e9e du 29 avril 1983 concernant l\u2019exercice des professions de m\u00e9decin, de m\u00e9decin-dentiste et de m\u00e9decin-v\u00e9t\u00e9rinaire, \\nb) la loi modifi\u00e9e du 31 juillet 1991 d\u00e9terminant les conditions d\u2019autorisation d\u2019exercer la profession de pharmacien, \\nc) la loi modifi\u00e9e du 26 mars 1992 sur l\u2019exercice et la revalorisation de certaines professions de sant\u00e9, \\nd) la loi modifi\u00e9e du 11 janvier 1995 portant r\u00e9organisation des \u00e9coles publiques et priv\u00e9es d\u2019infirmiers et d\u2019infirmi\u00e8res et r\u00e9glementant la collaboration entre le minist\u00e8re de l\u2019Education nationale et le minist\u00e8re de la Sant\u00e9, \\ne) la loi du 2 septembre 2011 r\u00e9glementant l\u2019acc\u00e8s aux professions d\u2019artisan, de commer\u00e7ant, d\u2019industriel ainsi qu\u2019\u00e0 certaines professions lib\u00e9rales, \\nf) la loi du 14 juillet 2015 portant cr\u00e9ation de la profession de psychoth\u00e9rapeute."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2016-10-28"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "112"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1998/08/03/n10/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 3 ao\u00fbt 1998 instituant des r\u00e9gimes de pension sp\u00e9ciaux pour les fonctionnaires de l'Etat et des communes ainsi que pour les agents de la Soci\u00e9t\u00e9 nationale des Chemins de Fer luxembourgeois."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1998-08-03"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "83"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2002/12/19/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises et modifiant certaines autres dispositions l\u00e9gales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2002-12-19"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "82"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2013/06/19/n3/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 19 juin 2013 relative \u00e0 l\u2019identification des personnes physiques, au registre national des personnes physiques, \u00e0 la carte d\u2019identit\u00e9, aux registres communaux des personnes physiques et portant modification de\\n 1) l\u2019article 104 du Code civil;\\n 2) la loi modifi\u00e9e du 30 mars 1979 organisant l\u2019identification num\u00e9rique des personnes physiques et morales;\\n 3) la loi communale modifi\u00e9e du 13 d\u00e9cembre 1988;\\n 4) la loi \u00e9lectorale modifi\u00e9e du 18 f\u00e9vrier 2003\\n et abrogeant\\n 1) la loi modifi\u00e9e du 22 d\u00e9cembre 1886 concernant les recensements de population \u00e0 faire en ex\u00e9cution de la loi \u00e9lectorale et\\n 2) l\u2019arr\u00eat\u00e9 grand-ducal du 30 ao\u00fbt 1939 portant introduction de la carte d\u2019identit\u00e9 obligatoire."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2013-06-19"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "58"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2004/11/12/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 12 novembre 2004 relative \u00e0 la lutte contre le blanchiment et contre le financement du terrorisme portant transposition de la directive 2001/97/CE du Parlement europ\u00e9en et du Conseil du 4 d\u00e9cembre 2001 modifiant la directive 91/308/CEE du Conseil relative \u00e0 la pr\u00e9vention de l'utilisation du syst\u00e8me financier aux fins du blanchiment de capitaux et modifiant:\\n1. le Code p\u00e9nal;\\n2. le Code d'instruction criminelle;\\n3. la loi modifi\u00e9e du 7 mars 1980 sur l'organisation judiciaire;\\n4. la loi modifi\u00e9e du 23 d\u00e9cembre 1998 portant cr\u00e9ation d'une commission de surveillance du secteur financier;\\n5. la loi modifi\u00e9e du 5 avril 1993 relative au secteur financier;\\n6. la loi modifi\u00e9e du 6 d\u00e9cembre 1991 sur le secteur des assurances;\\n7. la loi modifi\u00e9e du 9 d\u00e9cembre 1976 relative \u00e0 l'organisation du notariat;\\n8. la loi modifi\u00e9e du 10 ao\u00fbt 1991 sur la profession d'avocat;\\n9. la loi modifi\u00e9e du 28 juin 1984 portant organisation de la profession de r\u00e9viseurs d'entreprises;\\n10. la loi du 10 juin 1999 portant organisation de la profession d'expert-comptable;\\n11. la loi modifi\u00e9e du 20 avril 1977 relative \u00e0 l'exploitation des jeux de hasard et des paris relatifs aux \u00e9preuves sportives;\\n12. la loi g\u00e9n\u00e9rale des imp\u00f4ts (\u00abAbgabenordnung\u00bb)."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2004-11-12"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "43"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2016/07/23/n8/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 23 juillet 2016 relative \u00e0 la profession de l\u2019audit portant: - transposition de la directive 2014/56/UE du Parlement europ\u00e9en et du Conseil du 16 avril 2014 modifiant la directive 2006/43/CE concernant les contr\u00f4les l\u00e9gaux des comptes annuels et des comptes consolid\u00e9s; - mise en oeuvre du r\u00e8glement (UE) n\u00b0 537/2014 du Parlement europ\u00e9en et du Conseil du 16 avril 2014 relatif aux exigences sp\u00e9cifiques applicables au contr\u00f4le l\u00e9gal des comptes des entit\u00e9s d\u2019int\u00e9r\u00eat public et abrogeant la d\u00e9cision 2005/909/CE de la Commission; - modification de la loi modifi\u00e9e du 13 juillet 2005 relative aux institutions de retraite professionnelle sous forme de sepcav et assep; - modification de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales; - abrogation de la loi modifi\u00e9e du 18 d\u00e9cembre 2009 relative \u00e0 la profession de l\u2019audit."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2016-07-23"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "40"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1962/06/02/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 2 juin 1962 d\u00e9terminant les conditions d'acc\u00e8s et d'exercice de certaines professions ainsi que celles de la constitution et de la gestion d'entreprises."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1962-06-02"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "35"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/1962/04/20/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement grand-ducal du 20 avril 1962 r\u00e9glant, en mati\u00e8re d'imp\u00f4t commercial, les ventilations et la participation des communes de r\u00e9sidences des salari\u00e9s."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1962-04-20"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "32"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1842/02/08/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Trait\u00e9 du 8 f\u00e9vrier 1842 concernant le rattachement du Grand-Duch\u00e9 de Luxembourg \u00e0 l'union douani\u00e8re et commerciale allemande.\\n (Publi\u00e9 par l'Arr\u00eat\u00e9 Royal Grand-ducal du 17 f\u00e9vrier 1854- M\u00e9morial 47, page 385)\\n Vertrag vom 8. Februar 1842, \u00fcber den Anschlu\u00df des Gro\u00dfherzogthums Luxemburg an den Deutschen Zoll- und Handels-Verein."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1842-02-08"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "30"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2015/03/25/n5/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 25 mars 2015 instituant un r\u00e9gime de pension sp\u00e9cial transitoire pour les fonctionnaires de l'Etat et des communes ainsi que pour les agents de la Soci\u00e9t\u00e9 nationale des Chemins de Fer luxembourgeois."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2015-03-25"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "27"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2000/07/28/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 28 juillet 2000 ayant pour objet la coordination des r\u00e9gimes l\u00e9gaux de pension et modifiant\\n a) le Code des assurances sociales,\\n b) la loi modifi\u00e9e du 26 mai 1954 r\u00e9glant les pensions des fonctionnaires de l'Etat,\\n c) la loi du 3 ao\u00fbt 1998 instituant des r\u00e9gimes de pension sp\u00e9ciaux pour les fonctionnaires de l'Etat et des communes ainsi que pour les agents de la Soci\u00e9t\u00e9 nationale des Chemins de Fer luxembourgeois."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2000-07-28"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "26"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1984/06/28/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 28 juin 1984 portant organisation de la profession de r\u00e9viseur d'entreprises."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1984-06-28"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "26"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1971/12/29/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 29 d\u00e9cembre 1971 concernant l'imp\u00f4t frappant les rassemblements de capitaux dans les soci\u00e9t\u00e9s civiles et commerciales et portant r\u00e9vision de certaines dispositions l\u00e9gislatives r\u00e9gissant la perception des droits d'enregistrement."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1971-12-29"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "25"
+        }
+      }
+    ],
+    "count": 15,
+    "execution_time": 0.256619930267334
+  },
+  "Historical Foundation Laws": {
+    "success": true,
+    "results": [
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1842/02/08/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Trait\u00e9 du 8 f\u00e9vrier 1842 concernant le rattachement du Grand-Duch\u00e9 de Luxembourg \u00e0 l'union douani\u00e8re et commerciale allemande.\\n (Publi\u00e9 par l'Arr\u00eat\u00e9 Royal Grand-ducal du 17 f\u00e9vrier 1854- M\u00e9morial 47, page 385)\\n Vertrag vom 8. Februar 1842, \u00fcber den Anschlu\u00df des Gro\u00dfherzogthums Luxemburg an den Deutschen Zoll- und Handels-Verein."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1842-02-08"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1845/09/02/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 2 septembre 1845, litt. B, autorisant la constitution d\u00e9finitive d'une Soci\u00e9t\u00e9 pour la recherche et la conservation des monuments historiques dans le Grand-Duch\u00e9 de Luxembourg."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1845-09-02"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/a/1847/01/22/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 du 22 janvier 1847 relatif \u00e0 la demande de la soci\u00e9t\u00e9 Auguste Metz et Comp. en \u00e9tablissement d'un deuxi\u00e8me haut-fourneau \u00e0 Eich."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1847-01-22"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/a/1848/02/18/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 du 18 f\u00e9vrier 1848 N\u00b0 2148-533 concernant une demande de la soci\u00e9t\u00e9 Aug. Metz et Comp., tendant \u00e0 obtenir l'autorisation d'ajouter une forge anglaise \u00e0 ses usines \u00e9tablies \u00e0 Eich."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1848-02-18"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1850/03/30/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 30 mars 1850, n\u00b0 685, concernant un subside suppl\u00e9mentaire accord\u00e9 \u00e0 la Soci\u00e9t\u00e9 pour la recherche et la conservation des anciens monuments dans le Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1850-03-30"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1850/05/19/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 19 mai 1850, N\u00b0 1060, concernant la soci\u00e9t\u00e9 anonyme dite: Soci\u00e9t\u00e9 de ganterie fran\u00e7aise de l'Union, \u00e0 Luxembourg."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1850-05-19"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1850/12/03/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 3 d\u00e9cembre 1850, autorisant la constitution d\u00e9finitive d'une Soci\u00e9t\u00e9 de sciences naturelles dans le Grande-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1850-12-03"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1851/03/07/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 7 mars 1851, N\u00b0 228, accordant la franchise de port \u00e0 la Soci\u00e9t\u00e9 de sciences naturelles du Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1851-03-07"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/cmin/1851/10/20/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Circulaire du 20 octobre 1851 \u00e0 MM. les Bourgmestres et \u00c9chevins, N\u00b03124 concernant les soci\u00e9t\u00e9s \u00e9trang\u00e8res d'assurances mutuelles sur la vie."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1851-10-20"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/a/1852/04/21/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 du 21 avril 1852, N\u00b0 1921-637, relatif au concours institu\u00e9 en 1852 entre les soci\u00e9t\u00e9s de musique et de chant du Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1852-04-21"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rect/1852/06/04/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "RECTIFICATIF de l'arr\u00eat\u00e9 du 21 avril 1852 relatif au concours institu\u00e9 en 1852 entre les soci\u00e9t\u00e9s de musique et de chant du Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1852-06-04"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1857/03/02/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 2 mars 1857 portant autorisation de la soci\u00e9t\u00e9 royale grand-ducale des chemins de fer Guillaume-Luxembourg, et approbation de ses statuts."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1857-03-02"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1859/06/20/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 20 juin 1859 - Concession \u00e0 la Soci\u00e9t\u00e9 Guillaume-Luxembourg, d'un embranchement de chemin de fer de Bettembourg vers deux points des mini\u00e8res du canton d'Esch."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1859-06-20"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1859/06/23/n4/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 23 juin 1859 portant approbation des statuts modifi\u00e9s de la Soci\u00e9t\u00e9 royale grand-ducale des chemins de fer Guillaume-Luxembourg."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1859-06-23"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1860/11/17/n4/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 17 novembre 1860 accordant la facult\u00e9 aux soci\u00e9t\u00e9s anonymes \u00e9trang\u00e8res d'ester en justice devant les tribunaux du Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1860-11-17"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1864/11/18/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 18 novembre 1864 accordant aux soci\u00e9t\u00e9s anonymes belges la facult\u00e9 d'exercer leurs droits et d'ester en justice dans le Grand-Duch\u00e9."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1864-11-18"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1864/12/30/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 30 d\u00e9cembre 1864 concernant l'exploitation des chemins de fer conc\u00e9d\u00e9s \u00e0 la soci\u00e9t\u00e9 Guillaume-Luxembourg."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1864-12-30"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1866/01/26/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 26 janvier 1866 approuvant deux conventions conclues par le Gouvernement avec la Soci\u00e9t\u00e9 des chemins de fer Guillaume-Luxembourg au sujet du service t\u00e9l\u00e9graphique de l'Etat."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1866-01-26"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1866/05/22/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 22 mai 1866 r\u00e8glant l'ex\u00e9cution des conventions conclues avec la Soci\u00e9t\u00e9 des chemins de fer Guillaume-Luxembourg au sujet du service t\u00e9l\u00e9graphique de l'Etat."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1866-05-22"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/argd/1866/09/09/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Arr\u00eat\u00e9 royal grand-ducal du 9 septembre 1866 autorisant la constitution de la soci\u00e9t\u00e9 anonyme dite \u00abLuxemburger Gaswerk\u00bb et portant approbation de ses statuts."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1866-09-09"
+        }
+      }
+    ],
+    "count": 20,
+    "execution_time": 0.11539411544799805
+  },
+  "Most Modified Foundation Laws": {
+    "success": true,
+    "results": [
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1915/08/10/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "63"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2002/12/19/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises et modifiant certaines autres dispositions l\u00e9gales."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "26"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2004/11/12/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 12 novembre 2004 relative \u00e0 la lutte contre le blanchiment et contre le financement du terrorisme portant transposition de la directive 2001/97/CE du Parlement europ\u00e9en et du Conseil du 4 d\u00e9cembre 2001 modifiant la directive 91/308/CEE du Conseil relative \u00e0 la pr\u00e9vention de l'utilisation du syst\u00e8me financier aux fins du blanchiment de capitaux et modifiant:\\n1. le Code p\u00e9nal;\\n2. le Code d'instruction criminelle;\\n3. la loi modifi\u00e9e du 7 mars 1980 sur l'organisation judiciaire;\\n4. la loi modifi\u00e9e du 23 d\u00e9cembre 1998 portant cr\u00e9ation d'une commission de surveillance du secteur financier;\\n5. la loi modifi\u00e9e du 5 avril 1993 relative au secteur financier;\\n6. la loi modifi\u00e9e du 6 d\u00e9cembre 1991 sur le secteur des assurances;\\n7. la loi modifi\u00e9e du 9 d\u00e9cembre 1976 relative \u00e0 l'organisation du notariat;\\n8. la loi modifi\u00e9e du 10 ao\u00fbt 1991 sur la profession d'avocat;\\n9. la loi modifi\u00e9e du 28 juin 1984 portant organisation de la profession de r\u00e9viseurs d'entreprises;\\n10. la loi du 10 juin 1999 portant organisation de la profession d'expert-comptable;\\n11. la loi modifi\u00e9e du 20 avril 1977 relative \u00e0 l'exploitation des jeux de hasard et des paris relatifs aux \u00e9preuves sportives;\\n12. la loi g\u00e9n\u00e9rale des imp\u00f4ts (\u00abAbgabenordnung\u00bb)."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "20"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/2003/01/23/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement grand-ducal du 23 janvier 2003 portant ex\u00e9cution de la loi du 19 d\u00e9cembre 2002 concernant le Registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "17"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/1997/02/18/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement grand-ducal du 18 f\u00e9vrier 1997 portant d\u00e9claration d\u2019obligation g\u00e9n\u00e9rale de la convention collective de travail pour le b\u00e2timent conclue entre les syndicats OGB-L et LCGB, d\u2019une part et la F\u00e9d\u00e9ration des entreprises luxembourgeoises de construction et de g\u00e9nie civil ainsi que le Groupement des entrepreneurs du b\u00e2timent et des travaux publics, d\u2019autre part."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "14"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1974/05/06/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 6 mai 1974 instituant des comit\u00e9s mixtes dans les entreprises du secteur priv\u00e9 et organisant la repr\u00e9sentation des salari\u00e9s dans les soci\u00e9t\u00e9s anonymes."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "13"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2015/12/18/n7/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 18 d\u00e9cembre 2015 relative aux mesures de r\u00e9solution, d'assainissement et de liquidation des \u00e9tablissements de cr\u00e9dit et de certaines entreprises d'investissement ainsi qu'aux syst\u00e8mes de garantie des d\u00e9p\u00f4ts et d'indemnisation des investisseurs, portant: \\n1. transposition de la directive 2014/59/UE du Parlement europ\u00e9en et du Conseil du 15 mai 2014 \u00e9tablissant un cadre pour le redressement et la r\u00e9solution des \u00e9tablissements de cr\u00e9dit et des entreprises d'investissement et modifiant la directive 82/891/CEE du Conseil ainsi que les directives du Parlement europ\u00e9en et du Conseil 2001/24/CE, 2002/47/CE, 2004/25/CE, 2005/56/CE, 2007/36/CE, 2011/35/UE, 2012/30/UE et 2013/36/UE et les r\u00e8glements du Parlement europ\u00e9en et du Conseil (UE) n\u00b0 1093/2010 et (UE) n\u00b0 648/2012; \\n2. transposition de la directive 2014/49/UE du Parlement europ\u00e9en et du Conseil du 16 avril 2014 relative aux syst\u00e8mes de garantie des d\u00e9p\u00f4ts; \\n3. modification: \\na) de la loi modifi\u00e9e du 5 avril 1993 relative au secteur financier; \\nb) de la loi modifi\u00e9e du 23 d\u00e9cembre 1998 portant cr\u00e9ation d'une commission de surveillance du secteur financier; \\nc) de la loi modifi\u00e9e du 5 ao\u00fbt 2005 sur les contrats de garantie financi\u00e8re pc) de la loi modifi\u00e9e du 5 ao\u00fbt 2005 sur les contrats de garantie financi\u00e8re portant:\\n\u2013 transposition de la directive 2002/47/CE du Parlement europ\u00e9en et du Conseil du 6 juin 2002 concernant les contrats de garantie financi\u00e8re;\\n\u2013 modification du Code de Commerce;\\n\u2013 modification de la loi du 1er ao\u00fbt 2001 concernant la circulation de titres et d\u2019autres instruments fongibles;\\n\u2013 modification de la loi du 5 avril 1993 relative au secteur financier;\\n\u2013 modification du r\u00e8glement grand-ducal du 18 d\u00e9cembre 1981 concernant les d\u00e9p\u00f4ts fongibles de m\u00e9taux pr\u00e9cieux et modifiant l\u2019article 1er du r\u00e8glement grand-ducal du 17 f\u00e9vrier 1971 concernant la circulation de valeurs mobili\u00e8res;\\n\u2013 abrogation de la loi du 21 d\u00e9cembre 1994 relative aux op\u00e9rations de mise en pension;\\n\u2013 abrogation de la loi du 1er ao\u00fbt 2001 relative au transfert de propri\u00e9t\u00e9 \u00e0 titre de garantie;\\nd) de la loi du 19 mai 2006 portant transposition de la directive 2004/25/CE du Parlement europ\u00e9en et du Conseil du 21 avril 2004 concernant les offres publiques d\u2019acquisition; et \\ne) de la loi du 24 mai 2011 concernant l\u2019exercice de certains droits des actionnaires aux assembl\u00e9es g\u00e9n\u00e9rales de soci\u00e9t\u00e9s cot\u00e9es"
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "12"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/1962/04/20/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement grand-ducal du 20 avril 1962 r\u00e9glant, en mati\u00e8re d'imp\u00f4t commercial, les ventilations et la participation des communes de r\u00e9sidences des salari\u00e9s."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "11"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2013/07/12/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 12 juillet 2013 relative aux gestionnaires de fonds d'investissement alternatifs et \\n- portant transposition de la directive 2011/61/UE du Parlement europ\u00e9en et du Conseil du 8 juin 2011 sur les gestionnaires de fonds d'investissement alternatifs et modifiant les directives 2003/41/CE et 2009/65/CE ainsi que les r\u00e8glements (CE) n\u00b0 1060/2009 et (UE) n\u00b0 1095/2010; \\n- portant modification: \\n- de la loi modifi\u00e9e du 17 d\u00e9cembre 2010 concernant les organismes de placement collectif; \\n- de la loi modifi\u00e9e du 13 f\u00e9vrier 2007 relative aux fonds d'investissement sp\u00e9cialis\u00e9s; \\n- de la loi modifi\u00e9e du 15 juin 2004 relative \u00e0 la soci\u00e9t\u00e9 d'investissement en capital \u00e0 risque (SICAR); \\n- de la loi modifi\u00e9e du 13 juillet 2005 relative aux institutions de retraite professionnelle sous forme de soci\u00e9t\u00e9 d'\u00e9pargne-pension \u00e0 capital variable (sepcav) et d'association d'\u00e9pargne-pension (assep); \\n- de la loi du 13 juillet 2005 concernant les activit\u00e9s et la surveillance des institutions de retraite professionnelle; \\n- de la loi modifi\u00e9e du 5 avril 1993 relative au secteur financier; \\n- de la loi modifi\u00e9e du 12 novembre 2004 relative \u00e0 la lutte contre le blanchiment et contre le financement du terrorisme; \\n- de la loi modifi\u00e9e du 23 d\u00e9cembre 1998 portant cr\u00e9ation d'une commission de surveillance du secteur financier; \\n- de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales; \\n- de la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises; \\n- du Code de commerce; \\n- de la loi modifi\u00e9e du 4 d\u00e9cembre 1967 concernant l'imp\u00f4t sur le revenu; \\n- de la loi modifi\u00e9e du 1er d\u00e9cembre 1936 concernant l'imp\u00f4t commercial; \\n- de la loi modifi\u00e9e d'adaptation fiscale du 16 octobre 1934; \\n- de la loi modifi\u00e9e du 16 octobre 1934 sur l'\u00e9valuation des biens et valeurs; \\n- de la loi modifi\u00e9e du 12 f\u00e9vrier 1979 concernant la taxe sur la valeur ajout\u00e9e."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "10"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2020/12/19/a1036/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 19 d\u00e9cembre 2020 ayant pour objet la mise en place d\u2019une contribution temporaire de l\u2019\u00c9tat aux co\u00fbts non couverts de certaines entreprises."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "9"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2004/06/15/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 15 juin 2004 relative \u00e0 la Soci\u00e9t\u00e9 d'investissement en capital \u00e0 risque (SICAR) et portant modification de\\n - la loi modifi\u00e9e du 4 d\u00e9cembre 1967 relative \u00e0 l'imp\u00f4t sur le revenu\\n - la loi modifi\u00e9e du 16 octobre 1934 concernant l'imp\u00f4t sur la fortune\\n - la loi modifi\u00e9e du 1er d\u00e9cembre 1936 concernant l'imp\u00f4t commercial communal\\n - la loi modifi\u00e9e du 12 f\u00e9vrier 1979 concernant la taxe sur la valeur ajout\u00e9e\\n - la loi modifi\u00e9e du 20 d\u00e9cembre 2002 concernant les organismes de placement collectif."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "9"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2014/07/04/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 4 juillet 2014\\n- portant r\u00e9organisation de l\u2019Institut luxembourgeois de la normalisation, de l\u2019accr\u00e9ditation, de la s\u00e9curit\u00e9 et qualit\u00e9 des produits et services et portant organisation du cadre g\u00e9n\u00e9ral pour la surveillance du march\u00e9 dans le contexte de la commercialisation des produits,\\n- modifiant\\n* la loi modifi\u00e9e du 17 mai 1882 sur les poids et mesures,\\n* la loi modifi\u00e9e du 31 juillet 2006 relative \u00e0 la s\u00e9curit\u00e9 g\u00e9n\u00e9rale des produits,\\n* la loi modifi\u00e9e du 19 d\u00e9cembre 2008 \u00e9tablissant un cadre pour la fixation d\u2019exigences en mati\u00e8re d\u2019\u00e9coconception applicables aux produits consommateurs d\u2019\u00e9nergie,\\n* la loi du 25 mars 2009 relative \u00e0 la compatibilit\u00e9 \u00e9lectromagn\u00e9tique,\\n* la loi modifi\u00e9e du 27 mai 2010 relative aux machines,\\n* la loi modifi\u00e9e du 15 d\u00e9cembre 2010 relative \u00e0 la s\u00e9curit\u00e9 des jouets, et\\n* la loi du 21 d\u00e9cembre 2012 concernant les \u00e9quipements sous pression transportables,\\n- abrogeant la loi modifi\u00e9e du 20 mai 2008 relative \u00e0 la cr\u00e9ation d\u2019un Institut luxembourgeois de la normalisation, de l\u2019accr\u00e9ditation, de la s\u00e9curit\u00e9 et qualit\u00e9 des produits et services."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "9"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1994/12/08/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 8 d\u00e9cembre 1994 relative: \\n- aux comptes annuels et comptes consolid\u00e9s des entreprises d'assurances et de r\u00e9assurances de droit luxembourgeois \\n- aux obligations en mati\u00e8re d'\u00e9tablissement et de publicit\u00e9 des documents comptables des succursales d'entreprises d'assurances de droit \u00e9tranger."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "9"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1992/08/10/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 10 ao\u00fbt 1992 portant cr\u00e9ation de l\u2019entreprise des postes et t\u00e9l\u00e9communications."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "8"
+        }
+      },
+      {
+        "modified_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/2014/08/01/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement grand-ducal du 1er ao\u00fbt 2014 relatif \u00e0 la production d'\u00e9lectricit\u00e9 bas\u00e9e sur les sources d'\u00e9nergie renouvelables et modifiant: 1. le r\u00e8glement grand-ducal du 31 mars 2010 relatif au m\u00e9canisme de compensation dans le cadre de l'organisation du march\u00e9 de l'\u00e9lectricit\u00e9; 2. le r\u00e8glement grand-ducal du 15 d\u00e9cembre 2011 relatif \u00e0 la production, la r\u00e9mun\u00e9ration et la commercialisation de biogaz."
+        },
+        "mod_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "8"
+        }
+      }
+    ],
+    "count": 15,
+    "execution_time": 0.27028584480285645
+  },
+  "LOI Foundation Documents": {
+    "success": true,
+    "results": [
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2025/02/17/a67/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 17 f\u00e9vrier 2025 modifiant :\\n1\u00b0 la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n2\u00b0 la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises,\\naux fins de transposition de la directive (UE) 2019/2121 du Parlement europ\u00e9en et du Conseil du 27 novembre 2019 modifiant la directive (UE) 2017/1132 en ce qui concerne les transformations, fusions et scissions transfrontali\u00e8res.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-02-17"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2025/02/06/a38/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 6 f\u00e9vrier 2025 portant :\\n1\u00b0 mise en \u0153uvre du r\u00e8glement (UE) 2023/606 du Parlement europ\u00e9en et du Conseil du 15 mars 2023 modifiant le r\u00e8glement (UE) 2015/760 en ce qui concerne les exigences relatives aux politiques dinvestissement et aux conditions de fonctionnement des fonds europ\u00e9ens d\u2019investissement \u00e0 long terme et la d\u00e9finition des actifs \u00e9ligibles \u00e0 l\u2019investissement, les obligations en mati\u00e8re de composition et de diversification du portefeuille et l\u2019emprunt de liquidit\u00e9s et d\u2019autres dispositions des statuts des fonds ;\\n2\u00b0 mise en \u0153uvre du r\u00e8glement (UE) 2023/1114 du Parlement europ\u00e9en et du Conseil du 31 mai 2023 sur les march\u00e9s de crypto-actifs, et modifiant les r\u00e8glements (UE) n\u00b0 1093/2010 et (UE) n\u00b0 1095/2010 et les directives 2013/36/UE et (UE) 2019/1937 ;\\n3\u00b0 mise en \u0153uvre du r\u00e8glement (UE) 2023/1113 du Parlement europ\u00e9en et du Conseil du 31 mai 2023 sur les informations accompagnant les transferts de fonds et de certains crypto-actifs, et modifiant la directive (UE) 2015/849 ;\\n4\u00b0 transposition de l\u2019article 38 du r\u00e8glement (UE) 2023/1113 du Parlement europ\u00e9en et du Conseil du 31 mai 2023 sur les informations accompagnant les transferts de fonds et de certains crypto-actifs, et modifiant la directive (UE) 2015/849 ;\\n5\u00b0 mise en \u0153uvre du r\u00e8glement (UE) 2023/2631 du Parlement europ\u00e9en et du Conseil du 22 novembre 2023 sur les obligations vertes europ\u00e9ennes et la publication facultative d\u2019informations pour les obligations commercialis\u00e9es en tant qu\u2019obligations durables sur le plan environnemental et pour les obligations li\u00e9es \u00e0 la durabilit\u00e9 ;\\n6\u00b0 modification de:\\na) la loi modifi\u00e9e du 16 juillet 2019 relative \u00e0 l\u2019op\u00e9rationnalisation de r\u00e8glements europ\u00e9ens dans le domaine des services financiers ;\\nb) la loi modifi\u00e9e du 5 avril 1993 relative au secteur financier ;\\nc) la loi modifi\u00e9e du 23 d\u00e9cembre 1998 portant cr\u00e9ation d\u2019une commission de surveillance du secteur financier ;\\nd) la loi modifi\u00e9e du 12 novembre 2004 relative \u00e0 la lutte contre le blanchiment et contre le financement du terrorisme ;\\ne) la loi modifi\u00e9e du 10 novembre 2009 relative aux services de paiement ;\\nf) la loi modifi\u00e9e du 7 d\u00e9cembre 2015 sur le secteur des assurances.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-02-06"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2024/06/05/a258/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 5 juin 2024 portant approbation du Protocole d\u2019adh\u00e9sion \u00e0 l\u2019accord commercial entre l\u2019Union europ\u00e9enne et ses \u00c9tats membres, d\u2019une part, et la Colombie et le P\u00e9rou, d\u2019autre part, en vue de tenir compte de l\u2019adh\u00e9sion de l\u2019\u00c9quateur, fait \u00e0 Bruxelles, le 11 novembre 2016."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-06-05"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/08/23/a544/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 23 ao\u00fbt 2023 sur les for\u00eats et portant :\\n1\u00b0 modification de la loi du 18 juillet 2018 concernant la protection de la nature et des ressources naturelles ;\\n2\u00b0 abrogation de :\\na) l\u2019\u00c9dit, Ordonnance et R\u00e8glement du 14 septembre 1617 des Archiducs Albert et Isabelle sur le fait des Bois ;\\nb) l\u2019ordonnance modifi\u00e9e du 13 ao\u00fbt 1669 sur le fait des Eaux et For\u00eats ;\\nc) l\u2019ordonnance et r\u00e8glement des Bois du 30 d\u00e9cembre 1754 ;\\nd) l\u2019ordonnance du Conseil provincial du 25 f\u00e9vrier 1775 sur la conservation des gen\u00eats ;\\ne) l\u2019ordonnance du Conseil provincial du 22 juillet 1775 d\u00e9fendant de cueillir dans les bois des fruits quelconques ;\\nf) le d\u00e9cret du 24 juillet 1779 concernant la gland\u00e9e et le p\u00e2turage dans les bois ;\\ng) l\u2019ordonnance du 6 f\u00e9vrier 1784 sur la conservation des jardins, haies, enclos ;\\nh) l\u2019ordonnance du 9 mars 1789 concernant la vente des portions de bois de chauffage ;\\ni) le d\u00e9cret des 15-29 septembre 1791 sur l\u2019administration foresti\u00e8re ;\\nj) le d\u00e9cret du 28 septembre au 6 octobre 1791 concernant les biens et usages et la police rurale ;\\nk) l\u2019ordonnance royale grand-ducale modifi\u00e9e du 1er juin 1840 concernant l\u2019organisation de la partie foresti\u00e8re ;\\nl) l\u2019ordonnance royale grand-ducale du 6 juillet 1843, N\u00b0 1529, concernant la vente sur pied des coupes de bois domaniales et communales ;\\nm) la loi foresti\u00e8re modifi\u00e9e du 14 novembre 1849 ;\\nn) la loi modifi\u00e9e du 12 mai 1905 concernant le d\u00e9frichement des propri\u00e9t\u00e9s bois\u00e9es ;\\no) la loi modifi\u00e9e du 7 avril 1909 concernant la r\u00e9organisation de l\u2019Administration des Eaux et For\u00eats ;\\np) la loi modifi\u00e9e du 8 octobre 1920 concernant l\u2019am\u00e9nagement des bois administr\u00e9s ;\\nq) la loi modifi\u00e9e du 30 janvier 1951 ayant pour objet la protection des bois ;\\nr) la loi modifi\u00e9e du 29 juin 1972 concernant la commercialisation de bois bruts class\u00e9s C.E.E.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-08-23"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/08/15/a532/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 15 ao\u00fbt 2023 portant transposition de la directive (UE) 2021/2101 du Parlement europ\u00e9en et du Conseil du 24 novembre 2021 modifiant la directive 2013/34/UE en ce qui concerne la communication, par certaines entreprises et succursales, d\u2019informations relatives \u00e0 l\u2019imp\u00f4t sur les revenus des soci\u00e9t\u00e9s et portant modification :\\n1\u00b0 de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n2\u00b0 de la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-08-15"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/08/07/a521/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 7 ao\u00fbt 2023 relative \u00e0 la pr\u00e9servation des entreprises et portant modernisation du droit de la faillite, modifiant :\\n1\u00b0 le livre III du Code de commerce ;\\n2\u00b0 le livre II, titre IX, chapitre II, section I\u00e8re du Code p\u00e9nal ;\\n3\u00b0 les articles 257 et 555 du Nouveau Code de Proc\u00e9dure civile ;\\n4\u00b0 la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n5\u00b0 la loi uniforme modifi\u00e9e sur les lettres de change et billets \u00e0 ordre, telle qu\u2019elle a \u00e9t\u00e9 introduite dans la l\u00e9gislation nationale par la loi du 8 janvier 1962 ;\\n6\u00b0 la loi modifi\u00e9e du 7 juillet 1971 portant, en mati\u00e8re r\u00e9pressive et administrative, institution d\u2019experts, de traducteurs et d\u2019interpr\u00e8tes, de conciliateurs d\u2019entreprise et mandataires de justice asserment\u00e9s et compl\u00e9tant les dispositions l\u00e9gales relatives \u00e0 l\u2019assermentation des experts, traducteurs et interpr\u00e8tes ;\\n7\u00b0 la loi modifi\u00e9e du 23 juillet 1991 ayant pour objet de r\u00e9glementer les activit\u00e9s de sous-traitance ;\\n8\u00b0 la loi modifi\u00e9e du 8 juin 1999 sur le budget, la comptabilit\u00e9 et la tr\u00e9sorerie de l\u2019\u00c9tat ;\\n9\u00b0 la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises ;\\n10\u00b0 la loi modifi\u00e9e du 5 ao\u00fbt 2005 sur les contrats de garantie financi\u00e8re.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-08-07"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/08/07/a515/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 7 ao\u00fbt 2023 portant modification :\\n1 \u00b0 de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n2 \u00b0 de la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises ;\\n3 \u00b0 de la loi modifi\u00e9e du 24 mai 2011 concernant l\u2019exercice de certains droits des actionnaires aux assembl\u00e9es g\u00e9n\u00e9rales de soci\u00e9t\u00e9s cot\u00e9es et portant transposition de la directive 2007/36/CE du Parlement europ\u00e9en et du Conseil du 11 juillet 2007 concernant l\u2019exercice de certains droits des actionnaires de soci\u00e9t\u00e9s cot\u00e9es ;\\n4 \u00b0 du Code civil.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-08-07"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/07/07/a413/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 7 juillet 2023 portant modification :\\n1\u00b0 du Code civil ;\\n2\u00b0 de la loi modifi\u00e9e du 9 d\u00e9cembre 1976 relative \u00e0 l\u2019organisation du notariat ;\\n3\u00b0 de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n4\u00b0 de la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises,\\n\\nen vue de la transposition de la directive (UE) 2019/1151 du Parlement europ\u00e9en et du Conseil du 20 juin 2019 modifiant la directive (UE) 2017/1132 en ce qui concerne l\u2019utilisation d\u2019outils et de processus num\u00e9riques en droit des soci\u00e9t\u00e9s.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-07-07"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2022/04/26/a204/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 26 avril 2022 relative aux contr\u00f4les officiels des produits agricoles et portant abrogation de :\\n1\u00b0 la loi modifi\u00e9e du 24 juillet 1909 sur le r\u00e9gime des vins et boissons similaires ;\\n2\u00b0 la loi du 8 juin 1984 fixant le cadre g\u00e9n\u00e9ral pour l\u2019\u00e9tablissement des r\u00e8gles concernant la commercialisation du b\u00e9tail de boucherie.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2022-04-26"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2021/12/17/a899/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 17 d\u00e9cembre 2021 portant modification de la loi modifi\u00e9e du 19 d\u00e9cembre 2020 portant adaptation temporaire de certaines modalit\u00e9s proc\u00e9durales en mati\u00e8re civile et commerciale."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2021-12-17"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2021/12/17/a906/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 17 d\u00e9cembre 2021 concernant le budget des recettes et des d\u00e9penses de l\u2019\u00c9tat pour l\u2019exercice 2022 et modifiant :\\n1\u00b0 le Code de la s\u00e9curit\u00e9 sociale ;\\n2\u00b0 la loi modifi\u00e9e du 16 octobre 1934 concernant l\u2019\u00e9valuation des biens et valeurs (\u00ab\u00a0Bewertungsgesetz\u00a0\u00bb) ;\\n3\u00b0 la loi modifi\u00e9e du 1er d\u00e9cembre 1936 concernant l\u2019imp\u00f4t commercial (\u00ab\u00a0Gewerbesteuergesetz\u00a0\u00bb) ;\\n4\u00b0 la loi modifi\u00e9e du 17 avril 1964 portant r\u00e9organisation de l\u2019administration des contributions directes ;\\n5\u00b0 la loi modifi\u00e9e du 4 d\u00e9cembre 1967 concernant l\u2019imp\u00f4t sur le revenu ;\\n6\u00b0 la loi modifi\u00e9e du 24 d\u00e9cembre 1996 portant introduction d\u2019une bonification d\u2019imp\u00f4t sur le revenu en cas d\u2019embauchage de ch\u00f4meurs ;\\n7\u00b0 la loi modifi\u00e9e du 28 avril 1998 portant\\na) harmonisation de l\u2019enseignement musical dans le secteur communal ;\\nb) modification de l\u2019article 5 de la loi du 24 mai 1989 sur le contrat de travail ;\\nc) modification de la loi modifi\u00e9e du 22 juin 1963 fixant le r\u00e9gime des traitements des fonctionnaires de l\u2019\u00c9tat ;\\n8\u00b0 la loi modifi\u00e9e du 21 d\u00e9cembre 1998 concernant le budget des recettes et des d\u00e9penses de l\u2019\u00c9tat pour l\u2019exercice 1999 ;\\n9\u00b0 la loi du 7 d\u00e9cembre 2007 autorisant l\u2019\u00c9tat \u00e0 fournir une garantie bancaire pour la r\u00e9alisation et l\u2019exploitation d\u2019un r\u00e9seau de chaleur urbain ;\\n10\u00b0 la loi modifi\u00e9e du 4 juillet 2008 sur la jeunesse ;\\n11\u00b0 la loi modifi\u00e9e du 17 d\u00e9cembre 2010 fixant les droits d\u2019accise et les taxes assimil\u00e9es sur les produits \u00e9nerg\u00e9tiques, l\u2019\u00e9lectricit\u00e9, les produits de tabacs manufactur\u00e9s, l\u2019alcool et les boissons alcooliques ;\\n12\u00b0 la loi modifi\u00e9e du 23 juillet 2016 portant modification 1. du Code de la s\u00e9curit\u00e9 sociale ; 2. de la loi modifi\u00e9e du 4 d\u00e9cembre 1967 concernant l\u2019imp\u00f4t sur le revenu, et abrogeant la loi modifi\u00e9e du 21 d\u00e9cembre 2007 concernant le boni pour enfant ;\\n13\u00b0 la loi du 1er ao\u00fbt 2019 concernant les mutuelles.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2021-12-17"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2021/12/14/a871/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 14 d\u00e9cembre 2021 portant modification de :\\n1\u00b0 la loi du 5 mai 2017 concernant certaines modalit\u00e9s d\u2019application et les sanctions du r\u00e8glement (UE) n\u00b0 98/2013 du Parlement europ\u00e9en et du Conseil du 15 janvier 2013 sur la commercialisation et l\u2019utilisation de pr\u00e9curseurs d\u2019explosifs ;\\n2\u00b0 la loi modifi\u00e9e du 4 juillet 2014 portant r\u00e9organisation de l\u2019ILNAS.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2021-12-14"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2021/08/06/a607/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 6 ao\u00fbt 2021 portant modification de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2021-08-06"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2021/07/30/a626/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 30 juillet 2021 portant modification :\\n1\u00b0 de la loi du 19 d\u00e9cembre 2020 portant adaptation temporaire de certaines modalit\u00e9s proc\u00e9durales en mati\u00e8re civile et commerciale ;\\n2\u00b0 de la loi modifi\u00e9e du 8 mars 2017 sur la nationalit\u00e9 luxembourgeoise."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2021-07-30"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2021/07/15/a541/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 15 juillet 2021 portant modification : \\n1\u00b0 du Nouveau Code de proc\u00e9dure civile ; \\n2\u00b0 du Code du travail ; \\n3\u00b0 de la loi modifi\u00e9e du 18 f\u00e9vrier 1885 sur les pourvois et la proc\u00e9dure en cassation ; \\n4\u00b0 de la loi modifi\u00e9e du 7 mars 1980 sur l\u2019organisation judiciaire ; \\n5\u00b0 de la loi modifi\u00e9e du 7 novembre 1996 portant organisation des juridictions de l\u2019ordre administratif ; et ayant pour objet le renforcement de l\u2019efficacit\u00e9 de la justice civile et commerciale."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2021-07-15"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2021/06/30/a485/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 30 juin 2021 portant modification :\\n1\u00b0 de la loi modifi\u00e9e du 23 septembre 2020 portant des mesures concernant la tenue de r\u00e9unions dans les soci\u00e9t\u00e9s et dans les autres personnes morales;\\n2\u00b0 de la loi du 19 d\u00e9cembre 2020 portant adaptation temporaire de certaines modalit\u00e9s proc\u00e9durales en mati\u00e8re civile et commerciale.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2021-06-30"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2020/12/19/a1061/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 19 d\u00e9cembre 2020 concernant le budget des recettes et des d\u00e9penses de l\u2019\u00c9tat pour l\u2019exercice 2021 et modifiant :\\n\\n1\u00b0 la loi modifi\u00e9e du 23 d\u00e9cembre 1913 concernant la r\u00e9vision de la l\u00e9gislation qui r\u00e9git les imp\u00f4ts dont le recouvrement est attribu\u00e9 \u00e0 l\u2019administration de l\u2019enregistrement et des domaines ;\\n2\u00b0 la loi g\u00e9n\u00e9rale des imp\u00f4ts modifi\u00e9e du 22 mai 1931 (\u00ab\u00a0Abgabenordnung\u00a0\u00bb) ;\\n3\u00b0 la loi modifi\u00e9e du 27 novembre 1933 concernant le recouvrement des contributions directes, des droits d'accise sur l'eau-de-vie et des cotisations d'assurance sociale ;\\n4\u00b0 la loi modifi\u00e9e du 9 juillet 1937 sur l\u2019imp\u00f4t sur les assurances ;\\n5\u00b0 la loi modifi\u00e9e du 1er f\u00e9vrier 1939 sur l'imp\u00f4t dans l'int\u00e9r\u00eat du service d'incendie ;\\n6\u00b0 la loi modifi\u00e9e du 28 janvier 1948 tendant \u00e0 assurer la juste et exacte perception des droits d\u2019enregistrement et de succession ;\\n7\u00b0 la loi modifi\u00e9e du 22 juin 1963 fixant le r\u00e9gime des traitements des fonctionnaires de l\u2019\u00c9tat ;\\n8\u00b0 la loi modifi\u00e9e du 4 d\u00e9cembre 1967 concernant l\u2019imp\u00f4t sur le revenu ;\\n9\u00b0 la loi modifi\u00e9e du 12 f\u00e9vrier 1979 concernant la taxe sur la valeur ajout\u00e9e ;\\n10\u00b0 la loi modifi\u00e9e du 25 f\u00e9vrier 1979 concernant l\u2019aide au logement ;\\n11\u00b0 la loi modifi\u00e9e du 14 mai 1997 relative \u00e0 la participation \u00e0 des institutions financi\u00e8res internationales ;\\n12\u00b0 la loi modifi\u00e9e du 27 juillet 1997 sur le contrat d\u2019assurance ;\\n13\u00b0 la loi modifi\u00e9e du 28 avril 1998 portant\\na) harmonisation de l\u2019enseignement musical dans le secteur communal ;\\nb) modification de l\u2019article 5 de la loi du 24 mai 1989 sur le contrat de travail ;\\nc) modification de la loi modifi\u00e9e du 22 juin 1963 fixant le r\u00e9gime des traitements des fonctionnaires de l\u2019\u00c9tat ;\\n14\u00b0 la loi modifi\u00e9e du 21 d\u00e9cembre 1998 concernant le budget des recettes et des d\u00e9penses de l\u2019\u00c9tat pour l\u2019exercice 1999 ;\\n15\u00b0 la loi modifi\u00e9e du 11 mai 2007 relative \u00e0 la cr\u00e9ation d\u2019une soci\u00e9t\u00e9 de gestion de patrimoine familial (\u00ab\u00a0SPF\u00a0\u00bb) ;\\n16\u00b0 la loi modifi\u00e9e du 16 d\u00e9cembre 2008 concernant l\u2019int\u00e9gration des \u00e9trangers au Grand-Duch\u00e9 de Luxembourg ;\\n17\u00b0 la loi du 19 d\u00e9cembre 2008 portant r\u00e9vision du r\u00e9gime applicable \u00e0 certains actes de soci\u00e9t\u00e9 en mati\u00e8re de droits d\u2019enregistrement, portant transposition de la directive 2008/7/CE du Conseil du 12 f\u00e9vrier 2008 concernant les imp\u00f4ts indirects frappant les rassemblements de capitaux, modifiant : la loi modifi\u00e9e du 7 ao\u00fbt 1920, portant majoration des droits d'enregistrement, de timbre, de succession, etc., la loi modifi\u00e9e du 20 d\u00e9cembre 2002 concernant les organismes de placement collectif, la loi du 22 mars 2004 relative \u00e0 la titrisation, la loi modifi\u00e9e du 15 juin 2004 relative \u00e0 la soci\u00e9t\u00e9 d'investissement en capital \u00e0 risque (SICAR), la loi modifi\u00e9e du 13 juillet 2005 relative aux institutions de retraite professionnelle sous forme de sepcav et assep, la loi du 13 f\u00e9vrier 2007 relative aux fonds d'investissement sp\u00e9cialis\u00e9s, et abrogeant la loi modifi\u00e9e du 29 d\u00e9cembre 1971 concernant l'imp\u00f4t frappant les rassemblements de capitaux dans les soci\u00e9t\u00e9s civiles et commerciales et portant r\u00e9vision de certaines dispositions l\u00e9gislatives r\u00e9gissant la perception des droits d'enregistrement ;\\n18\u00b0 la loi modifi\u00e9e du 17 d\u00e9cembre 2010 concernant les organismes de placement collectif ;\\n19\u00b0 la loi modifi\u00e9e du 17 d\u00e9cembre 2010 fixant les droits d\u2019accise et les taxes assimil\u00e9es sur les produits \u00e9nerg\u00e9tiques, l\u2019\u00e9lectricit\u00e9, les produits de tabacs manufactur\u00e9s, l\u2019alcool et les boissons alcooliques ;\\n20\u00b0 la loi modifi\u00e9e du 25 mars 2015 fixant le r\u00e9gime des traitements et les conditions et modalit\u00e9s d\u2019avancement des fonctionnaires de l\u2019\u00c9tat ;\\n21\u00b0 la loi du 23 juillet 2016 portant cr\u00e9ation d\u2019un imp\u00f4t dans l\u2019int\u00e9r\u00eat des services de secours ;\\n22\u00b0 la loi modifi\u00e9e du 23 d\u00e9cembre 2016\\n1. instituant un r\u00e9gime d\u2019aides pour la promotion de la durabilit\u00e9, de l\u2019utilisation rationnelle de l\u2019\u00e9nergie et des \u00e9nergies renouvelables dans le domaine du logement;\\n2. modifiant la loi modifi\u00e9e du 23 d\u00e9cembre 2004 \u00e9tablissant un syst\u00e8me d'\u00e9change de quotas d'\u00e9mission de gaz \u00e0 effet de serre ;\\n23\u00b0 la loi modifi\u00e9e du 20 juillet 2017 ayant pour objet la mise en place d\u2019un r\u00e9gime d\u2019aide \u00e0 l\u2019investissement \u00e0 finalit\u00e9 r\u00e9gionale ;\\n24\u00b0 la loi modifi\u00e9e du 28 juillet 2018 relative au revenu d\u2019inclusion sociale ;\\n25\u00b0 la loi du 15 d\u00e9cembre 2020 relative au climat\\n\\net portant abrogation de la loi modifi\u00e9e du 22 d\u00e9cembre 1993 ayant pour objet la relance de l'investissement dans l'int\u00e9r\u00eat du d\u00e9veloppement \u00e9conomique.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2020-12-19"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2020/12/19/a1056/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 19 d\u00e9cembre 2020 portant\\n1\u00b0 adaptation temporaire de certaines modalit\u00e9s proc\u00e9durales en mati\u00e8re civile et commerciale ;\\n2\u00b0 modification de la loi du 25 novembre 2020 portant modification :\\n1\u00b0 de la loi modifi\u00e9e du 23 septembre 2020 portant des mesures concernant la tenue de r\u00e9unions dans les soci\u00e9t\u00e9s et dans les autres personnes morales\\n2\u00b0 de la loi du 20 juin 2020 portant\\n1\u00b0 prorogation de mesures concernant\\na) la tenue d\u2019audiences publiques pendant l\u2019\u00e9tat de crise devant les juridictions dans les affaires soumises \u00e0 la proc\u00e9dure \u00e9crite ;\\nb) certaines adaptations de la proc\u00e9dure de r\u00e9f\u00e9r\u00e9 exceptionnel devant le juge aux affaires familiales ;\\nc) la suspension des d\u00e9lais en mati\u00e8re juridictionnelle, et\\nd) d\u2019autres modalit\u00e9s proc\u00e9durales ;\\n2\u00b0 d\u00e9rogation temporaire aux articles 74 \u00e0 76 et 83 de la loi modifi\u00e9e du 9 d\u00e9cembre 1976 relative \u00e0 l\u2019organisation du notariat ;\\n3\u00b0 d\u00e9rogation temporaire aux articles 15 et 16 de la loi modifi\u00e9e du 10 ao\u00fbt 1991 sur la profession d\u2019avocat ; et\\n4\u00b0 modification de l\u2019article 89 de la loi modifi\u00e9e du 8 mars 2017 sur la nationalit\u00e9 luxembourgeoise\\net portant suspension du d\u00e9lai pr\u00e9vu \u00e0 l\u2019article 55.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2020-12-19"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2020/06/20/a534/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 20 juin 2020 ayant pour objet la mise en place d\u2019un r\u00e9gime temporaire d\u2019aide de minimis en faveur de certaines entreprises commerciales et artisanales dans le cadre de la pand\u00e9mie du Covid-19."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2020-06-20"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2020/05/20/a446/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 20 mai 2020 portant approbation de l\u2019Accord \u00e9conomique et commercial global (AECG) entre le Canada, d\u2019une part, et l\u2019Union europ\u00e9enne et ses \u00c9tats membres, d\u2019autre part, fait \u00e0 Bruxelles, le 30 octobre 2016."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2020-05-20"
+        }
+      }
+    ],
+    "count": 20,
+    "execution_time": 0.27744102478027344
+  },
+  "Cross-Referenced Commercial Laws": {
+    "success": true,
+    "results": [
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2025/03/25/b1519/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 25 mars 2025 portant r\u00e9accr\u00e9ditation du programme d\u2019\u00e9tudes en alternance menant au brevet de technicien sup\u00e9rieur \u00ab\u00a0Gestionnaire commercial et administratif\u00a0\u00bb, dispens\u00e9 au Lyc\u00e9e du Nord (LN)."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-03-25"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2025/02/17/a67/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 17 f\u00e9vrier 2025 modifiant :\\n1\u00b0 la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n2\u00b0 la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises,\\naux fins de transposition de la directive (UE) 2019/2121 du Parlement europ\u00e9en et du Conseil du 27 novembre 2019 modifiant la directive (UE) 2017/1132 en ce qui concerne les transformations, fusions et scissions transfrontali\u00e8res.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-02-17"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2025/02/06/a38/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 6 f\u00e9vrier 2025 portant :\\n1\u00b0 mise en \u0153uvre du r\u00e8glement (UE) 2023/606 du Parlement europ\u00e9en et du Conseil du 15 mars 2023 modifiant le r\u00e8glement (UE) 2015/760 en ce qui concerne les exigences relatives aux politiques dinvestissement et aux conditions de fonctionnement des fonds europ\u00e9ens d\u2019investissement \u00e0 long terme et la d\u00e9finition des actifs \u00e9ligibles \u00e0 l\u2019investissement, les obligations en mati\u00e8re de composition et de diversification du portefeuille et l\u2019emprunt de liquidit\u00e9s et d\u2019autres dispositions des statuts des fonds ;\\n2\u00b0 mise en \u0153uvre du r\u00e8glement (UE) 2023/1114 du Parlement europ\u00e9en et du Conseil du 31 mai 2023 sur les march\u00e9s de crypto-actifs, et modifiant les r\u00e8glements (UE) n\u00b0 1093/2010 et (UE) n\u00b0 1095/2010 et les directives 2013/36/UE et (UE) 2019/1937 ;\\n3\u00b0 mise en \u0153uvre du r\u00e8glement (UE) 2023/1113 du Parlement europ\u00e9en et du Conseil du 31 mai 2023 sur les informations accompagnant les transferts de fonds et de certains crypto-actifs, et modifiant la directive (UE) 2015/849 ;\\n4\u00b0 transposition de l\u2019article 38 du r\u00e8glement (UE) 2023/1113 du Parlement europ\u00e9en et du Conseil du 31 mai 2023 sur les informations accompagnant les transferts de fonds et de certains crypto-actifs, et modifiant la directive (UE) 2015/849 ;\\n5\u00b0 mise en \u0153uvre du r\u00e8glement (UE) 2023/2631 du Parlement europ\u00e9en et du Conseil du 22 novembre 2023 sur les obligations vertes europ\u00e9ennes et la publication facultative d\u2019informations pour les obligations commercialis\u00e9es en tant qu\u2019obligations durables sur le plan environnemental et pour les obligations li\u00e9es \u00e0 la durabilit\u00e9 ;\\n6\u00b0 modification de:\\na) la loi modifi\u00e9e du 16 juillet 2019 relative \u00e0 l\u2019op\u00e9rationnalisation de r\u00e8glements europ\u00e9ens dans le domaine des services financiers ;\\nb) la loi modifi\u00e9e du 5 avril 1993 relative au secteur financier ;\\nc) la loi modifi\u00e9e du 23 d\u00e9cembre 1998 portant cr\u00e9ation d\u2019une commission de surveillance du secteur financier ;\\nd) la loi modifi\u00e9e du 12 novembre 2004 relative \u00e0 la lutte contre le blanchiment et contre le financement du terrorisme ;\\ne) la loi modifi\u00e9e du 10 novembre 2009 relative aux services de paiement ;\\nf) la loi modifi\u00e9e du 7 d\u00e9cembre 2015 sur le secteur des assurances.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-02-06"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/pa/2025/01/22/b461/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Taux des int\u00e9r\u00eats de retard sur des cr\u00e9ances en retard r\u00e9sultant de transactions commerciales - premier semestre 2025."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-01-22"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/pa/2024/12/11/a501/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Minist\u00e8re des Affaires int\u00e9rieures - Imp\u00f4t commercial communal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-12-11"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/2024/10/25/a448/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement grand-ducal du 25 octobre 2024 portant modification :\\n1\u00b0 de l\u2019article 1711-4 de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n2\u00b0 des articles 35 et 47 de la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises,\\nen vue de la transposition de la directive d\u00e9l\u00e9gu\u00e9e (UE) 2023/2775 de la Commission du 17 octobre 2023 modifiant la directive n\u00b0 2013/34/UE du Parlement europ\u00e9en et du Conseil en ce qui concerne l\u2019ajustement des crit\u00e8res de taille pour les micro-, petites, moyennes et grandes entreprises ou pour les groupes.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-10-25"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/div/2024/10/14/a446/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Protocole d\u2019adh\u00e9sion \u00e0 l\u2019accord commercial entre l\u2019Union europ\u00e9enne et ses \u00c9tats membres, d\u2019une part, et la Colombie et le P\u00e9rou, d\u2019autre part, en vue de tenir compte de l\u2019adh\u00e9sion de l\u2019\u00c9quateur, fait \u00e0 Bruxelles, le 11 novembre 2016 - Entr\u00e9e en vigueur."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-10-14"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/div/2024/10/14/a445/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Accord commercial entre l\u2019Union europ\u00e9enne et ses \u00c9tats membres, d\u2019une part, et la Colombie et le P\u00e9rou, d\u2019autre part, sign\u00e9 \u00e0 Bruxelles, le 26 juin 2012 - Entr\u00e9e en vigueur."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-10-14"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/2024/07/31/a337/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement grand-ducal du 31 juillet 2024 modifiant :\\n1\u00b0 le r\u00e8glement grand-ducal modifi\u00e9 du 31 mars 2010 relatif au m\u00e9canisme de compensation dans le cadre de l\u2019organisation du march\u00e9 de l\u2019\u00e9lectricit\u00e9 ;\\n2\u00b0 le r\u00e8glement grand-ducal modifi\u00e9 du 15 d\u00e9cembre 2011 relatif \u00e0 la production, la r\u00e9mun\u00e9ration et la commercialisation de biogaz ;\\n3\u00b0 le r\u00e8glement grand-ducal modifi\u00e9 du 1er ao\u00fbt 2014 relatif \u00e0 la production d\u2019\u00e9lectricit\u00e9 bas\u00e9e sur les sources d\u2019\u00e9nergie renouvelables ;\\n4\u00b0 le r\u00e8glement grand-ducal du 23 d\u00e9cembre 2022 modifiant le r\u00e8glement grand-ducal modifi\u00e9 du 1er ao\u00fbt 2014 relatif \u00e0 la production d\u2019\u00e9lectricit\u00e9 bas\u00e9e sur les sources d\u2019\u00e9nergie renouvelables ;\\n5\u00b0 le r\u00e8glement grand-ducal du 23 d\u00e9cembre 2022 modifiant le r\u00e8glement grand-ducal modifi\u00e9 du 31 mars 2010 relatif au m\u00e9canisme de compensation dans le cadre de l\u2019organisation du march\u00e9 de l\u2019\u00e9lectricit\u00e9.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-07-31"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/pa/2024/07/17/b2836/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Taux des int\u00e9r\u00eats de retard sur des cr\u00e9ances en retard r\u00e9sultant de transactions commerciales - second semestre 2024."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-07-17"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/2024/02/28/a105/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement grand-ducal du 28 f\u00e9vrier 2024 modifiant le r\u00e8glement grand-ducal modifi\u00e9 du 23 novembre 2017 concernant la commercialisation des mat\u00e9riels de multiplication de plantes fruiti\u00e8res et des plantes fruiti\u00e8res destin\u00e9es \u00e0 la production de fruits."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-02-28"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/2024/02/08/a104/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement grand-ducal du 8 f\u00e9vrier 2024 modifiant le r\u00e8glement grand-ducal modifi\u00e9 du 25 avril 2001 concernant la commercialisation des mat\u00e9riels de multiplication des plantes ornementales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-02-08"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/pa/2024/01/25/b430/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Taux des int\u00e9r\u00eats de retard sur des cr\u00e9ances en retard r\u00e9sultant de transactions commerciales - premier semestre 2024."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-01-25"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/pa/2023/12/21/a815/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Minist\u00e8re des Affaires int\u00e9rieures - Imp\u00f4t commercial communal."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-12-21"
+        }
+      },
+      {
+        "doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/08/23/a544/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 23 ao\u00fbt 2023 sur les for\u00eats et portant :\\n1\u00b0 modification de la loi du 18 juillet 2018 concernant la protection de la nature et des ressources naturelles ;\\n2\u00b0 abrogation de :\\na) l\u2019\u00c9dit, Ordonnance et R\u00e8glement du 14 septembre 1617 des Archiducs Albert et Isabelle sur le fait des Bois ;\\nb) l\u2019ordonnance modifi\u00e9e du 13 ao\u00fbt 1669 sur le fait des Eaux et For\u00eats ;\\nc) l\u2019ordonnance et r\u00e8glement des Bois du 30 d\u00e9cembre 1754 ;\\nd) l\u2019ordonnance du Conseil provincial du 25 f\u00e9vrier 1775 sur la conservation des gen\u00eats ;\\ne) l\u2019ordonnance du Conseil provincial du 22 juillet 1775 d\u00e9fendant de cueillir dans les bois des fruits quelconques ;\\nf) le d\u00e9cret du 24 juillet 1779 concernant la gland\u00e9e et le p\u00e2turage dans les bois ;\\ng) l\u2019ordonnance du 6 f\u00e9vrier 1784 sur la conservation des jardins, haies, enclos ;\\nh) l\u2019ordonnance du 9 mars 1789 concernant la vente des portions de bois de chauffage ;\\ni) le d\u00e9cret des 15-29 septembre 1791 sur l\u2019administration foresti\u00e8re ;\\nj) le d\u00e9cret du 28 septembre au 6 octobre 1791 concernant les biens et usages et la police rurale ;\\nk) l\u2019ordonnance royale grand-ducale modifi\u00e9e du 1er juin 1840 concernant l\u2019organisation de la partie foresti\u00e8re ;\\nl) l\u2019ordonnance royale grand-ducale du 6 juillet 1843, N\u00b0 1529, concernant la vente sur pied des coupes de bois domaniales et communales ;\\nm) la loi foresti\u00e8re modifi\u00e9e du 14 novembre 1849 ;\\nn) la loi modifi\u00e9e du 12 mai 1905 concernant le d\u00e9frichement des propri\u00e9t\u00e9s bois\u00e9es ;\\no) la loi modifi\u00e9e du 7 avril 1909 concernant la r\u00e9organisation de l\u2019Administration des Eaux et For\u00eats ;\\np) la loi modifi\u00e9e du 8 octobre 1920 concernant l\u2019am\u00e9nagement des bois administr\u00e9s ;\\nq) la loi modifi\u00e9e du 30 janvier 1951 ayant pour objet la protection des bois ;\\nr) la loi modifi\u00e9e du 29 juin 1972 concernant la commercialisation de bois bruts class\u00e9s C.E.E.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-08-23"
+        }
+      }
+    ],
+    "count": 15,
+    "execution_time": 1.4859898090362549
+  },
+  "Baseline keywords - Conditions": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.863987922668457
+  },
+  "Baseline keywords - Ranking": {
+    "success": false,
+    "error": "No conditions hits, ranking skipped",
+    "count": 0
+  },
+  "Synonym expansion - Conditions": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.852935791015625
+  },
+  "Synonym expansion - Ranking": {
+    "success": false,
+    "error": "No conditions hits, ranking skipped",
+    "count": 0
+  },
+  "Stem variant - Conditions": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.9527511596679688
+  },
+  "Stem variant - Ranking": {
+    "success": false,
+    "error": "No conditions hits, ranking skipped",
+    "count": 0
+  },
+  "Accent variants - Conditions": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.9035227298736572
+  },
+  "Accent variants - Ranking": {
+    "success": false,
+    "error": "No conditions hits, ranking skipped",
+    "count": 0
+  },
+  "Combined synonym+stem+accent - Conditions": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.9036588668823242
+  },
+  "Combined synonym+stem+accent - Ranking": {
+    "success": false,
+    "error": "No conditions hits, ranking skipped",
+    "count": 0
+  },
+  "Weight tweak (citations\u00d76) - Conditions": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.905803918838501
+  },
+  "Weight tweak (citations\u00d76) - Ranking": {
+    "success": false,
+    "error": "No conditions hits, ranking skipped",
+    "count": 0
+  },
+  "Fundamental cutoff 70% - Conditions": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.9068408012390137
+  },
+  "Fundamental cutoff 70% - Ranking": {
+    "success": false,
+    "error": "No conditions hits, ranking skipped",
+    "count": 0
+  },
+  "Fundamental cutoff 90% - Conditions": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.9051351547241211
+  },
+  "Fundamental cutoff 90% - Ranking": {
+    "success": false,
+    "error": "No conditions hits, ranking skipped",
+    "count": 0
+  },
+  "Full-text body filter - Conditions": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.07204580307006836
+  },
+  "Full-text body filter - Ranking": {
+    "success": false,
+    "error": "No conditions hits, ranking skipped",
+    "count": 0
+  }
+}

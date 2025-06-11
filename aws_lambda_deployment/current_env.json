@@ -1,0 +1,10 @@
+{
+    "Variables": {
+        "MCP_SERVER_URL": "https://yet-mcp-legilux.site/mcp/",
+        "MODEL_PROVIDER": "anthropic",
+        "ENVIRONMENT": "prod",
+        "GROQ_API_KEY": "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",
+        "OPENAI_API_KEY": "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",
+        "ANTHROPIC_API_KEY": "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"
+    }
+}

@@ -10,6 +10,7 @@ import asyncio
 import logging
 import time
 from typing import Dict, Any, Optional, List
+from decimal import Decimal
 import anthropic
 from groq import AsyncGroq
 from openai import AsyncOpenAI
@@ -179,11 +180,20 @@ class RequestTracker:
         request_id = str(uuid.uuid4())
         now = datetime.now(timezone.utc).isoformat()
         
-        # Map provider to model
+        # Map provider to models (MCP execution vs structured output)
         model_mapping = {
-            "anthropic": "claude-3-5-sonnet-20241022",
-            "groq": "llama-3.3-70b-versatile", 
-            "openai": "gpt-4.1-mini"
+            "anthropic": {
+                "mcp": "claude-3-5-sonnet-20241022",
+                "structured": "claude-3-5-haiku-20241022"
+            },
+            "groq": {
+                "mcp": "llama-3.3-70b-versatile",
+                "structured": "llama-3.3-70b-versatile"  # Same model
+            },
+            "openai": {
+                "mcp": "gpt-4.1-mini", 
+                "structured": "gpt-4.1-nano"
+            }
         }
         
         request_item = {
@@ -195,7 +205,7 @@ class RequestTracker:
             'message': message,
             'message_length': len(message),
             'provider': provider,
-            'model': model_mapping.get(provider, "claude-3-5-sonnet-20241022"),
+            'model': model_mapping.get(provider, {}).get("mcp", "claude-3-5-sonnet-20241022"),
             'status': 'created',
             'tokens': {
                 'input_tokens': 0,
@@ -203,9 +213,9 @@ class RequestTracker:
                 'total_tokens': 0
             },
             'costs': {
-                'input_cost_usd': 0.0,
-                'output_cost_usd': 0.0,
-                'total_cost_usd': 0.0
+                'input_cost_usd': Decimal('0.0'),
+                'output_cost_usd': Decimal('0.0'),
+                'total_cost_usd': Decimal('0.0')
             },
             'tools_execution': {
                 'tools_used': [],
@@ -214,16 +224,16 @@ class RequestTracker:
             },
             'response_metrics': {
                 'response_length': 0,
-                'response_truncated': False,
-                'has_citations': False,
-                'has_legal_sources': False,
-                'structured_output_generated': False
+                'response_truncated': bool(False),
+                'has_citations': bool(False),
+                'has_legal_sources': bool(False),
+                'structured_output_generated': bool(False)
             },
             'performance_metrics': {
-                'processing_time_seconds': 0.0,
-                'mcp_server_response_time': 0.0,
-                'ai_model_response_time': 0.0,
-                'average_iteration_time': 0.0
+                'processing_time_seconds': Decimal('0.0'),
+                'mcp_server_response_time': Decimal('0.0'),
+                'ai_model_response_time': Decimal('0.0'),
+                'average_iteration_time': Decimal('0.0')
             },
             'enhanced_features': {
                 'mcp_tools_used': [],
@@ -295,6 +305,7 @@ class RequestTracker:
             performance = final_result.get('performance', {})
             tools_execution = final_result.get('tools_execution', {})
             model_info = final_result.get('model_info', {})
+            token_usage = final_result.get('token_usage', {})
             
             # Analyze legal analysis quality
             answer_content = legal_analysis.get('answer', {})
@@ -334,14 +345,20 @@ class RequestTracker:
                 'completed_at': now,
                 'provider': model_info.get('provider', 'unknown'),
                 'model': model_info.get('model_name', 'unknown'),
+                'tokens.input_tokens': token_usage.get('input_tokens', 0),
+                'tokens.output_tokens': token_usage.get('output_tokens', 0),
+                'tokens.total_tokens': token_usage.get('total_tokens', 0),
+                'costs.input_cost_usd': Decimal(str(token_usage.get('total_cost_usd', 0.0) * 0.5)),  # Approximate split
+                'costs.output_cost_usd': Decimal(str(token_usage.get('total_cost_usd', 0.0) * 0.5)),  # Approximate split
+                'costs.total_cost_usd': Decimal(str(token_usage.get('total_cost_usd', 0.0))),
                 'tools_execution.iterations': performance.get('iterations', 0),
                 'tools_execution.total_tools_called': tools_execution.get('total_tools', 0),
                 'tools_execution.tools_used': tools_execution.get('tools_used', []),
                 'response_metrics.response_length': content_length,
-                'response_metrics.structured_output_generated': True,
-                'response_metrics.has_citations': citations_count > 0,
-                'response_metrics.has_legal_sources': sources_count > 0,
-                'performance_metrics.processing_time_seconds': float(performance.get('processing_time_seconds', 0.0)),
+                'response_metrics.structured_output_generated': bool(True),
+                'response_metrics.has_citations': bool(citations_count > 0),
+                'response_metrics.has_legal_sources': bool(sources_count > 0),
+                'performance_metrics.processing_time_seconds': Decimal(str(performance.get('processing_time_seconds', 0.0))),
                 'enhanced_features.mcp_tools_used': tools_execution.get('tools_used', []),
                 'enhanced_features.structured_analysis_sections': sections_generated,
                 'enhanced_features.legal_analysis_quality': analysis_quality,
@@ -388,24 +405,43 @@ class EnhancedLegalIntelligenceClient:
         
         # Initialize all available clients
         self.clients = {}
-        self.models = {}
+        self.models = {
+            "anthropic": {
+                "keyword": "claude-3-5-sonnet-4-20250514",     # Sonnet 4 for keywords
+                "tool_selection": "claude-3-5-sonnet-4-20250514", # Sonnet 4 for tool strategy
+                "uri_extraction": "claude-3-5-sonnet-4-20250514", # Sonnet 4 for URI precision
+                "mcp": "claude-3-5-sonnet-20241022",           # Sonnet 3.5 v2 for MCP
+                "structured": "claude-3-5-haiku-20241022"      # Haiku for JSON
+            },
+            "groq": {
+                "keyword": "llama-3.3-70b-versatile",         # Same model for all phases
+                "tool_selection": "llama-3.3-70b-versatile",
+                "uri_extraction": "llama-3.3-70b-versatile", 
+                "mcp": "llama-3.3-70b-versatile",
+                "structured": "llama-3.3-70b-versatile"
+            },
+            "openai": {
+                "keyword": "gpt-4.1",                         # GPT-4.1 for keywords
+                "tool_selection": "gpt-4.1",                  # GPT-4.1 for tool strategy
+                "uri_extraction": "gpt-4.1",                  # GPT-4.1 for URI precision
+                "mcp": "gpt-4.1-mini",                        # Mini for MCP execution
+                "structured": "gpt-4.1-nano"                  # Nano for JSON
+            }
+        }
         
         # Initialize Groq if API key available
         if self.groq_api_key:
             self.clients["groq"] = AsyncGroq(api_key=self.groq_api_key)
-            self.models["groq"] = "llama-3.3-70b-versatile"
             logger.info("✅ Groq client initialized")
         
         # Initialize Anthropic if API key available
         if self.anthropic_api_key:
             self.clients["anthropic"] = anthropic.AsyncAnthropic(api_key=self.anthropic_api_key)
-            self.models["anthropic"] = "claude-3-5-sonnet-20241022"
             logger.info("✅ Anthropic client initialized")
         
         # Initialize OpenAI if API key available
         if self.openai_api_key:
             self.clients["openai"] = AsyncOpenAI(api_key=self.openai_api_key)
-            self.models["openai"] = "gpt-4.1-mini"
             logger.info("✅ OpenAI client initialized")
         
         # Default provider: Claude Sonnet (fallback)
@@ -576,6 +612,287 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
                 )
             return []
     
+    async def extract_smart_keyword(self, message: str, provider: str, pricing: dict) -> str:
+        """Extract optimal single keyword using top-tier models."""
+        try:
+            client = self.clients[provider]
+            keyword_model = self.models[provider]["keyword"]
+            
+            prompt = f"""Extract the single most effective keyword for legal document search from this question: "{message}"
+
+RULES:
+- Return ONLY one word
+- Choose the most specific legal term
+- Prefer: SARL over société, commercial over entreprise
+- Examples: "Comment créer une SARL?" → "SARL"
+- Examples: "Droit du travail?" → "travail" 
+- Examples: "Fiscalité des entreprises?" → "fiscalité"
+
+Question: {message}
+Single keyword:"""
+
+            if provider == "openai":
+                response = await client.chat.completions.create(
+                    model=keyword_model,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=10,
+                    temperature=0.1
+                )
+                keyword = response.choices[0].message.content.strip()
+                
+                # Track usage for keyword phase
+                if hasattr(response, 'usage') and response.usage:
+                    input_tokens = response.usage.prompt_tokens
+                    output_tokens = response.usage.completion_tokens
+                    self.track_model_usage("keyword", provider, input_tokens, output_tokens, pricing)
+                    
+            elif provider == "anthropic":
+                response = await client.messages.create(
+                    model=keyword_model,
+                    max_tokens=10,
+                    temperature=0.1,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                keyword = ""
+                for content_block in response.content:
+                    if content_block.type == "text":
+                        keyword += content_block.text
+                keyword = keyword.strip()
+                
+                # Track usage for keyword phase
+                if hasattr(response, 'usage') and response.usage:
+                    input_tokens = response.usage.input_tokens
+                    output_tokens = response.usage.output_tokens
+                    self.track_model_usage("keyword", provider, input_tokens, output_tokens, pricing)
+                    
+            else:  # groq
+                response = await client.chat.completions.create(
+                    model=keyword_model,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=10,
+                    temperature=0.1
+                )
+                keyword = response.choices[0].message.content.strip()
+                
+                # Track usage for keyword phase
+                if hasattr(response, 'usage') and response.usage:
+                    input_tokens = response.usage.prompt_tokens
+                    output_tokens = response.usage.completion_tokens
+                    self.track_model_usage("keyword", provider, input_tokens, output_tokens, pricing)
+            
+            # Clean keyword (remove quotes, extra spaces)
+            keyword = keyword.replace('"', '').replace("'", "").strip()
+            logger.info(f"🎯 Smart keyword extracted: '{keyword}' using {keyword_model}")
+            return keyword
+            
+        except Exception as e:
+            logger.error(f"Keyword extraction failed: {e}")
+            # Fallback to simple extraction
+            words = message.split()
+            for word in ["SARL", "société", "commercial", "travail", "fiscalité"]:
+                if word.lower() in message.lower():
+                    return word
+            return words[0] if words else "droit"
+    
+    async def select_optimal_tools(self, message: str, discovered_sources: list, provider: str, pricing: dict) -> list:
+        """Select optimal tool execution strategy using top-tier models."""
+        try:
+            client = self.clients[provider]
+            tool_model = self.models[provider]["tool_selection"]
+            
+            sources_summary = "\n".join([f"- {source.get('title', 'N/A')} ({source.get('type', 'N/A')})" for source in discovered_sources[:5]])
+            
+            prompt = f"""Based on these legal sources found: 
+{sources_summary}
+
+For question: "{message}"
+
+Select optimal MCP tool execution strategy. Return a JSON list of tool priorities:
+
+Example: ["get_citations", "get_amendments", "check_legal_status", "extract_content"]
+
+Rules:
+- get_citations: ALWAYS include for network analysis
+- get_amendments: Include for laws with modification history
+- check_legal_status: Include for validity verification 
+- get_relationships: Include for hierarchy analysis
+- extract_content: Include for detailed text extraction
+
+Optimal strategy:"""
+
+            if provider == "openai":
+                response = await client.chat.completions.create(
+                    model=tool_model,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=50,
+                    temperature=0.1
+                )
+                strategy_text = response.choices[0].message.content.strip()
+                
+                # Track usage for tool selection phase
+                if hasattr(response, 'usage') and response.usage:
+                    input_tokens = response.usage.prompt_tokens
+                    output_tokens = response.usage.completion_tokens
+                    self.track_model_usage("tool_selection", provider, input_tokens, output_tokens, pricing)
+                    
+            elif provider == "anthropic":
+                response = await client.messages.create(
+                    model=tool_model,
+                    max_tokens=50,
+                    temperature=0.1,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                strategy_text = ""
+                for content_block in response.content:
+                    if content_block.type == "text":
+                        strategy_text += content_block.text
+                strategy_text = strategy_text.strip()
+                
+                # Track usage for tool selection phase
+                if hasattr(response, 'usage') and response.usage:
+                    input_tokens = response.usage.input_tokens
+                    output_tokens = response.usage.output_tokens
+                    self.track_model_usage("tool_selection", provider, input_tokens, output_tokens, pricing)
+                    
+            else:  # groq
+                response = await client.chat.completions.create(
+                    model=tool_model,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=50,
+                    temperature=0.1
+                )
+                strategy_text = response.choices[0].message.content.strip()
+                
+                # Track usage for tool selection phase
+                if hasattr(response, 'usage') and response.usage:
+                    input_tokens = response.usage.prompt_tokens
+                    output_tokens = response.usage.completion_tokens
+                    self.track_model_usage("tool_selection", provider, input_tokens, output_tokens, pricing)
+            
+            # Parse strategy (fallback to all tools if parsing fails)
+            try:
+                import json
+                strategy = json.loads(strategy_text)
+                logger.info(f"🧠 Tool strategy selected: {strategy} using {tool_model}")
+                return strategy
+            except:
+                logger.warning(f"Tool selection parsing failed, using default strategy")
+                return ["get_citations", "get_amendments", "check_legal_status", "get_relationships", "extract_content"]
+            
+        except Exception as e:
+            logger.error(f"Tool selection failed: {e}")
+            # Fallback to comprehensive strategy
+            return ["get_citations", "get_amendments", "check_legal_status", "get_relationships", "extract_content"]
+    
+    async def extract_priority_uris(self, message: str, discovered_sources: list, provider: str, pricing: dict) -> list:
+        """Extract priority URIs for detailed analysis using top-tier models."""
+        try:
+            client = self.clients[provider]
+            uri_model = self.models[provider]["uri_extraction"]
+            
+            sources_list = "\n".join([f"{i+1}. {source.get('title', 'N/A')} - {source.get('uri', 'N/A')} ({source.get('type', 'N/A')})" for i, source in enumerate(discovered_sources[:10])])
+            
+            prompt = f"""From these Luxembourg legal sources:
+{sources_list}
+
+For question: "{message}"
+
+Select the 3-5 most critical URIs for detailed analysis. Prioritize:
+1. LOI (laws) over RGD/AMIN (regulations)
+2. Primary/foundational laws over supporting regulations
+3. Most recent and comprehensive texts
+
+Return ONLY the exact URIs as a JSON list:
+
+Example: ["https://legilux.public.lu/eli/etat/leg/loi/1915/08/10/n1/jo", "https://legilux.public.lu/eli/etat/leg/loi/2016/07/23/n1/jo"]
+
+Priority URIs:"""
+
+            if provider == "openai":
+                response = await client.chat.completions.create(
+                    model=uri_model,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=200,
+                    temperature=0.1
+                )
+                uris_text = response.choices[0].message.content.strip()
+                
+                # Track usage for URI extraction phase
+                if hasattr(response, 'usage') and response.usage:
+                    input_tokens = response.usage.prompt_tokens
+                    output_tokens = response.usage.completion_tokens
+                    self.track_model_usage("uri_extraction", provider, input_tokens, output_tokens, pricing)
+                    
+            elif provider == "anthropic":
+                response = await client.messages.create(
+                    model=uri_model,
+                    max_tokens=200,
+                    temperature=0.1,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                uris_text = ""
+                for content_block in response.content:
+                    if content_block.type == "text":
+                        uris_text += content_block.text
+                uris_text = uris_text.strip()
+                
+                # Track usage for URI extraction phase
+                if hasattr(response, 'usage') and response.usage:
+                    input_tokens = response.usage.input_tokens
+                    output_tokens = response.usage.output_tokens
+                    self.track_model_usage("uri_extraction", provider, input_tokens, output_tokens, pricing)
+                    
+            else:  # groq
+                response = await client.chat.completions.create(
+                    model=uri_model,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=200,
+                    temperature=0.1
+                )
+                uris_text = response.choices[0].message.content.strip()
+                
+                # Track usage for URI extraction phase
+                if hasattr(response, 'usage') and response.usage:
+                    input_tokens = response.usage.prompt_tokens
+                    output_tokens = response.usage.completion_tokens
+                    self.track_model_usage("uri_extraction", provider, input_tokens, output_tokens, pricing)
+            
+            # Parse URIs (fallback to first 3 URIs if parsing fails)
+            try:
+                import json
+                priority_uris = json.loads(uris_text)
+                logger.info(f"🎯 Priority URIs selected: {len(priority_uris)} URIs using {uri_model}")
+                return priority_uris
+            except:
+                logger.warning(f"URI extraction parsing failed, using fallback selection")
+                # Fallback: select first 3 URIs, prioritizing LOI
+                fallback_uris = []
+                for source in discovered_sources:
+                    if source.get('type') == 'LOI' and len(fallback_uris) < 3:
+                        fallback_uris.append(source.get('uri'))
+                # Add non-LOI if needed
+                for source in discovered_sources:
+                    if len(fallback_uris) < 3 and source.get('uri') not in fallback_uris:
+                        fallback_uris.append(source.get('uri'))
+                return fallback_uris[:3]
+            
+        except Exception as e:
+            logger.error(f"URI extraction failed: {e}")
+            # Ultimate fallback: first 3 URIs
+            return [source.get('uri') for source in discovered_sources[:3] if source.get('uri')]
+    
+    def track_model_usage(self, phase: str, provider: str, input_tokens: int, output_tokens: int, pricing_dict: dict):
+        """Track token usage for specific model phases."""
+        # Calculate cost for this phase
+        provider_pricing = pricing_dict[provider][phase]
+        input_cost = (input_tokens / 1000000) * provider_pricing["input"]
+        output_cost = (output_tokens / 1000000) * provider_pricing["output"]
+        phase_cost = input_cost + output_cost
+        
+        logger.info(f"🏷️ {provider.title()} {phase}: {input_tokens} input, {output_tokens} output tokens, ${phase_cost:.6f}")
+        
+        return {"input": input_tokens, "output": output_tokens, "cost": phase_cost}
+
     async def execute_mcp_tool(self, tool_name: str, parameters: Dict[str, Any]) -> Any:
         """Execute MCP tool and return result."""
         try:
@@ -658,17 +975,48 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
             available = list(self.clients.keys())
             raise ValueError(f"Provider '{selected_provider}' not available. Available: {available}")
         
-        # Get provider-specific client and model
+        # Get provider-specific client and models
         client = self.clients[selected_provider]
-        model = self.models[selected_provider]
+        mcp_model = self.models[selected_provider]["mcp"]
+        structured_model = self.models[selected_provider]["structured"]
         is_openai = (selected_provider == "openai")
         is_groq = (selected_provider == "groq")
         is_anthropic = (selected_provider == "anthropic")
         
+        # Token usage tracking
+        total_input_tokens = 0
+        total_output_tokens = 0
+        total_cost_usd = 0.0
+        
+        # Provider-specific pricing (per 1M tokens) - 5-phase enhanced architecture
+        pricing = {
+            "anthropic": {
+                "keyword": {"input": 3.0, "output": 15.0},        # Claude Sonnet 4
+                "tool_selection": {"input": 3.0, "output": 15.0}, # Claude Sonnet 4
+                "uri_extraction": {"input": 3.0, "output": 15.0}, # Claude Sonnet 4
+                "mcp": {"input": 3.0, "output": 15.0},            # Claude Sonnet 3.5 v2
+                "structured": {"input": 0.8, "output": 4.0}       # Claude Haiku 3.5
+            },
+            "openai": {
+                "keyword": {"input": 2.0, "output": 8.0},         # GPT-4.1
+                "tool_selection": {"input": 2.0, "output": 8.0},  # GPT-4.1
+                "uri_extraction": {"input": 2.0, "output": 8.0},  # GPT-4.1
+                "mcp": {"input": 0.4, "output": 1.6},             # GPT-4.1-mini
+                "structured": {"input": 0.1, "output": 0.4}       # GPT-4.1-nano
+            },
+            "groq": {
+                "keyword": {"input": 0.59, "output": 0.79},       # Llama 3.3 70B
+                "tool_selection": {"input": 0.59, "output": 0.79}, # Llama 3.3 70B
+                "uri_extraction": {"input": 0.59, "output": 0.79}, # Llama 3.3 70B
+                "mcp": {"input": 0.59, "output": 0.79},           # Llama 3.3 70B
+                "structured": {"input": 0.59, "output": 0.79}     # Llama 3.3 70B
+            }
+        }
+        
         if job_id:
             DynamoDBJobManager.update_job_progress(
                 job_id, "mcp_workflow_start", 15, 
-                f"Starting enhanced legal research with {selected_provider} ({model})",
+                f"Starting enhanced legal research with {selected_provider} (MCP: {mcp_model}, Structured: {structured_model})",
                 {
                     "ai_interaction": {
                         "model_calls": 0,
@@ -682,13 +1030,17 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
         try:
             logger.info(f"🚀 Starting enhanced legal research with {selected_provider}")
             
-            # Phase 1: Tool execution phase with systematic workflow
+            # Phase 1: Enhanced 5-phase workflow preparation
             conversation_history = []
             tools_used = []
+            discovered_sources = []
+            
+            # Step 1: Smart keyword extraction using top-tier models
+            smart_keyword = await self.extract_smart_keyword(message, selected_provider, pricing)
+            logger.info(f"🎯 Phase 1 - Smart keyword: '{smart_keyword}'")
             
             # Prepare messages for tool execution
             messages = [
-                {"role": "system", "content": self.system_prompt},
                 {"role": "user", "content": message}
             ]
             
@@ -717,7 +1069,7 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
                     tools_formatted = self.format_tools_for_openai()
                     
                     response = await client.chat.completions.create(
-                        model=model,
+                        model=mcp_model,
                         messages=messages,
                         tools=tools_formatted if tools_formatted else None,
                         tool_choice="auto" if tools_formatted else None,
@@ -725,21 +1077,49 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
                         max_tokens=4000
                     )
                     
+                    # Capture token usage
+                    if hasattr(response, 'usage') and response.usage:
+                        input_tokens = response.usage.prompt_tokens
+                        output_tokens = response.usage.completion_tokens
+                        total_input_tokens += input_tokens
+                        total_output_tokens += output_tokens
+                        
+                        # Calculate cost for MCP phase
+                        provider_pricing = pricing[selected_provider]["mcp"]
+                        input_cost = (input_tokens / 1000000) * provider_pricing["input"]
+                        output_cost = (output_tokens / 1000000) * provider_pricing["output"]
+                        total_cost_usd += input_cost + output_cost
+                        
+                        logger.info(f"🏷️ OpenAI MCP usage: {input_tokens} input, {output_tokens} output tokens, ${input_cost + output_cost:.4f}")
+                    
                     assistant_message = response.choices[0].message
                     messages.append(assistant_message.model_dump())
                     
                     # Check for tool calls
                     if assistant_message.tool_calls:
-                        # Execute each tool call
+                        # Execute each tool call with enhanced 5-phase intelligence
                         for tool_call in assistant_message.tool_calls:
                             tool_name = tool_call.function.name
                             parameters = json.loads(tool_call.function.arguments)
+                            
+                            # Phase 2: Smart keyword override for search_documents
+                            if tool_name == "search_documents" and "keyword" in parameters:
+                                original_keyword = parameters["keyword"]
+                                parameters["keyword"] = smart_keyword
+                                logger.info(f"🎯 Smart keyword override: '{original_keyword}' → '{smart_keyword}'")
                             
                             logger.info(f"🔧 Executing {tool_name} with {parameters}")
                             
                             # Execute the tool
                             tool_result = await self.execute_mcp_tool(tool_name, parameters)
                             tools_used.append({"tool": tool_name, "parameters": parameters, "result": tool_result})
+                            
+                            # Collect sources from search_documents for later phases
+                            if tool_name == "search_documents" and isinstance(tool_result, dict):
+                                sources = tool_result.get("documents", [])
+                                if isinstance(sources, list):
+                                    discovered_sources.extend(sources)
+                                    logger.info(f"📚 Phase 2 - Discovered {len(sources)} sources")
                             
                             # Add tool result to conversation
                             content_str = tool_result if isinstance(tool_result, str) else json.dumps(tool_result, ensure_ascii=False)
@@ -763,14 +1143,35 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
                     # Claude tool calling format
                     tools_formatted = self.format_tools_for_claude()
                     
-                    response = await client.messages.create(
-                        model=model,
-                        max_tokens=4000,
-                        temperature=0.6,
-                        system=self.system_prompt,
-                        messages=messages,
-                        tools=tools_formatted if tools_formatted else None
-                    )
+                    # Claude API call - only pass tools if we have valid tools
+                    claude_params = {
+                        "model": mcp_model,
+                        "max_tokens": 4000,
+                        "temperature": 0.6,
+                        "system": self.system_prompt,
+                        "messages": messages
+                    }
+                    
+                    # Only add tools parameter if we have actual tools
+                    if tools_formatted and len(tools_formatted) > 0:
+                        claude_params["tools"] = tools_formatted
+                    
+                    response = await client.messages.create(**claude_params)
+                    
+                    # Capture token usage
+                    if hasattr(response, 'usage') and response.usage:
+                        input_tokens = response.usage.input_tokens
+                        output_tokens = response.usage.output_tokens
+                        total_input_tokens += input_tokens
+                        total_output_tokens += output_tokens
+                        
+                        # Calculate cost for MCP phase
+                        provider_pricing = pricing[selected_provider]["mcp"]
+                        input_cost = (input_tokens / 1000000) * provider_pricing["input"]
+                        output_cost = (output_tokens / 1000000) * provider_pricing["output"]
+                        total_cost_usd += input_cost + output_cost
+                        
+                        logger.info(f"🏷️ Claude MCP usage: {input_tokens} input, {output_tokens} output tokens, ${input_cost + output_cost:.4f}")
                     
                     # Handle Claude tool use
                     if response.stop_reason == "tool_use":
@@ -788,10 +1189,23 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
                                 tool_input = content_block.input
                                 tool_use_id = content_block.id
                                 
+                                # Phase 2: Smart keyword override for search_documents
+                                if tool_name == "search_documents" and "keyword" in tool_input:
+                                    original_keyword = tool_input["keyword"]
+                                    tool_input["keyword"] = smart_keyword
+                                    logger.info(f"🎯 Smart keyword override: '{original_keyword}' → '{smart_keyword}'")
+                                
                                 logger.info(f"🔧 Executing {tool_name} with {tool_input}")
                                 
                                 tool_result = await self.execute_mcp_tool(tool_name, tool_input)
                                 tools_used.append({"tool": tool_name, "parameters": tool_input, "result": tool_result})
+                                
+                                # Collect sources from search_documents for later phases
+                                if tool_name == "search_documents" and isinstance(tool_result, dict):
+                                    sources = tool_result.get("documents", [])
+                                    if isinstance(sources, list):
+                                        discovered_sources.extend(sources)
+                                        logger.info(f"📚 Phase 2 - Discovered {len(sources)} sources")
                                 
                                 tool_results_for_claude.append({
                                     "type": "tool_result",
@@ -816,35 +1230,82 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
                 else:  # Groq - no native tool calling, use prompt-based approach
                     # For Groq, we'll do a simplified approach for now
                     response = await client.chat.completions.create(
-                        model=model,
+                        model=mcp_model,
                         messages=messages,
                         temperature=0.6,
                         max_tokens=4000
                     )
                     
+                    # Capture token usage for Groq
+                    if hasattr(response, 'usage') and response.usage:
+                        input_tokens = response.usage.prompt_tokens
+                        output_tokens = response.usage.completion_tokens
+                        total_input_tokens += input_tokens
+                        total_output_tokens += output_tokens
+                        
+                        # Calculate cost for MCP phase
+                        provider_pricing = pricing[selected_provider]["mcp"]
+                        input_cost = (input_tokens / 1000000) * provider_pricing["input"]
+                        output_cost = (output_tokens / 1000000) * provider_pricing["output"]
+                        total_cost_usd += input_cost + output_cost
+                        
+                        logger.info(f"🏷️ Groq MCP usage: {input_tokens} input, {output_tokens} output tokens, ${input_cost + output_cost:.4f}")
+                    
                     # Simple response for Groq (can be enhanced later)
                     break
             
-            # Phase 2: Generate structured output
+            # Phase 3: Enhanced intelligence phases (if sources discovered)
+            if discovered_sources and len(discovered_sources) > 0:
+                logger.info(f"🧠 Phase 3 - Applying enhanced intelligence to {len(discovered_sources)} sources")
+                
+                # Phase 3A: Tool selection intelligence
+                optimal_tools = await self.select_optimal_tools(message, discovered_sources, selected_provider, pricing)
+                logger.info(f"🎯 Phase 3A - Optimal tools: {optimal_tools}")
+                
+                # Phase 3B: URI extraction precision
+                priority_uris = await self.extract_priority_uris(message, discovered_sources, selected_provider, pricing)
+                logger.info(f"🎯 Phase 3B - Priority URIs: {len(priority_uris)} selected")
+                
+                # Record enhanced phases in conversation history
+                conversation_history.append({
+                    "tool": "enhanced_intelligence",
+                    "parameters": {"keyword_used": smart_keyword, "tools_selected": optimal_tools, "priority_uris": priority_uris},
+                    "result": f"Enhanced 5-phase architecture applied: keyword='{smart_keyword}', tools={len(optimal_tools)}, uris={len(priority_uris)}"
+                })
+            
+            # Phase 4: Generate structured output
             if job_id:
                 DynamoDBJobManager.update_job_progress(
                     job_id, "structured_output_generation", 80, 
-                    "Generating structured legal analysis",
+                    "Generating structured legal analysis with enhanced intelligence",
                     {
                         "tools_progress": {
                             "tools_completed": len(conversation_history),
-                            "current_phase": "structured_output"
+                            "current_phase": "structured_output",
+                            "enhanced_features": {
+                                "smart_keyword": smart_keyword if 'smart_keyword' in locals() else None,
+                                "sources_discovered": len(discovered_sources)
+                            }
                         }
                     }
                 )
             
-            # Generate structured output based on provider
+            # Generate structured output based on provider (using cheaper models)
             if is_openai and len(conversation_history) > 0:
-                structured_result = await self.generate_openai_structured_output(message, conversation_history, client, model)
+                structured_result, structured_tokens, structured_cost = await self.generate_openai_structured_output(message, conversation_history, client, structured_model, selected_provider, pricing)
+                total_input_tokens += structured_tokens.get('input', 0)
+                total_output_tokens += structured_tokens.get('output', 0)
+                total_cost_usd += structured_cost
             elif is_anthropic and len(conversation_history) > 0:
-                structured_result = await self.generate_claude_structured_output(message, conversation_history, client, model)
+                structured_result, structured_tokens, structured_cost = await self.generate_claude_structured_output(message, conversation_history, client, structured_model, selected_provider, pricing)
+                total_input_tokens += structured_tokens.get('input', 0)
+                total_output_tokens += structured_tokens.get('output', 0)
+                total_cost_usd += structured_cost
             elif is_groq:
-                structured_result = await self.generate_groq_structured_output(message, client, model)
+                structured_result, structured_tokens, structured_cost = await self.generate_groq_structured_output(message, client, structured_model, selected_provider, pricing)
+                total_input_tokens += structured_tokens.get('input', 0)
+                total_output_tokens += structured_tokens.get('output', 0)
+                total_cost_usd += structured_cost
             else:
                 # Fallback to simple response
                 structured_result = {
@@ -869,13 +1330,14 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
                     "Enhanced legal research completed with structured output"
                 )
             
-            # Return comprehensive result
+            # Return comprehensive result with token usage
             return {
                 "status": "success",
                 "legal_analysis": structured_result,
                 "model_info": {
                     "provider": selected_provider,
-                    "model_name": model,
+                    "mcp_model": mcp_model,
+                    "structured_model": structured_model,
                     "temperature": 0.6,
                     "max_tokens": 4000,
                     "structured_output": True
@@ -883,7 +1345,12 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
                 "performance": {
                     "processing_time_seconds": round(processing_time, 2),
                     "iterations": iteration,
-                    "mcp_tools_executed": len(conversation_history)
+                    "mcp_tools_executed": len(conversation_history),
+                    "enhanced_features": {
+                        "smart_keyword_used": smart_keyword if 'smart_keyword' in locals() else None,
+                        "sources_discovered": len(discovered_sources),
+                        "5_phase_architecture": True
+                    }
                 },
                 "tools_execution": {
                     "tools_used": [h["tool"] for h in conversation_history],
@@ -891,6 +1358,12 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
                     "mcp_server": self.mcp_server_url,
                     "available_tools": len(self.available_tools),
                     "conversation_history": conversation_history
+                },
+                "token_usage": {
+                    "input_tokens": total_input_tokens,
+                    "output_tokens": total_output_tokens,
+                    "total_tokens": total_input_tokens + total_output_tokens,
+                    "total_cost_usd": round(total_cost_usd, 6)
                 }
             }
             
@@ -917,9 +1390,20 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
     
     def format_tools_for_claude(self) -> List[Dict[str, Any]]:
         """Format MCP tools for Claude tool calling."""
-        return self.available_tools  # Claude uses the same format as discovered
+        if not self.available_tools:
+            return []
+        
+        claude_tools = []
+        for tool in self.available_tools:
+            claude_tool = {
+                "name": tool["name"],
+                "description": tool["description"],
+                "input_schema": tool["input_schema"]
+            }
+            claude_tools.append(claude_tool)
+        return claude_tools
     
-    async def generate_openai_structured_output(self, message: str, conversation_history: List[Dict], client, model: str) -> Dict[str, Any]:
+    async def generate_openai_structured_output(self, message: str, conversation_history: List[Dict], client, model: str, provider: str, pricing: Dict) -> tuple[Dict[str, Any], Dict[str, int], float]:
         """Generate structured output using OpenAI's native structured output."""
         try:
             # Compile all tool results for structured analysis
@@ -959,14 +1443,31 @@ EXIGENCE CRITIQUE:
                 max_tokens=4000
             )
             
-            return structured_response.choices[0].message.parsed.model_dump()
+            # Capture token usage for structured output
+            tokens = {"input": 0, "output": 0}
+            cost = 0.0
+            
+            if hasattr(structured_response, 'usage') and structured_response.usage:
+                input_tokens = structured_response.usage.prompt_tokens
+                output_tokens = structured_response.usage.completion_tokens
+                tokens = {"input": input_tokens, "output": output_tokens}
+                
+                # Calculate cost for structured output phase
+                provider_pricing = pricing[provider]["structured"]
+                input_cost = (input_tokens / 1000000) * provider_pricing["input"]
+                output_cost = (output_tokens / 1000000) * provider_pricing["output"]
+                cost = input_cost + output_cost
+                
+                logger.info(f"🏷️ OpenAI structured output (nano): {input_tokens} input, {output_tokens} output tokens, ${cost:.4f}")
+            
+            return structured_response.choices[0].message.parsed.model_dump(), tokens, cost
             
         except Exception as e:
             logger.error(f"OpenAI structured output generation failed: {e}")
             # Return fallback structure
-            return self.get_fallback_structure()
+            return self.get_fallback_structure(), {"input": 0, "output": 0}, 0.0
     
-    async def generate_claude_structured_output(self, message: str, conversation_history: List[Dict], client, model: str) -> Dict[str, Any]:
+    async def generate_claude_structured_output(self, message: str, conversation_history: List[Dict], client, model: str, provider: str, pricing: Dict) -> tuple[Dict[str, Any], Dict[str, int], float]:
         """Generate structured output using Claude with prompt-based JSON."""
         try:
             # Compile all tool results
@@ -1039,6 +1540,23 @@ Répondez UNIQUEMENT avec le JSON valide, sans explication supplémentaire."""
                 messages=[{"role": "user", "content": structured_prompt}]
             )
             
+            # Capture token usage for structured output
+            tokens = {"input": 0, "output": 0}
+            cost = 0.0
+            
+            if hasattr(response, 'usage') and response.usage:
+                input_tokens = response.usage.input_tokens
+                output_tokens = response.usage.output_tokens
+                tokens = {"input": input_tokens, "output": output_tokens}
+                
+                # Calculate cost for structured output phase
+                provider_pricing = pricing[provider]["structured"]
+                input_cost = (input_tokens / 1000000) * provider_pricing["input"]
+                output_cost = (output_tokens / 1000000) * provider_pricing["output"]
+                cost = input_cost + output_cost
+                
+                logger.info(f"🏷️ Claude structured output (haiku): {input_tokens} input, {output_tokens} output tokens, ${cost:.4f}")
+            
             # Extract text content
             response_text = ""
             for content_block in response.content:
@@ -1049,16 +1567,16 @@ Répondez UNIQUEMENT avec le JSON valide, sans explication supplémentaire."""
             try:
                 parsed_json = json.loads(response_text)
                 validated = LegalAnalysisResponse.model_validate(parsed_json)
-                return validated.model_dump()
+                return validated.model_dump(), tokens, cost
             except (json.JSONDecodeError, Exception) as e:
                 logger.error(f"Claude JSON parsing failed: {e}")
-                return self.get_fallback_structure()
+                return self.get_fallback_structure(), tokens, cost
                 
         except Exception as e:
             logger.error(f"Claude structured output generation failed: {e}")
-            return self.get_fallback_structure()
+            return self.get_fallback_structure(), {"input": 0, "output": 0}, 0.0
     
-    async def generate_groq_structured_output(self, message: str, client, model: str) -> Dict[str, Any]:
+    async def generate_groq_structured_output(self, message: str, client, model: str, provider: str, pricing: Dict) -> tuple[Dict[str, Any], Dict[str, int], float]:
         """Generate structured output using Groq with prompt-based JSON."""
         try:
             structured_prompt = f"""Question: {message}
@@ -1090,20 +1608,37 @@ Répondez UNIQUEMENT avec le JSON valide."""
                 max_tokens=4000
             )
             
+            # Capture token usage for structured output
+            tokens = {"input": 0, "output": 0}
+            cost = 0.0
+            
+            if hasattr(response, 'usage') and response.usage:
+                input_tokens = response.usage.prompt_tokens
+                output_tokens = response.usage.completion_tokens
+                tokens = {"input": input_tokens, "output": output_tokens}
+                
+                # Calculate cost for structured output phase
+                provider_pricing = pricing[provider]["structured"]
+                input_cost = (input_tokens / 1000000) * provider_pricing["input"]
+                output_cost = (output_tokens / 1000000) * provider_pricing["output"]
+                cost = input_cost + output_cost
+                
+                logger.info(f"🏷️ Groq structured output: {input_tokens} input, {output_tokens} output tokens, ${cost:.4f}")
+            
             response_text = response.choices[0].message.content
             
             # Parse and validate JSON
             try:
                 parsed_json = json.loads(response_text)
                 validated = LegalAnalysisResponse.model_validate(parsed_json)
-                return validated.model_dump()
+                return validated.model_dump(), tokens, cost
             except (json.JSONDecodeError, Exception) as e:
                 logger.error(f"Groq JSON parsing failed: {e}")
-                return self.get_fallback_structure()
+                return self.get_fallback_structure(), tokens, cost
                 
         except Exception as e:
             logger.error(f"Groq structured output generation failed: {e}")
-            return self.get_fallback_structure()
+            return self.get_fallback_structure(), {"input": 0, "output": 0}, 0.0
     
     def get_fallback_structure(self) -> Dict[str, Any]:
         """Return fallback structure when structured output fails."""

@@ -1,0 +1,868 @@
+{
+  "Citations Query (Fixed BIND)": {
+    "success": true,
+    "results": [
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2025/03/31/a118/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 31 mars 2025 relative \u00e0 l\u2019\u00e9tablissement de r\u00e9seaux de transport d\u2019hydrog\u00e8ne."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-03-31"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "inbound"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2025/03/25/a113/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 25 mars 2025 modifiant le Code du travail en vue de la transposition de la directive (UE) 2019/2121 du Parlement europ\u00e9en et du Conseil du 27 novembre 2019 modifiant la directive (UE) 2017/1132 en ce qui concerne les transformations, fusions et scissions transfrontali\u00e8res."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-03-25"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "inbound"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2024/07/15/b2846/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 15 juillet 2024 portant fixation des audiences des juridictions judiciaires pendant l\u2019ann\u00e9e judiciaire 2024-2025."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-07-15"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "inbound"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/pa/2024/05/21/b2239/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Post Luxembourg - \u00c9tablissement public - Comptes annuels et Comptes consolid\u00e9s pour l'exercice clos au 31 d\u00e9cembre 2023."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-05-21"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/PA"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "inbound"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2024/03/29/a136/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 29 mars 2024 portant :\\n1\u00b0 transposition de la directive (UE) 2021/2118 du Parlement europ\u00e9en et du Conseil du 24 novembre 2021 modifiant la directive 2009/103/CE concernant l\u2019assurance de la responsabilit\u00e9 civile r\u00e9sultant de la circulation de v\u00e9hicules automoteurs et le contr\u00f4le de l\u2019obligation d\u2019assurer cette responsabilit\u00e9 ; et\\n2\u00b0 modification de :\\na) la loi modifi\u00e9e du 16 avril 2003 relative \u00e0 l\u2019assurance obligatoire de la responsabilit\u00e9 civile en mati\u00e8re de v\u00e9hicules automoteurs ;\\nb) la loi modifi\u00e9e du 7 d\u00e9cembre 2015 sur le secteur des assurances ;\\nc) la loi modifi\u00e9e du 15 mars 2016 relative aux produits d\u00e9riv\u00e9s de gr\u00e9 \u00e0 gr\u00e9, aux contreparties centrales et aux r\u00e9f\u00e9rentiels centraux et modifiant diff\u00e9rentes lois relatives aux services financiers.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-03-29"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "inbound"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rmin/2023/09/20/a606/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement minist\u00e9riel du 20 septembre 2023 modifiant le R\u00e8glement minist\u00e9riel du 27 mai 2016 portant fixation des crit\u00e8res de pr\u00e9sentation et de forme des documents destin\u00e9s \u00e0 la publication au Recueil \u00e9lectronique des soci\u00e9t\u00e9s et associations."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-09-20"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RMIN"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "inbound"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/08/23/a545/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 23 ao\u00fbt 2023 relative au vivre ensemble interculturel et modifiant la loi modifi\u00e9e du 8 mars 2017 sur la nationalit\u00e9 luxembourgeoise."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-08-23"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "inbound"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/07/26/a552/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 26 juillet 2023 portant modification de la loi modifi\u00e9e du 2 septembre 2011 r\u00e9glementant l\u2019acc\u00e8s aux professions d\u2019artisan, de commer\u00e7ant, d\u2019industriel ainsi qu\u2019\u00e0 certaines professions lib\u00e9rales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-07-26"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "inbound"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/07/21/a442/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 21 juillet 2023 portant modification de :\\n1\u00b0 la loi modifi\u00e9e du 15 juin 2004 relative \u00e0 la soci\u00e9t\u00e9 d\u2019investissement en capital \u00e0 risque (SICAR) ;\\n2\u00b0 la loi modifi\u00e9e du 13 f\u00e9vrier 2007 relative aux fonds d\u2019investissement sp\u00e9cialis\u00e9s ;\\n3\u00b0 la loi modifi\u00e9e du 17 d\u00e9cembre 2010 concernant les organismes de placement collectif ;\\n4\u00b0 la loi modifi\u00e9e du 12 juillet 2013 relative aux gestionnaires de fonds d\u2019investissement alternatifs ;\\n5\u00b0 la loi modifi\u00e9e du 23 juillet 2016 relative aux fonds d\u2019investissement alternatifs r\u00e9serv\u00e9s.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-07-21"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "inbound"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/adm/amin/2023/07/13/b2296/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Arr\u00eat\u00e9 minist\u00e9riel du 13 juillet 2023 portant fixation des audiences des juridictions judiciaires pendant l\u2019ann\u00e9e judiciaire 2023-2024."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-07-13"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/AMIN"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "inbound"
+        }
+      }
+    ],
+    "count": 10,
+    "execution_time": 0.11652803421020508
+  },
+  "Amendments Query (Fixed BIND)": {
+    "success": true,
+    "results": [
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2025/02/17/a67/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 17 f\u00e9vrier 2025 modifiant :\\n1\u00b0 la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n2\u00b0 la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises,\\naux fins de transposition de la directive (UE) 2019/2121 du Parlement europ\u00e9en et du Conseil du 27 novembre 2019 modifiant la directive (UE) 2017/1132 en ce qui concerne les transformations, fusions et scissions transfrontali\u00e8res.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-02-17"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "incoming"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/2024/10/25/a448/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement grand-ducal du 25 octobre 2024 portant modification :\\n1\u00b0 de l\u2019article 1711-4 de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n2\u00b0 des articles 35 et 47 de la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises,\\nen vue de la transposition de la directive d\u00e9l\u00e9gu\u00e9e (UE) 2023/2775 de la Commission du 17 octobre 2023 modifiant la directive n\u00b0 2013/34/UE du Parlement europ\u00e9en et du Conseil en ce qui concerne l\u2019ajustement des crit\u00e8res de taille pour les micro-, petites, moyennes et grandes entreprises ou pour les groupes.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2024-10-25"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RGD"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "incoming"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/08/15/a532/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 15 ao\u00fbt 2023 portant transposition de la directive (UE) 2021/2101 du Parlement europ\u00e9en et du Conseil du 24 novembre 2021 modifiant la directive 2013/34/UE en ce qui concerne la communication, par certaines entreprises et succursales, d\u2019informations relatives \u00e0 l\u2019imp\u00f4t sur les revenus des soci\u00e9t\u00e9s et portant modification :\\n1\u00b0 de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n2\u00b0 de la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-08-15"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "incoming"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/08/07/a521/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 7 ao\u00fbt 2023 relative \u00e0 la pr\u00e9servation des entreprises et portant modernisation du droit de la faillite, modifiant :\\n1\u00b0 le livre III du Code de commerce ;\\n2\u00b0 le livre II, titre IX, chapitre II, section I\u00e8re du Code p\u00e9nal ;\\n3\u00b0 les articles 257 et 555 du Nouveau Code de Proc\u00e9dure civile ;\\n4\u00b0 la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n5\u00b0 la loi uniforme modifi\u00e9e sur les lettres de change et billets \u00e0 ordre, telle qu\u2019elle a \u00e9t\u00e9 introduite dans la l\u00e9gislation nationale par la loi du 8 janvier 1962 ;\\n6\u00b0 la loi modifi\u00e9e du 7 juillet 1971 portant, en mati\u00e8re r\u00e9pressive et administrative, institution d\u2019experts, de traducteurs et d\u2019interpr\u00e8tes, de conciliateurs d\u2019entreprise et mandataires de justice asserment\u00e9s et compl\u00e9tant les dispositions l\u00e9gales relatives \u00e0 l\u2019assermentation des experts, traducteurs et interpr\u00e8tes ;\\n7\u00b0 la loi modifi\u00e9e du 23 juillet 1991 ayant pour objet de r\u00e9glementer les activit\u00e9s de sous-traitance ;\\n8\u00b0 la loi modifi\u00e9e du 8 juin 1999 sur le budget, la comptabilit\u00e9 et la tr\u00e9sorerie de l\u2019\u00c9tat ;\\n9\u00b0 la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises ;\\n10\u00b0 la loi modifi\u00e9e du 5 ao\u00fbt 2005 sur les contrats de garantie financi\u00e8re.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-08-07"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "incoming"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/08/07/a515/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 7 ao\u00fbt 2023 portant modification :\\n1 \u00b0 de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n2 \u00b0 de la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises ;\\n3 \u00b0 de la loi modifi\u00e9e du 24 mai 2011 concernant l\u2019exercice de certains droits des actionnaires aux assembl\u00e9es g\u00e9n\u00e9rales de soci\u00e9t\u00e9s cot\u00e9es et portant transposition de la directive 2007/36/CE du Parlement europ\u00e9en et du Conseil du 11 juillet 2007 concernant l\u2019exercice de certains droits des actionnaires de soci\u00e9t\u00e9s cot\u00e9es ;\\n4 \u00b0 du Code civil.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-08-07"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "incoming"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2023/07/07/a413/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 7 juillet 2023 portant modification :\\n1\u00b0 du Code civil ;\\n2\u00b0 de la loi modifi\u00e9e du 9 d\u00e9cembre 1976 relative \u00e0 l\u2019organisation du notariat ;\\n3\u00b0 de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales ;\\n4\u00b0 de la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises,\\n\\nen vue de la transposition de la directive (UE) 2019/1151 du Parlement europ\u00e9en et du Conseil du 20 juin 2019 modifiant la directive (UE) 2017/1132 en ce qui concerne l\u2019utilisation d\u2019outils et de processus num\u00e9riques en droit des soci\u00e9t\u00e9s.\\n"
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2023-07-07"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "incoming"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2021/08/06/a607/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 6 ao\u00fbt 2021 portant modification de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2021-08-06"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "incoming"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2016/08/10/n1/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 10 ao\u00fbt 2016 portant modernisation de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales et modification du Code civil et de la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2016-08-10"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "incoming"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2016/07/23/n19/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 23 juillet 2016 concernant la publication d'informations non financi\u00e8res et d'informations relatives \u00e0 la diversit\u00e9 par certaines grandes entreprises et certains groupes et portant modification de diverses dispositions relatives \u00e0 la comptabilit\u00e9 et aux comptes annuels des entreprises ainsi qu'aux comptes consolid\u00e9s de certaines formes de soci\u00e9t\u00e9s et - portant transposition de la directive 2014/95/UE du Parlement europ\u00e9en et du Conseil du 22 octobre 2014 modifiant la directive 2013/34/UE en ce qui concerne la publication d'informations non financi\u00e8res et d'informations relatives \u00e0 la diversit\u00e9 par certaines grandes entreprises et certains groupes; - portant modification: - du titre II de la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises; - de la section XVI de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales; - de la loi modifi\u00e9e du 8 d\u00e9cembre 1994 relative: * aux comptes annuels et comptes consolid\u00e9s des entreprises d'assurances et de r\u00e9assurances de droit luxembourgeois * aux obligations en mati\u00e8re d'\u00e9tablissement et de publicit\u00e9 des documents comptables des succursales d'entreprises d'assurances de droit \u00e9tranger."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2016-07-23"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "incoming"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2016/07/23/n20/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 23 juillet 2016 modifiant, en vue d'instituer la soci\u00e9t\u00e9 \u00e0 responsabilit\u00e9 limit\u00e9e simplifi\u00e9e:\\n 1. la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales; et\\n 2. la loi modifi\u00e9e du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2016-07-23"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        },
+        "direction": {
+          "type": "literal",
+          "value": "incoming"
+        }
+      }
+    ],
+    "count": 10,
+    "execution_time": 0.09206199645996094
+  },
+  "Legal Status Query (Fixed BIND)": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.1313929557800293
+  },
+  "Relationships Query (Fixed BIND)": {
+    "success": true,
+    "results": [
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/2025/04/10/a140/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "R\u00e8glement grand-ducal du 10 avril 2025 portant modification du r\u00e8glement grand-ducal modifi\u00e9 du 23 janvier 2003 portant ex\u00e9cution de la loi du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises, aux fins de transposition de la directive (UE) 2019/2121 du Parlement europ\u00e9en et du Conseil du 27 novembre 2019 modifiant la directive (UE) 2017/1132 en ce qui concerne les transformations, fusions et scissions transfrontali\u00e8res."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2025-04-10"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RGD"
+        },
+        "relType": {
+          "type": "literal",
+          "value": "implements"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/2016/12/23/n37/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "R\u00e8glement grand-ducal du 23 d\u00e9cembre 2016 modifiant le r\u00e8glement grand-ducal modifi\u00e9 du 23 janvier 2003 portant ex\u00e9cution de la loi du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2016-12-23"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RGD"
+        },
+        "relType": {
+          "type": "literal",
+          "value": "implements"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/1994/12/23/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "R\u00e8glement grand-ducal du 23 d\u00e9cembre 1994 modifiant le r\u00e8glement grand-ducal du 9 janvier 1961 relatif aux trois recueils du M\u00e9morial."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1994-12-23"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RGD"
+        },
+        "relType": {
+          "type": "literal",
+          "value": "implements"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/1992/12/28/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "R\u00e8glement grand-ducal du 28 d\u00e9cembre 1992 prorogeant l'autorisation de l'exploitation de la banque de donn\u00e9es des soci\u00e9t\u00e9s et associations pour le compte du Minist\u00e8re d'Etat, Service Central de L\u00e9gislation (ME.SOC)."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1992-12-28"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RGD"
+        },
+        "relType": {
+          "type": "literal",
+          "value": "implements"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/1987/04/26/n8/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "R\u00e8glement grand-ducal du 26 avril 1987 modifiant l'arr\u00eat\u00e9 grand-ducal du 23 d\u00e9cembre 1909 concernant l'ex\u00e9cution de la loi du m\u00eame jour sur le registre de commerce et des soci\u00e9t\u00e9s."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1987-04-26"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RGD"
+        },
+        "relType": {
+          "type": "literal",
+          "value": "implements"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/1985/01/30/n7/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "R\u00e8glement grand-ducal du 30 janvier 1985 portant modification des montants pr\u00e9vus aux articles 215 et 231 de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1985-01-30"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RGD"
+        },
+        "relType": {
+          "type": "literal",
+          "value": "implements"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/1984/06/29/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "R\u00e8glement grand-ducal du 29 juin 1984 d\u00e9terminant le sch\u00e9ma, selon lequel les soci\u00e9t\u00e9s de participation financi\u00e8re doivent \u00e9tablir leurs comptes annuels."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1984-06-29"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RGD"
+        },
+        "relType": {
+          "type": "literal",
+          "value": "implements"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/1983/12/24/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "R\u00e8glement grand-ducal du 24 d\u00e9cembre 1983 modifiant le r\u00e8glement grand-ducal modifi\u00e9 du 23 novembre 1972 relatif au d\u00e9p\u00f4t et \u00e0 la publication des actes et documents concernant les soci\u00e9t\u00e9s commerciales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1983-12-24"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RGD"
+        },
+        "relType": {
+          "type": "literal",
+          "value": "implements"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/1980/12/20/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "R\u00e8glement grand-ducal du 20 d\u00e9cembre 1980 autorisant la cr\u00e9ation et l'exploitation d'une banque de donn\u00e9es nominatives pour le compte du Minist\u00e8re d'Etat, Service Central de L\u00e9gislation."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1980-12-20"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RGD"
+        },
+        "relType": {
+          "type": "literal",
+          "value": "implements"
+        }
+      },
+      {
+        "neighbor": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/rgd/1975/06/12/n2/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "R\u00e8glement grand-ducal du 12 juin 1975 modifiant l'article 10 du r\u00e8glement grand-ducal du 23 novembre 1972 relatif au d\u00e9p\u00f4t et \u00e0 la publication des actes et documents concernant les soci\u00e9t\u00e9s commerciales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1975-06-12"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/RGD"
+        },
+        "relType": {
+          "type": "literal",
+          "value": "implements"
+        }
+      }
+    ],
+    "count": 10,
+    "execution_time": 0.10166192054748535
+  },
+  "Foundation Citation Analysis": {
+    "success": true,
+    "results": [
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1915/08/10/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1915-08-10"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "146"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/1998/08/03/n10/jo"
+        },
+        "title": {
+          "type": "literal",
+          "xml:lang": "fr",
+          "value": "Loi du 3 ao\u00fbt 1998 instituant des r\u00e9gimes de pension sp\u00e9ciaux pour les fonctionnaires de l'Etat et des communes ainsi que pour les agents de la Soci\u00e9t\u00e9 nationale des Chemins de Fer luxembourgeois."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1998-08-03"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "83"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2002/12/19/n1/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 19 d\u00e9cembre 2002 concernant le registre de commerce et des soci\u00e9t\u00e9s ainsi que la comptabilit\u00e9 et les comptes annuels des entreprises et modifiant certaines autres dispositions l\u00e9gales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2002-12-19"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "82"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2016/07/23/n8/jo"
+        },
+        "title": {
+          "type": "literal",
+          "value": "Loi du 23 juillet 2016 relative \u00e0 la profession de l\u2019audit portant: - transposition de la directive 2014/56/UE du Parlement europ\u00e9en et du Conseil du 16 avril 2014 modifiant la directive 2006/43/CE concernant les contr\u00f4les l\u00e9gaux des comptes annuels et des comptes consolid\u00e9s; - mise en oeuvre du r\u00e8glement (UE) n\u00b0 537/2014 du Parlement europ\u00e9en et du Conseil du 16 avril 2014 relatif aux exigences sp\u00e9cifiques applicables au contr\u00f4le l\u00e9gal des comptes des entit\u00e9s d\u2019int\u00e9r\u00eat public et abrogeant la d\u00e9cision 2005/909/CE de la Commission; - modification de la loi modifi\u00e9e du 13 juillet 2005 relative aux institutions de retraite professionnelle sous forme de sepcav et assep; - modification de la loi modifi\u00e9e du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales; - abrogation de la loi modifi\u00e9e du 18 d\u00e9cembre 2009 relative \u00e0 la profession de l\u2019audit."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2016-07-23"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "40"
+        }
+      },
+      {
+        "cited_doc": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/eli/etat/leg/loi/2015/03/25/n5/jo"
+        },
+        "title": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#string",
+          "value": "Loi du 25 mars 2015 instituant un r\u00e9gime de pension sp\u00e9cial transitoire pour les fonctionnaires de l'Etat et des communes ainsi que pour les agents de la Soci\u00e9t\u00e9 nationale des Chemins de Fer luxembourgeois."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "2015-03-25"
+        },
+        "citation_count": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+          "value": "27"
+        }
+      }
+    ],
+    "count": 5,
+    "execution_time": 0.22060418128967285
+  },
+  "Basic Document Search": {
+    "success": true,
+    "results": [
+      {
+        "title": {
+          "type": "literal",
+          "value": "Loi du 10 ao\u00fbt 1915 concernant les soci\u00e9t\u00e9s commerciales."
+        },
+        "date": {
+          "type": "typed-literal",
+          "datatype": "http://www.w3.org/2001/XMLSchema#date",
+          "value": "1915-08-10"
+        },
+        "type": {
+          "type": "uri",
+          "value": "http://data.legilux.public.lu/resource/authority/resource-type/LOI"
+        }
+      }
+    ],
+    "count": 1,
+    "execution_time": 0.06947612762451172
+  },
+  "Simple Document Search": {
+    "success": true,
+    "results": [],
+    "count": 0,
+    "execution_time": 0.2768118381500244
+  }
+}

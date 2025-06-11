@@ -1,7 +1,7 @@
 {
     "architecture": "2-function-serverless",
-    "api_url": "https://m52zg664qi.execute-api.eu-west-2.amazonaws.com/prod",
-    "api_key": "4MAHrrMtOl1F6mDL0gOT6489icQCichGBfUBzN3h",
+    "api_url": "https://9qk0qci3t8.execute-api.eu-west-2.amazonaws.com/prod",
+    "api_key": "lB5pVDyMEyPKLzZukJHQ127cI6WMLZe7BL8jdGja",
     "functions": {
         "api_handler": "luxembourg-legal-assistant-api",
         "job_processor": "luxembourg-legal-assistant-processor"
@@ -11,11 +11,11 @@
         "processor": "337909771594.dkr.ecr.eu-west-2.amazonaws.com/luxembourg-legal-assistant-processor-lambda"
     },
     "endpoints": {
-        "chat": "https://m52zg664qi.execute-api.eu-west-2.amazonaws.com/prod/chat",
-        "tools": "https://m52zg664qi.execute-api.eu-west-2.amazonaws.com/prod/tools",
-        "health": "https://m52zg664qi.execute-api.eu-west-2.amazonaws.com/prod/health",
-        "job_status": "https://m52zg664qi.execute-api.eu-west-2.amazonaws.com/prod/job/{job_id}",
-        "job_result": "https://m52zg664qi.execute-api.eu-west-2.amazonaws.com/prod/job/{job_id}/result"
+        "chat": "https://9qk0qci3t8.execute-api.eu-west-2.amazonaws.com/prod/chat",
+        "tools": "https://9qk0qci3t8.execute-api.eu-west-2.amazonaws.com/prod/tools",
+        "health": "https://9qk0qci3t8.execute-api.eu-west-2.amazonaws.com/prod/health",
+        "job_status": "https://9qk0qci3t8.execute-api.eu-west-2.amazonaws.com/prod/job/{job_id}",
+        "job_result": "https://9qk0qci3t8.execute-api.eu-west-2.amazonaws.com/prod/job/{job_id}/result"
     },
     "providers": {
         "groq": {

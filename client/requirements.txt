@@ -1,5 +1,0 @@
-# Luxembourg Legal Intelligence Client Requirements
-anthropic>=0.40.0
-groq>=0.4.0
-fastmcp>=2.5.1
-python-dotenv>=1.0.0

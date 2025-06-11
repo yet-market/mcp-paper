@@ -1,0 +1,5 @@
+# Foundation Discovery Client Requirements
+openai>=1.0.0
+fastmcp>=2.5.1
+python-dotenv>=1.0.0
+pydantic>=2.0.0

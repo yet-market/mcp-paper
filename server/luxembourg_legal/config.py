@@ -4,7 +4,7 @@ Configuration settings for Luxembourg Legal Intelligence MCP Server
 
 import logging
 import sys
-from SPARQLWrapper import SPARQLWrapper, JSON
+from SPARQLWrapper import SPARQLWrapper, JSON, POST
 
 
 class Config:
@@ -24,7 +24,7 @@ class Config:
     MAX_SEARCH_LIMIT = 100
     
     # Logging Configuration
-    LOG_LEVEL = logging.INFO
+    LOG_LEVEL = logging.DEBUG
     LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
 
@@ -41,5 +41,11 @@ def initialize_sparql(endpoint: str = None) -> SPARQLWrapper:
     """Initialize SPARQL connection."""
     endpoint = endpoint or Config.SPARQL_ENDPOINT
     sparql = SPARQLWrapper(endpoint)
+    # Set User-Agent header to identify requests and suppress SPARQLWrapper warnings
+    import os
+    user_agent = os.getenv("USER_AGENT", "mcp-legilux-server/1.0")
+    sparql.addCustomHttpHeader("User-Agent", user_agent)
+    # Use POST to preserve special characters (e.g., '+' in arithmetic) in the SPARQL query
+    sparql.setMethod(POST)
     sparql.setReturnFormat(JSON)
     return sparql
