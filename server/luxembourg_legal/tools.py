@@ -1,6 +1,7 @@
 """
 MCP Tools for Luxembourg Legal Intelligence - Streamlined Workflow.
 Simple, focused tools following the proven foundation discovery workflow.
+Updated to return data matching Pydantic model field names for structured JSON output.
 """
 
 import logging
@@ -13,22 +14,24 @@ logger = logging.getLogger(__name__)
 
 
 class LuxembourgLegalTools:
-    """Streamlined legal discovery workflow tools."""
+    """Streamlined legal discovery workflow tools with structured JSON responses."""
 
     def __init__(self, sparql: SPARQLWrapper):
         """Initialize tools with SPARQL connection."""
         self.sparql = sparql
+        # Initialize content processor for extraction
+        try:
+            from .content_processor import ContentProcessor
+            self.content_processor = ContentProcessor()
+            logger.info("✅ Content processor initialized for document extraction")
+        except ImportError as e:
+            logger.warning(f"⚠️ Content processor not available: {e}")
+            self.content_processor = None
 
     def find_most_cited_laws(self, keywords: List[str], limit: int = 10) -> Dict[str, Any]:
         """
         STEP 1A: Find laws that other laws reference a lot = important foundational laws.
-
-        Args:
-            keywords: Search terms (e.g., ["société", "commercial"])
-            limit: Maximum results to return
-
-        Returns:
-            Most cited laws with citation counts and metadata
+        Returns data matching CitedLawItem model.
         """
         logger.info(f"📚 FINDING MOST CITED LAWS: {keywords}")
 
@@ -58,13 +61,12 @@ class LuxembourgLegalTools:
 
             laws = []
             for b in results.get("results", {}).get("bindings", []):
+                # Return data exactly matching the SPARQL query field names
                 laws.append({
-                    "uri": b["cited_doc"]["value"],
+                    "cited_doc": b["cited_doc"]["value"],
                     "title": b["title"]["value"],
                     "date": b["date"]["value"],
-                    "citation_count": int(b["citation_count"]["value"]),
-                    "discovery_method": "most_cited",
-                    "importance_score": int(b["citation_count"]["value"]) * 10  # Higher citations = more important
+                    "citation_count": int(b["citation_count"]["value"])
                 })
 
             logger.info(f"✅ Found {len(laws)} most cited laws")
@@ -78,18 +80,12 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Citation analysis failed: {e}")
-            return {"error": f"Citation analysis failed: {e}", "success": False}
+            return {"error": f"Citation analysis failed: {e}", "success": False, "laws": [], "keywords": keywords, "method": "citation_analysis", "total_found": 0}
 
     def find_most_changed_laws(self, keywords: List[str], limit: int = 10) -> Dict[str, Any]:
         """
         STEP 1B: Find laws that get updated frequently = active/important laws.
-
-        Args:
-            keywords: Search terms (e.g., ["société", "commercial"])
-            limit: Maximum results to return
-
-        Returns:
-            Most modified laws with modification counts and metadata
+        Returns data matching ModifiedLawItem model.
         """
         logger.info(f"🔄 FINDING MOST CHANGED LAWS: {keywords}")
 
@@ -119,13 +115,12 @@ class LuxembourgLegalTools:
 
             laws = []
             for b in results.get("results", {}).get("bindings", []):
+                # Return data exactly matching the SPARQL query field names
                 laws.append({
-                    "uri": b["modified_doc"]["value"],
+                    "modified_doc": b["modified_doc"]["value"],
                     "title": b["title"]["value"],
                     "date": b["date"]["value"],
-                    "modification_count": int(b["modification_count"]["value"]),
-                    "discovery_method": "most_modified",
-                    "importance_score": int(b["modification_count"]["value"]) * 5  # More modifications = more active
+                    "modification_count": int(b["modification_count"]["value"])
                 })
 
             logger.info(f"✅ Found {len(laws)} most changed laws")
@@ -139,18 +134,12 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Modification analysis failed: {e}")
-            return {"error": f"Modification analysis failed: {e}", "success": False}
+            return {"error": f"Modification analysis failed: {e}", "success": False, "laws": [], "keywords": keywords, "method": "modification_analysis", "total_found": 0}
 
     def find_newest_active_laws(self, keywords: List[str], limit: int = 10) -> Dict[str, Any]:
         """
         STEP 1C: Find recent laws that haven't been canceled = current legal framework.
-
-        Args:
-            keywords: Search terms (e.g., ["société", "commercial"])
-            limit: Maximum results to return
-
-        Returns:
-            Most recent active laws with dates and status
+        Returns data matching ActiveLawItem model.
         """
         logger.info(f"📅 FINDING NEWEST ACTIVE LAWS: {keywords}")
 
@@ -180,22 +169,12 @@ class LuxembourgLegalTools:
 
             laws = []
             for b in results.get("results", {}).get("bindings", []):
-                # Calculate recency score (more recent = higher score)
-                try:
-                    year = int(b["date"]["value"][:4])
-                    current_year = 2024  # Update as needed
-                    recency_score = max(0, 100 - (current_year - year))
-                except:
-                    recency_score = 0
-
+                # Return data exactly matching the SPARQL query field names
                 laws.append({
-                    "uri": b["doc"]["value"],
+                    "doc": b["doc"]["value"],
                     "title": b["title"]["value"],
                     "date": b["date"]["value"],
-                    "type": b.get("type_doc", {}).get("value", ""),
-                    "discovery_method": "newest_active",
-                    "legal_status": "active",
-                    "importance_score": recency_score
+                    "type_doc": b.get("type_doc", {}).get("value", None)
                 })
 
             logger.info(f"✅ Found {len(laws)} newest active laws")
@@ -209,18 +188,12 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Active laws analysis failed: {e}")
-            return {"error": f"Active laws analysis failed: {e}", "success": False}
+            return {"error": f"Active laws analysis failed: {e}", "success": False, "laws": [], "keywords": keywords, "method": "recency_analysis", "total_found": 0}
 
     def find_highest_authority_laws(self, keywords: List[str], limit: int = 10) -> Dict[str, Any]:
         """
         STEP 1D: Find LOI and CODE documents = most powerful legal authority.
-
-        Args:
-            keywords: Search terms (e.g., ["société", "commercial"])
-            limit: Maximum results to return
-
-        Returns:
-            Highest authority laws (LOI/CODE) with authority rankings
+        Returns data matching HighestAuthorityLawItem model.
         """
         logger.info(f"⚖️ FINDING HIGHEST AUTHORITY LAWS: {keywords}")
 
@@ -250,24 +223,12 @@ class LuxembourgLegalTools:
 
             laws = []
             for b in results.get("results", {}).get("bindings", []):
-                doc_type = b.get("type_doc", {}).get("value", "").upper()
-
-                # Calculate authority score
-                if "CODE" in doc_type:
-                    authority_score = 100  # Codes are highest authority
-                elif "LOI" in doc_type:
-                    authority_score = 80   # Laws are high authority
-                else:
-                    authority_score = 60   # Other qualifying documents
-
+                # Return data exactly matching the SPARQL query field names
                 laws.append({
-                    "uri": b["doc"]["value"],
+                    "doc": b["doc"]["value"],
                     "title": b["title"]["value"],
                     "date": b["date"]["value"],
-                    "type": doc_type,
-                    "discovery_method": "highest_authority",
-                    "authority_level": "CODE" if "CODE" in doc_type else "LOI",
-                    "importance_score": authority_score
+                    "type_doc": b["type_doc"]["value"]
                 })
 
             logger.info(f"✅ Found {len(laws)} highest authority laws")
@@ -281,17 +242,12 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Authority analysis failed: {e}")
-            return {"error": f"Authority analysis failed: {e}", "success": False}
+            return {"error": f"Authority analysis failed: {e}", "success": False, "laws": [], "keywords": keywords, "method": "authority_analysis", "total_found": 0}
 
     def compare_results(self, result_sets: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
         STEP 2: Compare results from multiple discovery methods to find overlaps and rank importance.
-
-        Args:
-            result_sets: List of results from the 4 discovery methods
-
-        Returns:
-            Consolidated results showing which laws appear in multiple methods
+        Returns data matching CompareResultsResponse model.
         """
         logger.info(f"🔍 COMPARING RESULTS from {len(result_sets)} methods")
 
@@ -308,7 +264,20 @@ class LuxembourgLegalTools:
                 method_names.append(method)
 
                 for law in result_set.get("laws", []):
-                    uri = law["uri"]
+                    # Extract URI from different field names based on the method
+                    uri = None
+                    if "cited_doc" in law:
+                        uri = law["cited_doc"]
+                    elif "modified_doc" in law:
+                        uri = law["modified_doc"]
+                    elif "doc" in law:
+                        uri = law["doc"]
+                    elif "uri" in law:
+                        uri = law["uri"]
+                    
+                    if not uri:
+                        continue
+
                     if uri not in all_laws:
                         all_laws[uri] = {
                             "uri": uri,
@@ -322,13 +291,17 @@ class LuxembourgLegalTools:
 
                     # Add this discovery method
                     all_laws[uri]["discovery_methods"].append(method)
-                    all_laws[uri]["importance_scores"].append(law.get("importance_score", 0))
+                    
+                    # Calculate importance score based on the method
+                    if "citation_count" in law:
+                        score = law["citation_count"] * 10
+                    elif "modification_count" in law:
+                        score = law["modification_count"] * 5
+                    else:
+                        score = 10  # Base score for other methods
+                    
+                    all_laws[uri]["importance_scores"].append(score)
                     all_laws[uri]["method_count"] = len(all_laws[uri]["discovery_methods"])
-
-                    # Copy additional metadata from first occurrence
-                    for key in ["type", "citation_count", "modification_count", "legal_status", "authority_level"]:
-                        if key in law and key not in all_laws[uri]:
-                            all_laws[uri][key] = law[key]
 
             # Calculate consolidated scores
             for law in all_laws.values():
@@ -374,17 +347,25 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Results comparison failed: {e}")
-            return {"error": f"Results comparison failed: {e}", "success": False}
+            return {
+                "error": f"Results comparison failed: {e}", 
+                "success": False,
+                "ranked_laws": [],
+                "multi_method_laws": [],
+                "high_confidence_laws": [],
+                "statistics": {
+                    "total_laws": 0,
+                    "multi_method_count": 0,
+                    "high_confidence_count": 0,
+                    "methods_used": [],
+                    "method_count": 0
+                }
+            }
 
     def check_connections(self, document_uris: List[str]) -> Dict[str, Any]:
         """
         STEP 2B: Check how important laws connect to each other through citations.
-
-        Args:
-            document_uris: List of URIs from the top-ranked laws
-
-        Returns:
-            Citation relationships between the important laws
+        Returns data matching CheckConnectionsResponse model.
         """
         logger.info(f"🔗 CHECKING CONNECTIONS between {len(document_uris)} laws")
 
@@ -430,22 +411,22 @@ class LuxembourgLegalTools:
                         connection_matrix[uri]["outbound"].append(cited_uri)
 
             # Find most connected laws
-            connection_counts = {}
+            connection_counts = []
             for uri in document_uris:
                 outbound_count = len(connection_matrix.get(uri, {}).get("outbound", []))
                 inbound_count = len([c for c in connections if c["to_uri"] == uri])
                 total_connections = outbound_count + inbound_count
 
-                connection_counts[uri] = {
+                connection_counts.append({
                     "uri": uri,
                     "outbound_count": outbound_count,
                     "inbound_count": inbound_count,
                     "total_connections": total_connections
-                }
+                })
 
             # Sort by total connections
-            most_connected = sorted(connection_counts.values(),
-                                    key=lambda x: x["total_connections"],
+            most_connected = sorted(connection_counts, 
+                                    key=lambda x: x["total_connections"], 
                                     reverse=True)
 
             logger.info(f"✅ Found {len(connections)} connections between important laws")
@@ -457,25 +438,30 @@ class LuxembourgLegalTools:
                 "statistics": {
                     "total_connections": len(connections),
                     "laws_analyzed": len(document_uris),
-                    "connected_laws": len([uri for uri in document_uris if connection_counts.get(uri, {}).get("total_connections", 0) > 0])
+                    "connected_laws": len([uri for uri in document_uris if any(c.get("uri") == uri and c.get("total_connections", 0) > 0 for c in connection_counts)])
                 },
                 "success": True
             }
 
         except Exception as e:
             logger.error(f"❌ Connection analysis failed: {e}")
-            return {"error": f"Connection analysis failed: {e}", "success": False}
+            return {
+                "error": f"Connection analysis failed: {e}", 
+                "success": False,
+                "connections": [],
+                "connection_matrix": {},
+                "most_connected_laws": [],
+                "statistics": {
+                    "total_connections": 0,
+                    "laws_analyzed": len(document_uris),
+                    "connected_laws": 0
+                }
+            }
 
     def find_what_law_references(self, document_uri: str, limit: int = 20) -> Dict[str, Any]:
         """
         STEP 3A: Find what this important law points to (its legal foundations).
-
-        Args:
-            document_uri: URI of the law to analyze
-            limit: Maximum references to return
-
-        Returns:
-            Laws that this document cites/references
+        Returns data matching FindWhatLawReferencesResponse model.
         """
         logger.info(f"📚 FINDING WHAT LAW REFERENCES: {document_uri}")
 
@@ -497,6 +483,7 @@ class LuxembourgLegalTools:
 
             references = []
             for b in results.get("results", {}).get("bindings", []):
+                # Map cited -> uri and add relationship field for model compatibility
                 references.append({
                     "uri": b["cited"]["value"],
                     "title": b["title"]["value"],
@@ -517,18 +504,19 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Outbound reference analysis failed: {e}")
-            return {"error": f"Outbound reference analysis failed: {e}", "success": False}
+            return {
+                "error": f"Outbound reference analysis failed: {e}", 
+                "success": False,
+                "source_document": document_uri,
+                "references": [],
+                "total_found": 0,
+                "relationship_type": "outbound_citations"
+            }
 
     def find_what_references_law(self, document_uri: str, limit: int = 20) -> Dict[str, Any]:
         """
         STEP 3B: Find what other laws point to this one (its legal impact).
-
-        Args:
-            document_uri: URI of the law to analyze
-            limit: Maximum citing laws to return
-
-        Returns:
-            Laws that cite/reference this document
+        Returns data matching FindWhatReferencesLawResponse model.
         """
         logger.info(f"🎯 FINDING WHAT REFERENCES LAW: {document_uri}")
 
@@ -550,6 +538,7 @@ class LuxembourgLegalTools:
 
             citing_laws = []
             for b in results.get("results", {}).get("bindings", []):
+                # Map citing -> uri and add relationship field for model compatibility
                 citing_laws.append({
                     "uri": b["citing"]["value"],
                     "title": b["title"]["value"],
@@ -570,18 +559,19 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Inbound citation analysis failed: {e}")
-            return {"error": f"Inbound citation analysis failed: {e}", "success": False}
+            return {
+                "error": f"Inbound citation analysis failed: {e}", 
+                "success": False,
+                "target_document": document_uri,
+                "citing_laws": [],
+                "total_found": 0,
+                "relationship_type": "inbound_citations"
+            }
 
     def find_amendment_chain(self, document_uri: str, limit: int = 20) -> Dict[str, Any]:
         """
         STEP 3C: Find how this law has changed over time (amendment history).
-
-        Args:
-            document_uri: URI of the law to analyze
-            limit: Maximum amendments to return
-
-        Returns:
-            Complete modification history of the law
+        Returns data matching FindAmendmentChainResponse model.
         """
         logger.info(f"📝 FINDING AMENDMENT CHAIN: {document_uri}")
 
@@ -615,6 +605,7 @@ class LuxembourgLegalTools:
             outgoing_amendments = []
 
             for b in results.get("results", {}).get("bindings", []):
+                # Map neighbor -> uri for model compatibility
                 amendment = {
                     "uri": b["neighbor"]["value"],
                     "title": b["title"]["value"],
@@ -648,17 +639,22 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Amendment chain analysis failed: {e}")
-            return {"error": f"Amendment chain analysis failed: {e}", "success": False}
+            return {
+                "error": f"Amendment chain analysis failed: {e}", 
+                "success": False,
+                "document_uri": document_uri,
+                "amendments": [],
+                "incoming_amendments": [],
+                "outgoing_amendments": [],
+                "activity_score": 0,
+                "total_amendments": 0,
+                "is_actively_modified": False
+            }
 
     def verify_still_valid(self, document_uris: List[str]) -> Dict[str, Any]:
         """
         STEP 4A: Make sure the laws aren't canceled/repealed.
-
-        Args:
-            document_uris: List of law URIs to check
-
-        Returns:
-            Legal status of each law (active, repealed, consolidated, etc.)
+        Returns data matching VerifyStillValidResponse model.
         """
         logger.info(f"⚖️ VERIFYING LEGAL STATUS of {len(document_uris)} laws")
 
@@ -751,17 +747,24 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Legal status verification failed: {e}")
-            return {"error": f"Legal status verification failed: {e}", "success": False}
+            return {
+                "error": f"Legal status verification failed: {e}", 
+                "success": False,
+                "law_statuses": [],
+                "valid_laws": [],
+                "invalid_laws": [],
+                "statistics": {
+                    "total_checked": 0,
+                    "valid_count": 0,
+                    "invalid_count": 0,
+                    "validity_rate": 0
+                }
+            }
 
     def rank_by_importance(self, laws_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         STEP 4B: Put all discovered laws in order of importance using multiple factors.
-
-        Args:
-            laws_data: Combined data from all previous steps
-
-        Returns:
-            Final ranking of laws by legal importance and relevance
+        Returns data matching RankByImportanceResponse model.
         """
         logger.info("🏆 RANKING LAWS BY IMPORTANCE")
 
@@ -780,10 +783,12 @@ class LuxembourgLegalTools:
                 for status in laws_data["law_statuses"]:
                     uri = status["uri"]
                     if uri in all_laws:
-                        all_laws[uri]["legal_status"] = status["legal_status"]
-                        all_laws[uri]["is_valid"] = status["is_valid"]
-                        all_laws[uri]["entry_date"] = status["entry_date"]
-                        all_laws[uri]["events"] = status["events"]
+                        all_laws[uri].update({
+                            "legal_status": status["legal_status"],
+                            "is_valid": status["is_valid"],
+                            "entry_date": status["entry_date"],
+                            "events": status["events"]
+                        })
 
             # Calculate final importance scores
             for uri, law in all_laws.items():
@@ -805,29 +810,6 @@ class LuxembourgLegalTools:
                     final_score += 150  # Found by 3+ methods
                 elif method_count >= 2:
                     final_score += 100  # Found by 2 methods
-
-                # Authority level bonus
-                authority = law.get("authority_level", "")
-                if authority == "CODE":
-                    final_score += 200  # Codes are supreme authority
-                elif authority == "LOI":
-                    final_score += 150  # Laws are high authority
-
-                # Citation importance bonus
-                citation_count = law.get("citation_count", 0)
-                if citation_count > 100:
-                    final_score += 250  # Heavily cited = foundational
-                elif citation_count > 50:
-                    final_score += 150
-                elif citation_count > 10:
-                    final_score += 75
-
-                # Modification activity bonus
-                modification_count = law.get("modification_count", 0)
-                if modification_count > 50:
-                    final_score += 100  # Very active laws
-                elif modification_count > 20:
-                    final_score += 50
 
                 # Legal status specific adjustments
                 status = law.get("legal_status", "active")
@@ -882,7 +864,13 @@ class LuxembourgLegalTools:
                     "total_laws": total_laws,
                     "valid_laws": valid_laws,
                     "average_score": round(average_score, 1),
-                    "tier_distribution": {tier: len(laws) for tier, laws in tiers.items()},
+                    "tier_distribution": {
+                        "critical": len(tiers["critical"]),
+                        "very_high": len(tiers["very_high"]),
+                        "high": len(tiers["high"]),
+                        "medium": len(tiers["medium"]),
+                        "low": len(tiers["low"])
+                    },
                     "score_range": {
                         "highest": ranked_laws[0]["final_importance_score"] if ranked_laws else 0,
                         "lowest": ranked_laws[-1]["final_importance_score"] if ranked_laws else 0
@@ -893,18 +881,26 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Final ranking failed: {e}")
-            return {"error": f"Final ranking failed: {e}", "success": False}
+            return {
+                "error": f"Final ranking failed: {e}", 
+                "success": False,
+                "ranked_laws": [],
+                "tiers": {"critical": [], "very_high": [], "high": [], "medium": [], "low": []},
+                "top_10_laws": [],
+                "critical_laws": [],
+                "statistics": {
+                    "total_laws": 0,
+                    "valid_laws": 0,
+                    "average_score": 0,
+                    "tier_distribution": {"critical": 0, "very_high": 0, "high": 0, "medium": 0, "low": 0},
+                    "score_range": {"highest": 0, "lowest": 0}
+                }
+            }
 
     def create_final_map(self, ranked_laws: List[Dict[str, Any]], connections: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
         STEP 4C: Create complete map showing all laws and how they connect.
-
-        Args:
-            ranked_laws: Final ranked list of important laws
-            connections: Citation relationships between laws
-
-        Returns:
-            Complete legal landscape map with hierarchies and relationships
+        Returns data matching CreateFinalMapResponse model.
         """
         logger.info(f"🗺️ CREATING FINAL LEGAL MAP: {len(ranked_laws)} laws, {len(connections)} connections")
 
@@ -920,7 +916,7 @@ class LuxembourgLegalTools:
                     "law": law,
                     "cites": [],           # Laws this law cites
                     "cited_by": [],        # Laws that cite this law
-                    "authority_level": law.get("authority_level", "unknown"),
+                    "authority_level": law.get("legal_status", "unknown"),
                     "importance_tier": law.get("importance_tier", "unknown"),
                     "connection_score": 0
                 }
@@ -966,30 +962,39 @@ class LuxembourgLegalTools:
                 if not law.get("is_valid", True):
                     continue  # Skip invalid laws
 
-                authority = law.get("authority_level", "")
                 importance = law.get("importance_tier", "low")
-                citation_count = law.get("citation_count", 0)
-
-                if authority == "CODE":
+                
+                # Simple classification based on importance tier
+                if importance == "critical":
                     hierarchy["codes"].append(law)
-                elif citation_count > 50 or importance in ["critical", "very_high"]:
+                elif importance in ["very_high", "high"]:
                     hierarchy["foundational_laws"].append(law)
-                elif law.get("modification_count", 0) > 10 or importance == "high":
+                elif importance == "medium":
                     hierarchy["active_laws"].append(law)
-                elif importance in ["medium", "high"]:
-                    hierarchy["supporting_laws"].append(law)
                 else:
-                    hierarchy["historical_laws"].append(law)
+                    hierarchy["supporting_laws"].append(law)
 
             # Create network statistics
+            most_connected_raw = sorted(
+                relationship_graph.values(),
+                key=lambda x: x["connection_score"],
+                reverse=True
+            )[:5]
+
+            # Convert to serializable format
+            most_connected_laws = []
+            for node in most_connected_raw:
+                most_connected_laws.append({
+                    "uri": node["law"]["uri"],
+                    "title": node["law"]["title"],
+                    "connection_score": node["connection_score"],
+                    "centrality_role": node.get("centrality_role", "unknown")
+                })
+
             network_stats = {
                 "total_nodes": len(relationship_graph),
                 "total_connections": len(connections),
-                "most_connected_laws": sorted(
-                    relationship_graph.values(),
-                    key=lambda x: x["connection_score"],
-                    reverse=True
-                )[:5],
+                "most_connected_laws": most_connected_laws,
                 "centrality_distribution": {},
                 "authority_distribution": {},
                 "hierarchy_sizes": {level: len(laws) for level, laws in hierarchy.items()}
@@ -997,7 +1002,7 @@ class LuxembourgLegalTools:
 
             # Calculate distributions
             for node in relationship_graph.values():
-                role = node["centrality_role"]
+                role = node.get("centrality_role", "unknown")
                 network_stats["centrality_distribution"][role] = network_stats["centrality_distribution"].get(role, 0) + 1
 
                 authority = node["authority_level"]
@@ -1007,16 +1012,16 @@ class LuxembourgLegalTools:
             insights = []
 
             if hierarchy["codes"]:
-                insights.append(f"Found {len(hierarchy['codes'])} foundational codes that form the legal backbone")
+                insights.append(f"Found {len(hierarchy['codes'])} critical laws that form the legal backbone")
 
             if hierarchy["foundational_laws"]:
-                insights.append(f"Identified {len(hierarchy['foundational_laws'])} foundational laws with high citation counts")
+                insights.append(f"Identified {len(hierarchy['foundational_laws'])} foundational laws with high importance")
 
-            most_connected = network_stats["most_connected_laws"][0] if network_stats["most_connected_laws"] else None
-            if most_connected:
-                insights.append(f"Most connected law: {most_connected['law']['title'][:50]}... with {most_connected['connection_score']} connection points")
+            if most_connected_laws:
+                most_connected = most_connected_laws[0]
+                insights.append(f"Most connected law: {most_connected['title'][:50]}... with {most_connected['connection_score']} connection points")
 
-            critical_laws = len([law for law in ranked_laws if law.get("importance_tier") == "critical"])
+            critical_laws = len(hierarchy["codes"])
             if critical_laws:
                 insights.append(f"Discovered {critical_laws} critical laws that require immediate attention")
 
@@ -1025,7 +1030,12 @@ class LuxembourgLegalTools:
             return {
                 "legal_map": {
                     "hierarchy": hierarchy,
-                    "relationship_graph": relationship_graph,
+                    "relationship_graph": {uri: {
+                        "cites": node["cites"],
+                        "cited_by": node["cited_by"],
+                        "connection_score": node["connection_score"],
+                        "centrality_role": node.get("centrality_role", "unknown")
+                    } for uri, node in relationship_graph.items()},
                     "network_statistics": network_stats,
                     "insights": insights
                 },
@@ -1046,7 +1056,18 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Legal map creation failed: {e}")
-            return {"error": f"Legal map creation failed: {e}", "success": False}
+            return {
+                "error": f"Legal map creation failed: {e}", 
+                "success": False,
+                "legal_map": {
+                    "hierarchy": {"codes": [], "foundational_laws": [], "active_laws": [], "supporting_laws": [], "historical_laws": []},
+                    "relationship_graph": {},
+                    "network_statistics": {"total_nodes": 0, "total_connections": 0, "most_connected_laws": [], "centrality_distribution": {}, "authority_distribution": {}, "hierarchy_sizes": {}},
+                    "insights": []
+                },
+                "summary": {"total_laws_mapped": 0, "total_relationships": 0, "core_legal_framework": 0, "active_legal_framework": 0, "complete_coverage": 0},
+                "recommendations": {"priority_review": [], "active_monitoring": [], "reference_framework": []}
+            }
 
     def extract_content(self, document_uris: List[str], max_documents: int = Config.MAX_DOCUMENTS_PER_EXTRACTION, prefer_html: bool = Config.PREFER_HTML_EXTRACTION) -> Dict[str, Any]:
         """
@@ -1151,17 +1172,11 @@ class LuxembourgLegalTools:
         except Exception as e:
             logger.error(f"❌ Content extraction failed: {str(e)}")
             return {"error": f"Content extraction failed: {str(e)}"}
-
+        
     def basic_document_search(self, keywords: List[str], limit: int = 50) -> Dict[str, Any]:
         """
         BONUS TOOL: Simple keyword search for when you just need to find specific documents.
-
-        Args:
-            keywords: Search terms to look for in document titles
-            limit: Maximum results to return
-
-        Returns:
-            Documents matching the keywords with basic metadata
+        Returns data matching BasicDocumentSearchResponse model.
         """
         logger.info(f"🔍 BASIC DOCUMENT SEARCH: {keywords}")
 
@@ -1192,6 +1207,7 @@ class LuxembourgLegalTools:
 
             documents = []
             for b in results.get("results", {}).get("bindings", []):
+                # Map entity -> uri for model compatibility
                 documents.append({
                     "uri": b["entity"]["value"],
                     "title": b["title"]["value"],
@@ -1213,4 +1229,11 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Basic document search failed: {e}")
-            return {"error": f"Basic document search failed: {e}", "success": False}
+            return {
+                "error": f"Basic document search failed: {e}", 
+                "success": False,
+                "documents": [],
+                "total_found": 0,
+                "keywords": keywords,
+                "search_type": "basic_keyword_search"
+            }

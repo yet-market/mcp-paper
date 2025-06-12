@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Luxembourg Legal Intelligence MCP Server - Professional Edition
-Clean, modular implementation with streamlined workflow tools
+Clean, modular implementation with streamlined workflow tools and HTTP transport support
 """
 
 import argparse
@@ -113,12 +113,19 @@ def basic_document_search(keywords: List[str], limit: int = 50):
     return legal_tools.basic_document_search(keywords, limit)
 
 
+@mcp.tool(description="CONTENT: Extract full legal text content from Luxembourg documents")
+def extract_content(document_uris: List[str], max_documents: int = 3, prefer_html: bool = True):
+    """Extract real legal text from Luxembourg documents using HTML/PDF extraction."""
+    return legal_tools.extract_content(document_uris, max_documents, prefer_html)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Luxembourg Legal Intelligence MCP Server")
     parser.add_argument("--endpoint", required=True, help="SPARQL endpoint URL")
-    parser.add_argument("--transport", default="stdio", help="Transport type")
-    parser.add_argument("--host", default="localhost", help="Host to bind to")
+    parser.add_argument("--transport", default="stdio", help="Transport type: stdio, streamable-http, sse")
+    parser.add_argument("--host", default="127.0.0.1", help="Host to bind to")
     parser.add_argument("--port", type=int, default=8080, help="Port to bind to")
+    parser.add_argument("--path", default="/mcp", help="HTTP path for streamable-http transport")
 
     args = parser.parse_args()
 
@@ -126,16 +133,23 @@ if __name__ == "__main__":
     initialize_legal_tools(args.endpoint)
 
     # Run server
-    logger.info(f"🚀 Starting Luxembourg Legal Intelligence MCP Server - Streamlined Workflow Edition")
+    logger.info(f"🚀 Starting Luxembourg Legal Intelligence MCP Server - HTTP Edition")
     logger.info(f"📊 SPARQL endpoint: {args.endpoint}")
     logger.info(f"🔧 Phase 1 (Discovery): find_most_cited_laws, find_most_changed_laws, find_newest_active_laws, find_highest_authority_laws")
     logger.info(f"🔍 Phase 2 (Analysis): compare_results, check_connections")
     logger.info(f"🕸️ Phase 3 (Relationships): find_what_law_references, find_what_references_law, find_amendment_chain")
     logger.info(f"🏆 Phase 4 (Final): verify_still_valid, rank_by_importance, create_final_map")
-    logger.info(f"🎁 Bonus: basic_document_search")
+    logger.info(f"🎁 Bonus: basic_document_search, extract_content")
     logger.info(f"⚡ Simple workflow: Discovery → Analysis → Relationships → Final Map")
+    logger.info(f"🌐 Transport: {args.transport}")
 
-    if args.transport == "stdio":
-        mcp.run()
+    if args.transport == "streamable-http":
+        logger.info(f"📡 HTTP Server: http://{args.host}:{args.port}{args.path}")
+        logger.info(f"🔗 MCP Endpoint: http://{args.host}:{args.port}{args.path}")
+        mcp.run(transport="streamable-http", host=args.host, port=args.port, path=args.path)
+    elif args.transport == "sse":
+        logger.info(f"📡 SSE Server: http://{args.host}:{args.port}/sse")
+        mcp.run(transport="sse", host=args.host, port=args.port)
     else:
-        mcp.run(transport=args.transport, host=args.host, port=args.port)
+        logger.info(f"📡 STDIO transport")
+        mcp.run()

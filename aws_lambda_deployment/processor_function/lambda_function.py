@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Enhanced Job Processor Lambda Function for Luxembourg Legal Assistant
-Long-running processing with comprehensive 6-tool MCP workflow and structured output
+Long-running processing with comprehensive 13-tool MCP workflow and structured output
 """
 
 import os
@@ -240,7 +240,8 @@ class RequestTracker:
                 'structured_analysis_sections': [],
                 'legal_analysis_quality': 'unknown',
                 'citation_network_depth': 0,
-                'amendment_history_depth': 0
+                'amendment_history_depth': 0,
+                'workflow_phases_used': []
             }
         }
         
@@ -340,6 +341,20 @@ class RequestTracker:
             if amendments.get('major_changes'): sections_generated.append('historique_amendements')
             if validity.get('validity_details'): sections_generated.append('validite_legale')
             
+            # Track workflow phases used
+            tools_used = tools_execution.get('tools_used', [])
+            workflow_phases = []
+            if any(tool in ['find_most_cited_laws', 'find_most_changed_laws', 'find_newest_active_laws', 'find_highest_authority_laws'] for tool in tools_used):
+                workflow_phases.append('phase_1_discovery')
+            if any(tool in ['compare_results', 'check_connections'] for tool in tools_used):
+                workflow_phases.append('phase_2_analysis')
+            if any(tool in ['find_what_law_references', 'find_what_references_law', 'find_amendment_chain'] for tool in tools_used):
+                workflow_phases.append('phase_3_relationships')
+            if any(tool in ['verify_still_valid', 'rank_by_importance', 'create_final_map'] for tool in tools_used):
+                workflow_phases.append('phase_4_final')
+            if 'extract_content' in tools_used:
+                workflow_phases.append('content_extraction')
+            
             updates = {
                 'status': 'completed',
                 'completed_at': now,
@@ -363,12 +378,13 @@ class RequestTracker:
                 'enhanced_features.structured_analysis_sections': sections_generated,
                 'enhanced_features.legal_analysis_quality': analysis_quality,
                 'enhanced_features.citation_network_depth': citations_count,
-                'enhanced_features.amendment_history_depth': amendments_count
+                'enhanced_features.amendment_history_depth': amendments_count,
+                'enhanced_features.workflow_phases_used': workflow_phases
             }
             
             RequestTracker.update_request_progress(request_id, **updates)
             
-            logger.info(f"📊 Enhanced request {request_id} completed - Quality: {analysis_quality}, Sources: {sources_count}, Citations: {citations_count}")
+            logger.info(f"📊 Enhanced request {request_id} completed - Quality: {analysis_quality}, Sources: {sources_count}, Citations: {citations_count}, Phases: {workflow_phases}")
             
         except Exception as e:
             logger.error(f"Failed to complete enhanced request tracking {request_id}: {e}")
@@ -393,7 +409,7 @@ class RequestTracker:
 legal_client = None
 
 class EnhancedLegalIntelligenceClient:
-    """Enhanced Luxembourg Legal client with comprehensive 6-tool MCP workflow and structured output."""
+    """Enhanced Luxembourg Legal client with comprehensive 13-tool MCP workflow and structured output."""
     
     def __init__(self):
         self.mcp_server_url = os.environ.get("MCP_SERVER_URL", "https://yet-mcp-legilux.site/mcp/")
@@ -457,106 +473,71 @@ class EnhancedLegalIntelligenceClient:
         self.available_tools = []
         self._tools_discovered = False
         
-        # Enhanced system prompt for comprehensive tool usage and structured output
-        self.system_prompt = """Tu es un expert juridique spécialisé en droit luxembourgeois avec accès à un serveur MCP (Model Context Protocol). Tu as accès à 6 outils MCP que tu DOIS EXÉCUTER pour obtenir des données légales réelles.
+        # Enhanced system prompt for independent tool usage
+        self.system_prompt = """Tu es un expert juridique spécialisé en droit luxembourgeois avec accès à un serveur MCP (Model Context Protocol). Tu as accès à 13 outils MCP que tu peux utiliser de manière indépendante selon tes besoins.
 
-🚨 RÈGLE ABSOLUE: Tu DOIS exécuter les outils MCP AVANT de générer ta réponse
-Tu NE PEUX PAS répondre sans avoir d'abord exécuté les outils MCP pour obtenir des données réelles.
+🚨 RÈGLE ABSOLUE: Tu DOIS exécuter les outils MCP nécessaires AVANT de générer ta réponse
+Tu NE PEUX PAS répondre sans avoir d'abord exécuté les outils MCP appropriés pour obtenir des données réelles.
 
-🔧 OUTILS MCP DISPONIBLES QUE TU DOIS UTILISER:
-1. search_documents() - Pour trouver des documents légaux
-2. get_citations() - Pour obtenir des réseaux de citations 
-3. get_amendments() - Pour obtenir l'historique des modifications
-4. check_legal_status() - Pour vérifier le statut légal
-5. get_relationships() - Pour obtenir les relations hiérarchiques
-6. extract_content() - Pour extraire le contenu textuel
+🔧 OUTILS MCP DISPONIBLES (13 outils indépendants):
 
-🔥 WORKFLOW OBLIGATOIRE - 3 PHASES CRITIQUES:
+📚 OUTILS DE DÉCOUVERTE:
+1. find_most_cited_laws(keywords, limit) - Trouve les lois les plus citées = importantes
+2. find_most_changed_laws(keywords, limit) - Trouve les lois les plus modifiées = actives  
+3. find_newest_active_laws(keywords, limit) - Trouve les lois récentes non annulées = actuelles
+4. find_highest_authority_laws(keywords, limit) - Trouve les documents LOI/CODE = autorité suprême
+5. basic_document_search(keywords, limit) - Recherche simple par mots-clés
 
-═══════════════════════════════════════════════════════════════════════════════════════
-📍 PHASE 1: DÉCOUVERTE STRATÉGIQUE (MOTS-CLÉS UNIQUES OBLIGATOIRES)
-═══════════════════════════════════════════════════════════════════════════════════════
+🔍 OUTILS D'ANALYSE:
+6. compare_results(result_sets) - Compare les résultats de plusieurs recherches
+7. check_connections(document_uris) - Vérifie les connexions entre lois
 
-✅ search_documents(keyword) - RÈGLES STRICTES:
-   🎯 OBJECTIF: Alimenter la section "reference_sources" avec TOUS les documents pertinents
-   
-   📋 RÈGLES OBLIGATOIRES:
-   • UN SEUL MOT-CLÉ par recherche: "SARL" ✅ | "société SARL" ❌
-   • Essayez MINIMUM 3-5 mots-clés différents pour couvrir tous les aspects juridiques
-   • Priorité absolue: LOI > RGD > AMIN (ordre d'autorité légale)
-   • Collectez TOUS les URIs découverts pour les phases suivantes
-   
-   📝 EXEMPLES DE MOTS-CLÉS EFFICACES:
-   • "SARL", "société", "commercial", "entreprise", "constitution"
-   • "capital", "associé", "gérant", "assemblée", "dissolution"
-   • Selon le sujet: "travail", "fiscalité", "comptabilité", "banque"
+🕸️ OUTILS DE RELATIONS:
+8. find_what_law_references(document_uri, limit) - Ce que cette loi référence
+9. find_what_references_law(document_uri, limit) - Ce qui référence cette loi
+10. find_amendment_chain(document_uri, limit) - Historique des modifications
 
-═══════════════════════════════════════════════════════════════════════════════════════
-📍 PHASE 2: ANALYSE SYSTÉMATIQUE (OBLIGATOIRE POUR CHAQUE DOCUMENT)
-═══════════════════════════════════════════════════════════════════════════════════════
+🏆 OUTILS DE FINALISATION:
+11. verify_still_valid(document_uris) - Vérifie que les lois ne sont pas annulées
+12. rank_by_importance(laws_data) - Classe par ordre d'importance
+13. create_final_map(ranked_laws, connections) - Crée la carte complète des lois
 
-Pour CHAQUE document pertinent découvert en Phase 1, tu DOIS exécuter ces 4 outils:
+📄 OUTIL D'EXTRACTION:
+14. extract_content(document_uris, max_documents, prefer_html) - Extrait le texte légal complet
 
-✅ get_citations(uri) - RÉSEAU DE CITATIONS
-   🎯 OBJECTIF: Construire la section "citations_network" complète
-   • Découvrir TOUTES les lois qui citent ce document
-   • Découvrir TOUTES les lois citées par ce document  
-   • Identifier la hiérarchie juridique et les interconnexions
-   • Analyser la force du réseau légal
+🎯 STRATÉGIE D'UTILISATION:
 
-✅ get_amendments(uri) - HISTORIQUE COMPLET
-   🎯 OBJECTIF: Alimenter la section "historique_amendements"
-   • Tracer TOUTES les modifications historiques avec dates précises
-   • Collecter les URIs des textes modificateurs
-   • Analyser l'évolution et les tendances législatives
-   • Identifier les changements majeurs et leur impact
+✅ POUR UNE QUESTION SIMPLE:
+- Utilise 1-3 outils de découverte appropriés selon le sujet
+- Optionnellement basic_document_search pour des résultats rapides
 
-✅ check_legal_status(uri) - VALIDATION JURIDIQUE
-   🎯 OBJECTIF: Construire la section "validite_legale"
-   • Vérifier si chaque document est en vigueur/abrogé/consolidé
-   • Collecter les informations de consolidation et dates
-   • Évaluer la fiabilité juridique actuelle
-   • Identifier les versions officielles à utiliser
+✅ POUR UNE ANALYSE APPROFONDIE:
+- Commence par les outils de découverte appropriés
+- Utilise compare_results si tu as plusieurs résultats à comparer
+- Utilise les outils de relations pour les lois importantes découvertes
+- Utilise verify_still_valid pour vérifier la validité
+- Optionnellement extract_content pour le texte complet
 
-✅ get_relationships(uri) - HIÉRARCHIE LÉGALE
-   🎯 OBJECTIF: Compléter la "validite_legale" avec la structure hiérarchique
-   • Découvrir les lois fondatrices et les actes d'implémentation
-   • Établir la pyramide juridique complète
-   • Identifier les dépendances et relations légales
-   • Comprendre l'écosystème juridique
+✅ POUR UNE LOI SPÉCIFIQUE:
+- Si tu as déjà l'URI: utilise directement find_what_law_references, find_what_references_law, find_amendment_chain
+- Si tu cherches la loi: commence par les outils de découverte
 
-═══════════════════════════════════════════════════════════════════════════════════════
-📍 PHASE 3: EXTRACTION DÉTAILLÉE
-═══════════════════════════════════════════════════════════════════════════════════════
+🚨 RÈGLES CRITIQUES:
 
-✅ extract_content(document_uris) - CONTENU LÉGAL INTÉGRAL
-   🎯 OBJECTIF: Enrichir "reference_sources" avec la structure détaillée
-   
-   📋 PRIORITÉS D'EXTRACTION:
-   • Sélectionner les 3-5 documents les plus pertinents
-   • Priorité absolue: LOI > RGD > AMIN
-   • Extraire la structure complète: Sections, Chapitres, Articles
-   • Collecter les extraits textuels précis des articles relevants
+1. ⚠️ CHOISIS LES BONS OUTILS: Sélectionne seulement les outils nécessaires pour répondre à la question
+2. 🔄 URIS EXACTS OBLIGATOIRES: Utilise UNIQUEMENT les URIs exacts des résultats MCP
+3. 📊 UTILISE LES RÉSULTATS: Base ta réponse exclusivement sur les données MCP obtenues
+4. 🎯 SOIS EFFICACE: N'utilise pas tous les outils - seulement ceux qui sont pertinents
 
-🚨 RÈGLES CRITIQUES POUR TOUS LES OUTILS:
+EXEMPLES D'UTILISATION:
 
-1. ⚠️ URIS EXACTS OBLIGATOIRES: Utilise UNIQUEMENT les URIs exacts des résultats MCP
-   • JAMAIS d'invention d'URIs
-   • JAMAIS de modification d'URIs
-   • JAMAIS d'URIs supposés ou créés
+"Comment créer une SARL?" → find_most_cited_laws(["SARL"]) + basic_document_search(["SARL", "création"])
 
-2. 🔄 EXHAUSTIVITÉ OBLIGATOIRE: Utilise CHAQUE outil pour CHAQUE document important
-   • Pas de raccourcis
-   • Pas d'outils sautés
-   • Couverture complète obligatoire
+"Analyse la loi X" → find_what_law_references(uri) + find_what_references_law(uri) + find_amendment_chain(uri)
 
-3. 📊 COLLECTE SYSTÉMATIQUE: Documente tout ce que tu découvres
-   • URIs de tous les documents
-   • Toutes les relations découvertes
-   • Tous les amendements trouvés
-   • Tous les statuts vérifiés
+"Compare les lois commerciales" → find_most_cited_laws(["commercial"]) + find_highest_authority_laws(["commercial"]) + compare_results([...])
 
-Répondez en français avec une analyse juridique complète basée sur les données MCP réelles obtenues."""
+Répondez en français avec une analyse juridique basée sur les données MCP réelles obtenues."""
         
         # Cost tracking
         self.query_count = 0
@@ -573,7 +554,7 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
             if job_id:
                 DynamoDBJobManager.update_job_progress(
                     job_id, "tool_discovery", 10, 
-                    "Discovering available MCP tools from server",
+                    "Discovering available MCP tools from server (13-tool workflow)",
                     {"estimated_remaining_seconds": 280}
                 )
             
@@ -581,24 +562,43 @@ Répondez en français avec une analyse juridique complète basée sur les donn�
             async with Client(transport) as client:
                 tools = await client.list_tools()
                 
+                # Expected 13-tool workflow tools
+                expected_tools = [
+                    # Phase 1: Discovery
+                    "find_most_cited_laws", "find_most_changed_laws", 
+                    "find_newest_active_laws", "find_highest_authority_laws",
+                    # Phase 2: Analysis  
+                    "compare_results", "check_connections",
+                    # Phase 3: Relationships
+                    "find_what_law_references", "find_what_references_law", "find_amendment_chain",
+                    # Phase 4: Final
+                    "verify_still_valid", "rank_by_importance", "create_final_map",
+                    # Content & Bonus
+                    "extract_content", "basic_document_search"
+                ]
+                
                 # Format tools for different AI providers
                 self.available_tools = []
+                tools_found = []
+                
                 for tool in tools:
-                    tool_def = {
-                        "name": tool.name,
-                        "description": tool.description,
-                        "input_schema": tool.inputSchema
-                    }
-                    self.available_tools.append(tool_def)
+                    if tool.name in expected_tools:
+                        tool_def = {
+                            "name": tool.name,
+                            "description": tool.description,
+                            "input_schema": tool.inputSchema
+                        }
+                        self.available_tools.append(tool_def)
+                        tools_found.append(tool.name)
                 
                 self._tools_discovered = True
                 
-                logger.info(f"🔧 Discovered {len(self.available_tools)} MCP tools")
+                logger.info(f"🔧 Discovered {len(self.available_tools)} MCP workflow tools: {tools_found}")
                 
                 if job_id:
                     DynamoDBJobManager.add_completed_stage(
                         job_id, "tool_discovery", 3000, 
-                        f"Discovered {len(self.available_tools)} professional legal tools"
+                        f"Discovered {len(self.available_tools)} professional legal workflow tools"
                     )
                 
                 return [tool["name"] for tool in self.available_tools]
@@ -694,193 +694,6 @@ Single keyword:"""
                     return word
             return words[0] if words else "droit"
     
-    async def select_optimal_tools(self, message: str, discovered_sources: list, provider: str, pricing: dict) -> list:
-        """Select optimal tool execution strategy using top-tier models."""
-        try:
-            client = self.clients[provider]
-            tool_model = self.models[provider]["tool_selection"]
-            
-            sources_summary = "\n".join([f"- {source.get('title', 'N/A')} ({source.get('type', 'N/A')})" for source in discovered_sources[:5]])
-            
-            prompt = f"""Based on these legal sources found: 
-{sources_summary}
-
-For question: "{message}"
-
-Select optimal MCP tool execution strategy. Return a JSON list of tool priorities:
-
-Example: ["get_citations", "get_amendments", "check_legal_status", "extract_content"]
-
-Rules:
-- get_citations: ALWAYS include for network analysis
-- get_amendments: Include for laws with modification history
-- check_legal_status: Include for validity verification 
-- get_relationships: Include for hierarchy analysis
-- extract_content: Include for detailed text extraction
-
-Optimal strategy:"""
-
-            if provider == "openai":
-                response = await client.chat.completions.create(
-                    model=tool_model,
-                    messages=[{"role": "user", "content": prompt}],
-                    max_tokens=50,
-                    temperature=0.1
-                )
-                strategy_text = response.choices[0].message.content.strip()
-                
-                # Track usage for tool selection phase
-                if hasattr(response, 'usage') and response.usage:
-                    input_tokens = response.usage.prompt_tokens
-                    output_tokens = response.usage.completion_tokens
-                    self.track_model_usage("tool_selection", provider, input_tokens, output_tokens, pricing)
-                    
-            elif provider == "anthropic":
-                response = await client.messages.create(
-                    model=tool_model,
-                    max_tokens=50,
-                    temperature=0.1,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                strategy_text = ""
-                for content_block in response.content:
-                    if content_block.type == "text":
-                        strategy_text += content_block.text
-                strategy_text = strategy_text.strip()
-                
-                # Track usage for tool selection phase
-                if hasattr(response, 'usage') and response.usage:
-                    input_tokens = response.usage.input_tokens
-                    output_tokens = response.usage.output_tokens
-                    self.track_model_usage("tool_selection", provider, input_tokens, output_tokens, pricing)
-                    
-            else:  # groq
-                response = await client.chat.completions.create(
-                    model=tool_model,
-                    messages=[{"role": "user", "content": prompt}],
-                    max_tokens=50,
-                    temperature=0.1
-                )
-                strategy_text = response.choices[0].message.content.strip()
-                
-                # Track usage for tool selection phase
-                if hasattr(response, 'usage') and response.usage:
-                    input_tokens = response.usage.prompt_tokens
-                    output_tokens = response.usage.completion_tokens
-                    self.track_model_usage("tool_selection", provider, input_tokens, output_tokens, pricing)
-            
-            # Parse strategy (fallback to all tools if parsing fails)
-            try:
-                import json
-                strategy = json.loads(strategy_text)
-                logger.info(f"🧠 Tool strategy selected: {strategy} using {tool_model}")
-                return strategy
-            except:
-                logger.warning(f"Tool selection parsing failed, using default strategy")
-                return ["get_citations", "get_amendments", "check_legal_status", "get_relationships", "extract_content"]
-            
-        except Exception as e:
-            logger.error(f"Tool selection failed: {e}")
-            # Fallback to comprehensive strategy
-            return ["get_citations", "get_amendments", "check_legal_status", "get_relationships", "extract_content"]
-    
-    async def extract_priority_uris(self, message: str, discovered_sources: list, provider: str, pricing: dict) -> list:
-        """Extract priority URIs for detailed analysis using top-tier models."""
-        try:
-            client = self.clients[provider]
-            uri_model = self.models[provider]["uri_extraction"]
-            
-            sources_list = "\n".join([f"{i+1}. {source.get('title', 'N/A')} - {source.get('uri', 'N/A')} ({source.get('type', 'N/A')})" for i, source in enumerate(discovered_sources[:10])])
-            
-            prompt = f"""From these Luxembourg legal sources:
-{sources_list}
-
-For question: "{message}"
-
-Select the 3-5 most critical URIs for detailed analysis. Prioritize:
-1. LOI (laws) over RGD/AMIN (regulations)
-2. Primary/foundational laws over supporting regulations
-3. Most recent and comprehensive texts
-
-Return ONLY the exact URIs as a JSON list:
-
-Example: ["https://legilux.public.lu/eli/etat/leg/loi/1915/08/10/n1/jo", "https://legilux.public.lu/eli/etat/leg/loi/2016/07/23/n1/jo"]
-
-Priority URIs:"""
-
-            if provider == "openai":
-                response = await client.chat.completions.create(
-                    model=uri_model,
-                    messages=[{"role": "user", "content": prompt}],
-                    max_tokens=200,
-                    temperature=0.1
-                )
-                uris_text = response.choices[0].message.content.strip()
-                
-                # Track usage for URI extraction phase
-                if hasattr(response, 'usage') and response.usage:
-                    input_tokens = response.usage.prompt_tokens
-                    output_tokens = response.usage.completion_tokens
-                    self.track_model_usage("uri_extraction", provider, input_tokens, output_tokens, pricing)
-                    
-            elif provider == "anthropic":
-                response = await client.messages.create(
-                    model=uri_model,
-                    max_tokens=200,
-                    temperature=0.1,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                uris_text = ""
-                for content_block in response.content:
-                    if content_block.type == "text":
-                        uris_text += content_block.text
-                uris_text = uris_text.strip()
-                
-                # Track usage for URI extraction phase
-                if hasattr(response, 'usage') and response.usage:
-                    input_tokens = response.usage.input_tokens
-                    output_tokens = response.usage.output_tokens
-                    self.track_model_usage("uri_extraction", provider, input_tokens, output_tokens, pricing)
-                    
-            else:  # groq
-                response = await client.chat.completions.create(
-                    model=uri_model,
-                    messages=[{"role": "user", "content": prompt}],
-                    max_tokens=200,
-                    temperature=0.1
-                )
-                uris_text = response.choices[0].message.content.strip()
-                
-                # Track usage for URI extraction phase
-                if hasattr(response, 'usage') and response.usage:
-                    input_tokens = response.usage.prompt_tokens
-                    output_tokens = response.usage.completion_tokens
-                    self.track_model_usage("uri_extraction", provider, input_tokens, output_tokens, pricing)
-            
-            # Parse URIs (fallback to first 3 URIs if parsing fails)
-            try:
-                import json
-                priority_uris = json.loads(uris_text)
-                logger.info(f"🎯 Priority URIs selected: {len(priority_uris)} URIs using {uri_model}")
-                return priority_uris
-            except:
-                logger.warning(f"URI extraction parsing failed, using fallback selection")
-                # Fallback: select first 3 URIs, prioritizing LOI
-                fallback_uris = []
-                for source in discovered_sources:
-                    if source.get('type') == 'LOI' and len(fallback_uris) < 3:
-                        fallback_uris.append(source.get('uri'))
-                # Add non-LOI if needed
-                for source in discovered_sources:
-                    if len(fallback_uris) < 3 and source.get('uri') not in fallback_uris:
-                        fallback_uris.append(source.get('uri'))
-                return fallback_uris[:3]
-            
-        except Exception as e:
-            logger.error(f"URI extraction failed: {e}")
-            # Ultimate fallback: first 3 URIs
-            return [source.get('uri') for source in discovered_sources[:3] if source.get('uri')]
-    
     def track_model_usage(self, phase: str, provider: str, input_tokens: int, output_tokens: int, pricing_dict: dict):
         """Track token usage for specific model phases."""
         # Calculate cost for this phase
@@ -921,7 +734,7 @@ Priority URIs:"""
             return {"error": str(e)}
     
     async def process_job(self, job_id: str, message: str, provider: Optional[str] = None, company_id: str = "default", user_id: str = "default"):
-        """Process job with enhanced 6-tool MCP workflow and structured output."""
+        """Process job with enhanced 13-tool MCP workflow and structured output."""
         start_time = time.time()
         request_id = None
         
@@ -933,7 +746,7 @@ Priority URIs:"""
             DynamoDBJobManager.set_job_processing(job_id)
             DynamoDBJobManager.update_job_progress(
                 job_id, "starting", 5, 
-                "Starting enhanced legal research workflow with structured output",
+                "Starting enhanced 13-tool legal research workflow with structured output",
                 {"estimated_remaining_seconds": 300}
             )
             
@@ -943,7 +756,7 @@ Priority URIs:"""
             # Step 1: Discover tools
             await self.discover_tools(job_id)
             
-            # Step 2: Process with enhanced workflow
+            # Step 2: Process with enhanced 13-tool workflow
             result = await self.enhanced_legal_research(message, provider, job_id)
             
             # Step 3: Complete job
@@ -965,7 +778,7 @@ Priority URIs:"""
                 RequestTracker.fail_request(request_id, str(e))
     
     async def enhanced_legal_research(self, message: str, provider: Optional[str] = None, job_id: Optional[str] = None) -> Dict[str, Any]:
-        """Enhanced legal research with comprehensive 6-tool MCP workflow and structured output."""
+        """Enhanced legal research with comprehensive 13-tool MCP workflow and structured output."""
         self.query_count += 1
         start_time = time.time()
         
@@ -1016,35 +829,31 @@ Priority URIs:"""
         if job_id:
             DynamoDBJobManager.update_job_progress(
                 job_id, "mcp_workflow_start", 15, 
-                f"Starting enhanced legal research with {selected_provider} (MCP: {mcp_model}, Structured: {structured_model})",
+                f"Starting enhanced 13-tool legal research with {selected_provider} (MCP: {mcp_model}, Structured: {structured_model})",
                 {
                     "ai_interaction": {
                         "model_calls": 0,
                         "tokens_used": 0,
-                        "current_ai_task": f"Initializing enhanced workflow with {selected_provider}"
+                        "current_ai_task": f"Initializing enhanced 13-tool workflow with {selected_provider}"
                     },
                     "estimated_remaining_seconds": 240
                 }
             )
         
         try:
-            logger.info(f"🚀 Starting enhanced legal research with {selected_provider}")
+            logger.info(f"🚀 Starting enhanced 13-tool legal research with {selected_provider}")
             
-            # Phase 1: Enhanced 5-phase workflow preparation
+            # Remove all phase logic - just execute tools independently
             conversation_history = []
             tools_used = []
             discovered_sources = []
-            
-            # Step 1: Smart keyword extraction using top-tier models
-            smart_keyword = await self.extract_smart_keyword(message, selected_provider, pricing)
-            logger.info(f"🎯 Phase 1 - Smart keyword: '{smart_keyword}'")
             
             # Prepare messages for tool execution
             messages = [
                 {"role": "user", "content": message}
             ]
             
-            max_iterations = 15
+            max_iterations = 25
             iteration = 0
             
             while iteration < max_iterations:
@@ -1052,13 +861,13 @@ Priority URIs:"""
                 
                 if job_id:
                     DynamoDBJobManager.update_job_progress(
-                        job_id, "mcp_tools_execution", 20 + (iteration * 4), 
-                        f"Executing MCP tools - iteration {iteration}/{max_iterations}",
+                        job_id, "mcp_tools_execution", 20 + (iteration * 3), 
+                        f"Executing MCP tools independently - iteration {iteration}/{max_iterations}",
                         {
                             "tools_progress": {
                                 "current_iteration": iteration,
                                 "tools_executed": len(tools_used),
-                                "current_phase": "tool_execution"
+                                "current_phase": "independent_tool_execution"
                             }
                         }
                     )
@@ -1097,29 +906,23 @@ Priority URIs:"""
                     
                     # Check for tool calls
                     if assistant_message.tool_calls:
-                        # Execute each tool call with enhanced 5-phase intelligence
+                        # Execute each tool call independently
                         for tool_call in assistant_message.tool_calls:
                             tool_name = tool_call.function.name
                             parameters = json.loads(tool_call.function.arguments)
                             
-                            # Phase 2: Smart keyword override for search_documents
-                            if tool_name == "search_documents" and "keyword" in parameters:
-                                original_keyword = parameters["keyword"]
-                                parameters["keyword"] = smart_keyword
-                                logger.info(f"🎯 Smart keyword override: '{original_keyword}' → '{smart_keyword}'")
-                            
-                            logger.info(f"🔧 Executing {tool_name} with {parameters}")
+                            logger.info(f"🔧 Executing {tool_name} independently with {parameters}")
                             
                             # Execute the tool
                             tool_result = await self.execute_mcp_tool(tool_name, parameters)
                             tools_used.append({"tool": tool_name, "parameters": parameters, "result": tool_result})
                             
-                            # Collect sources from search_documents for later phases
-                            if tool_name == "search_documents" and isinstance(tool_result, dict):
-                                sources = tool_result.get("documents", [])
+                            # Collect sources from any discovery tools
+                            if tool_name in ["find_most_cited_laws", "find_most_changed_laws", "find_newest_active_laws", "find_highest_authority_laws", "basic_document_search"] and isinstance(tool_result, dict):
+                                sources = tool_result.get("laws", []) or tool_result.get("documents", [])
                                 if isinstance(sources, list):
                                     discovered_sources.extend(sources)
-                                    logger.info(f"📚 Phase 2 - Discovered {len(sources)} sources")
+                                    logger.info(f"📚 Discovery Tool - {tool_name} discovered {len(sources)} items")
                             
                             # Add tool result to conversation
                             content_str = tool_result if isinstance(tool_result, str) else json.dumps(tool_result, ensure_ascii=False)
@@ -1189,23 +992,17 @@ Priority URIs:"""
                                 tool_input = content_block.input
                                 tool_use_id = content_block.id
                                 
-                                # Phase 2: Smart keyword override for search_documents
-                                if tool_name == "search_documents" and "keyword" in tool_input:
-                                    original_keyword = tool_input["keyword"]
-                                    tool_input["keyword"] = smart_keyword
-                                    logger.info(f"🎯 Smart keyword override: '{original_keyword}' → '{smart_keyword}'")
-                                
-                                logger.info(f"🔧 Executing {tool_name} with {tool_input}")
+                                logger.info(f"🔧 Executing {tool_name} independently with {tool_input}")
                                 
                                 tool_result = await self.execute_mcp_tool(tool_name, tool_input)
                                 tools_used.append({"tool": tool_name, "parameters": tool_input, "result": tool_result})
                                 
-                                # Collect sources from search_documents for later phases
-                                if tool_name == "search_documents" and isinstance(tool_result, dict):
-                                    sources = tool_result.get("documents", [])
+                                # Collect sources from any discovery tools
+                                if tool_name in ["find_most_cited_laws", "find_most_changed_laws", "find_newest_active_laws", "find_highest_authority_laws", "basic_document_search"] and isinstance(tool_result, dict):
+                                    sources = tool_result.get("laws", []) or tool_result.get("documents", [])
                                     if isinstance(sources, list):
                                         discovered_sources.extend(sources)
-                                        logger.info(f"📚 Phase 2 - Discovered {len(sources)} sources")
+                                        logger.info(f"📚 Discovery Tool - {tool_name} discovered {len(sources)} items")
                                 
                                 tool_results_for_claude.append({
                                     "type": "tool_result",
@@ -1227,8 +1024,7 @@ Priority URIs:"""
                         # No more tools to call
                         break
                         
-                else:  # Groq - no native tool calling, use prompt-based approach
-                    # For Groq, we'll do a simplified approach for now
+                else:  # Groq - simplified approach for now
                     response = await client.chat.completions.create(
                         model=mcp_model,
                         messages=messages,
@@ -1254,37 +1050,40 @@ Priority URIs:"""
                     # Simple response for Groq (can be enhanced later)
                     break
             
-            # Phase 3: Enhanced intelligence phases (if sources discovered)
+            # Record independent tool usage
             if discovered_sources and len(discovered_sources) > 0:
-                logger.info(f"🧠 Phase 3 - Applying enhanced intelligence to {len(discovered_sources)} sources")
-                
-                # Phase 3A: Tool selection intelligence
-                optimal_tools = await self.select_optimal_tools(message, discovered_sources, selected_provider, pricing)
-                logger.info(f"🎯 Phase 3A - Optimal tools: {optimal_tools}")
-                
-                # Phase 3B: URI extraction precision
-                priority_uris = await self.extract_priority_uris(message, discovered_sources, selected_provider, pricing)
-                logger.info(f"🎯 Phase 3B - Priority URIs: {len(priority_uris)} selected")
-                
-                # Record enhanced phases in conversation history
+                logger.info(f"🔧 Independent tool usage completed: {len(tools_used)} tools, {len(discovered_sources)} sources discovered")
                 conversation_history.append({
-                    "tool": "enhanced_intelligence",
-                    "parameters": {"keyword_used": smart_keyword, "tools_selected": optimal_tools, "priority_uris": priority_uris},
-                    "result": f"Enhanced 5-phase architecture applied: keyword='{smart_keyword}', tools={len(optimal_tools)}, uris={len(priority_uris)}"
+                    "tool": "independent_tool_execution_summary",
+                    "parameters": {"total_tools_executed": len(tools_used), "sources_discovered": len(discovered_sources)},
+                    "result": f"Independent tool execution completed: tools={len(tools_used)}, sources={len(discovered_sources)}"
+                })
+
+            
+            # Enhanced workflow summary
+            if discovered_sources and len(discovered_sources) > 0:
+                logger.info(f"🧠 Enhanced 13-tool workflow applied to {len(discovered_sources)} sources")
+                
+                # Record enhanced workflow phases in conversation history
+                conversation_history.append({
+                    "tool": "enhanced_13_tool_workflow",
+                    "parameters": {"keyword_used": smart_keyword, "total_tools_executed": len(tools_used), "sources_discovered": len(discovered_sources)},
+                    "result": f"Enhanced 13-tool workflow completed: keyword='{smart_keyword}', tools={len(tools_used)}, sources={len(discovered_sources)}"
                 })
             
-            # Phase 4: Generate structured output
+            # Generate structured output
             if job_id:
                 DynamoDBJobManager.update_job_progress(
                     job_id, "structured_output_generation", 80, 
-                    "Generating structured legal analysis with enhanced intelligence",
+                    "Generating structured legal analysis with enhanced 13-tool intelligence",
                     {
                         "tools_progress": {
                             "tools_completed": len(conversation_history),
                             "current_phase": "structured_output",
                             "enhanced_features": {
                                 "smart_keyword": smart_keyword if 'smart_keyword' in locals() else None,
-                                "sources_discovered": len(discovered_sources)
+                                "sources_discovered": len(discovered_sources),
+                                "workflow_type": "13_tool_phases"
                             }
                         }
                     }
@@ -1308,18 +1107,7 @@ Priority URIs:"""
                 total_cost_usd += structured_cost
             else:
                 # Fallback to simple response
-                structured_result = {
-                    "answer": {
-                        "summary": "Analyse juridique basique",
-                        "key_points": ["Analyse simplifie disponible"],
-                        "exhaustive_content": "Analyse basique sans outils MCP",
-                        "practical_guidance": "Consultez un professionnel"
-                    },
-                    "reference_sources": {"total_sources": 0, "primary_laws": [], "supporting_regulations": []},
-                    "citations_network": {"total_citations": 0, "network_summary": "Non disponible", "key_relationships": [], "network_strength": "low", "interconnection_analysis": "Non analysé"},
-                    "historique_amendements": {"total_amendments": 0, "evolution_summary": "Non disponible", "major_changes": [], "trend_analysis": {"direction": "unknown", "key_themes": [], "frequency": "unknown"}},
-                    "validite_legale": {"overall_status": "unknown", "last_verification": "", "confidence_level": "low", "validity_details": [], "legal_hierarchy": {"foundation_level": [], "implementation_level": [], "execution_level": []}, "recommendations": {"best_practices": [], "monitoring_advice": []}}
-                }
+                structured_result = self.get_fallback_structure()
             
             # Calculate final metrics
             processing_time = time.time() - start_time
@@ -1327,7 +1115,7 @@ Priority URIs:"""
             if job_id:
                 DynamoDBJobManager.update_job_progress(
                     job_id, "completed", 100, 
-                    "Enhanced legal research completed with structured output"
+                    "Enhanced 13-tool legal research completed with structured output"
                 )
             
             # Return comprehensive result with token usage
@@ -1340,7 +1128,8 @@ Priority URIs:"""
                     "structured_model": structured_model,
                     "temperature": 0.6,
                     "max_tokens": 4000,
-                    "structured_output": True
+                    "structured_output": True,
+                    "workflow_type": "13_tool_phases"
                 },
                 "performance": {
                     "processing_time_seconds": round(processing_time, 2),
@@ -1349,7 +1138,7 @@ Priority URIs:"""
                     "enhanced_features": {
                         "smart_keyword_used": smart_keyword if 'smart_keyword' in locals() else None,
                         "sources_discovered": len(discovered_sources),
-                        "5_phase_architecture": True
+                        "13_tool_workflow": True
                     }
                 },
                 "tools_execution": {
@@ -1357,7 +1146,8 @@ Priority URIs:"""
                     "total_tools": len(conversation_history),
                     "mcp_server": self.mcp_server_url,
                     "available_tools": len(self.available_tools),
-                    "conversation_history": conversation_history
+                    "conversation_history": conversation_history,
+                    "workflow_phases": self.analyze_workflow_phases([h["tool"] for h in conversation_history])
                 },
                 "token_usage": {
                     "input_tokens": total_input_tokens,
@@ -1368,8 +1158,52 @@ Priority URIs:"""
             }
             
         except Exception as e:
-            logger.error(f"Enhanced legal research error: {e}")
+            logger.error(f"Enhanced 13-tool legal research error: {e}")
             raise
+    
+    def analyze_workflow_phases(self, tools_used: List[str]) -> Dict[str, Any]:
+        """Analyze which workflow phases were executed."""
+        phases = {
+            "phase_1_discovery": {
+                "tools": ["find_most_cited_laws", "find_most_changed_laws", "find_newest_active_laws", "find_highest_authority_laws"],
+                "executed": [],
+                "completion": 0
+            },
+            "phase_2_analysis": {
+                "tools": ["compare_results", "check_connections"],
+                "executed": [],
+                "completion": 0
+            },
+            "phase_3_relationships": {
+                "tools": ["find_what_law_references", "find_what_references_law", "find_amendment_chain"],
+                "executed": [],
+                "completion": 0
+            },
+            "phase_4_final": {
+                "tools": ["verify_still_valid", "rank_by_importance", "create_final_map"],
+                "executed": [],
+                "completion": 0
+            },
+            "content_extraction": {
+                "tools": ["extract_content"],
+                "executed": [],
+                "completion": 0
+            },
+            "bonus": {
+                "tools": ["basic_document_search"],
+                "executed": [],
+                "completion": 0
+            }
+        }
+        
+        for phase_name, phase_info in phases.items():
+            for tool in phase_info["tools"]:
+                if tool in tools_used:
+                    phase_info["executed"].append(tool)
+            
+            phase_info["completion"] = (len(phase_info["executed"]) / len(phase_info["tools"])) * 100
+        
+        return phases
     
     def format_tools_for_openai(self) -> List[Dict[str, Any]]:
         """Format MCP tools for OpenAI function calling."""
@@ -1412,7 +1246,7 @@ Priority URIs:"""
                 for h in conversation_history
             ])
             
-            structured_prompt = f"""Basé sur l'exécution des outils MCP suivants:
+            structured_prompt = f"""Basé sur l'exécution des outils MCP suivants (utilisation indépendante):
 
 {tools_summary}
 
@@ -1421,7 +1255,7 @@ Question originale: {message}
 Générez maintenant la réponse structurée JSON complète selon le format requis avec les 5 sections obligatoires:
 
 1. **ANSWER** - Analyse juridique EXHAUSTIVE en français
-2. **REFERENCE_SOURCES** - TOUTES les sources utilisées
+2. **REFERENCE_SOURCES** - TOUTES les sources utilisées avec URIs exacts
 3. **CITATIONS_NETWORK** - Réseau de citations complet
 4. **HISTORIQUE_AMENDEMENTS** - Historique des modifications  
 5. **VALIDITE_LEGALE** - Validité et statut juridique
@@ -1429,13 +1263,14 @@ Générez maintenant la réponse structurée JSON complète selon le format requ
 EXIGENCE CRITIQUE: 
 1. Maintenez la cohérence absolue entre ANSWER et REFERENCE_SOURCES
 2. Toute loi citée dans l'answer doit être détaillée dans les sources avec ses articles exacts
-3. 🚨 URIs ABSOLUMENT EXACTS: Utilisez uniquement les URIs qui apparaissent dans les résultats des outils MCP"""
+3. 🚨 URIs ABSOLUMENT EXACTS: Utilisez uniquement les URIs qui apparaissent dans les résultats des outils MCP
+4. Exploitez TOUS les résultats des outils utilisés pour une analyse complète"""
 
             # Use OpenAI structured output
             structured_response = await client.beta.chat.completions.parse(
                 model=model,
                 messages=[
-                    {"role": "system", "content": "Vous êtes un assistant juridique expert qui génère des analyses structurées complètes."},
+                    {"role": "system", "content": "Vous êtes un assistant juridique expert qui génère des analyses structurées complètes basées sur des données MCP réelles obtenues par outils indépendants."},
                     {"role": "user", "content": structured_prompt}
                 ],
                 response_format=LegalAnalysisResponse,
@@ -1476,7 +1311,7 @@ EXIGENCE CRITIQUE:
                 for h in conversation_history
             ])
             
-            structured_prompt = f"""Basé sur l'exécution des outils MCP suivants:
+            structured_prompt = f"""Basé sur l'exécution des outils MCP suivants (utilisation indépendante):
 
 {tools_summary}
 
@@ -1488,7 +1323,7 @@ Générez une réponse JSON strictement conforme à cette structure exacte:
   "answer": {{
     "summary": "Résumé exécutif de l'analyse juridique",
     "key_points": ["Point 1", "Point 2", "Point 3"],
-    "exhaustive_content": "Analyse complète en markdown avec tous les détails",
+    "exhaustive_content": "Analyse complète en markdown avec tous les détails basés sur les données MCP",
     "practical_guidance": "Guide pratique étape par étape"
   }},
   "reference_sources": {{
@@ -1498,14 +1333,14 @@ Générez une réponse JSON strictement conforme à cette structure exacte:
   }},
   "citations_network": {{
     "total_citations": 0,
-    "network_summary": "Résumé du réseau",
+    "network_summary": "Résumé du réseau basé sur les données MCP",
     "key_relationships": [],
     "network_strength": "high/medium/low",
     "interconnection_analysis": "Analyse des interconnexions"
   }},
   "historique_amendements": {{
     "total_amendments": 0,
-    "evolution_summary": "Résumé de l'évolution",
+    "evolution_summary": "Résumé de l'évolution basé sur les données MCP",
     "major_changes": [],
     "trend_analysis": {{
       "direction": "Direction des tendances",
@@ -1514,7 +1349,7 @@ Générez une réponse JSON strictement conforme à cette structure exacte:
     }}
   }},
   "validite_legale": {{
-    "overall_status": "Statut global",
+    "overall_status": "Statut global basé sur les vérifications MCP",
     "last_verification": "Date de dernière vérification",
     "confidence_level": "high/medium/low",
     "validity_details": [],
@@ -1530,13 +1365,14 @@ Générez une réponse JSON strictement conforme à cette structure exacte:
   }}
 }}
 
+IMPORTANT: Basez-vous EXCLUSIVEMENT sur les données MCP obtenues via les outils utilisés.
 Répondez UNIQUEMENT avec le JSON valide, sans explication supplémentaire."""
 
             response = await client.messages.create(
                 model=model,
                 max_tokens=4000,
                 temperature=0.3,
-                system="Vous êtes un assistant juridique expert qui génère du JSON structuré valide.",
+                system="Vous êtes un assistant juridique expert qui génère du JSON structuré valide basé sur des données MCP réelles obtenues par outils indépendants.",
                 messages=[{"role": "user", "content": structured_prompt}]
             )
             
@@ -1581,7 +1417,7 @@ Répondez UNIQUEMENT avec le JSON valide, sans explication supplémentaire."""
         try:
             structured_prompt = f"""Question: {message}
 
-Générez une analyse juridique luxembourgeoise structurée en JSON avec cette structure exacte:
+Générez une analyse juridique luxembourgeoise structurée en JSON avec cette structure exacte (basée sur outils indépendants):
 
 {{
   "answer": {{
@@ -1601,7 +1437,107 @@ Répondez UNIQUEMENT avec le JSON valide."""
             response = await client.chat.completions.create(
                 model=model,
                 messages=[
-                    {"role": "system", "content": "Vous êtes un expert juridique luxembourgeois. Générez du JSON structuré valide."},
+                    {"role": "system", "content": "Vous êtes un expert juridique luxembourgeois. Générez du JSON structuré valide basé sur l'utilisation d'outils indépendants."},
+                    {"role": "user", "content": structured_prompt}
+                ],
+                temperature=0.3,
+                max_tokens=4000
+            )
+            
+            # Capture token usage for structured output
+            tokens = {"input": 0, "output": 0}
+            cost = 0.0
+            
+            if hasattr(response, 'usage') and response.usage:
+                input_tokens = response.usage.prompt_tokens
+                output_tokens = response.usage.completion_tokens
+                tokens = {"input": input_tokens, "output": output_tokens}
+                
+                # Calculate cost for structured output phase
+                provider_pricing = pricing[provider]["structured"]
+                input_cost = (input_tokens / 1000000) * provider_pricing["input"]
+                output_cost = (output_tokens / 1000000) * provider_pricing["output"]
+                cost = input_cost + output_cost
+                
+                logger.info(f"🏷️ Groq structured output: {input_tokens} input, {output_tokens} output tokens, ${cost:.4f}")
+            
+            response_text = response.choices[0].message.content
+            
+            # Parse and validate JSON
+            try:
+                parsed_json = json.loads(response_text)
+                validated = LegalAnalysisResponse.model_validate(parsed_json)
+                return validated.model_dump(), tokens, cost
+            except (json.JSONDecodeError, Exception) as e:
+                logger.error(f"Groq JSON parsing failed: {e}")
+                return self.get_fallback_structure(), tokens, cost
+                
+        except Exception as e:
+            logger.error(f"Groq structured output generation failed: {e}")
+            return self.get_fallback_structure(), {"input": 0, "output": 0}, 0.0
+            
+            # Capture token usage for structured output
+            tokens = {"input": 0, "output": 0}
+            cost = 0.0
+            
+            if hasattr(response, 'usage') and response.usage:
+                input_tokens = response.usage.input_tokens
+                output_tokens = response.usage.output_tokens
+                tokens = {"input": input_tokens, "output": output_tokens}
+                
+                # Calculate cost for structured output phase
+                provider_pricing = pricing[provider]["structured"]
+                input_cost = (input_tokens / 1000000) * provider_pricing["input"]
+                output_cost = (output_tokens / 1000000) * provider_pricing["output"]
+                cost = input_cost + output_cost
+                
+                logger.info(f"🏷️ Claude structured output (haiku): {input_tokens} input, {output_tokens} output tokens, ${cost:.4f}")
+            
+            # Extract text content
+            response_text = ""
+            for content_block in response.content:
+                if content_block.type == "text":
+                    response_text += content_block.text
+            
+            # Parse JSON and validate with Pydantic
+            try:
+                parsed_json = json.loads(response_text)
+                validated = LegalAnalysisResponse.model_validate(parsed_json)
+                return validated.model_dump(), tokens, cost
+            except (json.JSONDecodeError, Exception) as e:
+                logger.error(f"Claude JSON parsing failed: {e}")
+                return self.get_fallback_structure(), tokens, cost
+                
+        except Exception as e:
+            logger.error(f"Claude structured output generation failed: {e}")
+            return self.get_fallback_structure(), {"input": 0, "output": 0}, 0.0
+    
+    async def generate_groq_structured_output(self, message: str, client, model: str, provider: str, pricing: Dict) -> tuple[Dict[str, Any], Dict[str, int], float]:
+        """Generate structured output using Groq with prompt-based JSON."""
+        try:
+            structured_prompt = f"""Question: {message}
+
+Générez une analyse juridique luxembourgeoise structurée en JSON avec cette structure exacte (basée sur workflow 13-outils):
+
+{{
+  "answer": {{
+    "summary": "Résumé exécutif",
+    "key_points": ["Point juridique 1", "Point juridique 2"],
+    "exhaustive_content": "Analyse détaillée en markdown",
+    "practical_guidance": "Guide pratique"
+  }},
+  "reference_sources": {{"total_sources": 0, "primary_laws": [], "supporting_regulations": []}},
+  "citations_network": {{"total_citations": 0, "network_summary": "", "key_relationships": [], "network_strength": "low", "interconnection_analysis": ""}},
+  "historique_amendements": {{"total_amendments": 0, "evolution_summary": "", "major_changes": [], "trend_analysis": {{"direction": "", "key_themes": [], "frequency": ""}}}},
+  "validite_legale": {{"overall_status": "", "last_verification": "", "confidence_level": "medium", "validity_details": [], "legal_hierarchy": {{"foundation_level": [], "implementation_level": [], "execution_level": []}}, "recommendations": {{"best_practices": [], "monitoring_advice": []}}}}
+}}
+
+Répondez UNIQUEMENT avec le JSON valide."""
+
+            response = await client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": "Vous êtes un expert juridique luxembourgeois. Générez du JSON structuré valide basé sur le workflow 13-outils."},
                     {"role": "user", "content": structured_prompt}
                 ],
                 temperature=0.3,
@@ -1712,7 +1648,7 @@ def lambda_handler(event, context):
                 "body": json.dumps({"error": "Missing job_id or message"})
             }
         
-        logger.info(f"Processing enhanced job {job_id} with provider {provider}")
+        logger.info(f"Processing enhanced job {job_id} with provider {provider} using independent tool usage")
         
         # Process the job asynchronously
         loop = asyncio.new_event_loop()
@@ -1723,11 +1659,11 @@ def lambda_handler(event, context):
                 legal_client.process_job(job_id, message, provider, company_id, user_id)
             )
             
-            logger.info(f"Enhanced job {job_id} processing completed successfully")
+            logger.info(f"Enhanced job {job_id} processing completed successfully with independent tool usage")
             
             return {
                 "statusCode": 200,
-                "body": json.dumps({"status": "enhanced_job_processed", "job_id": job_id})
+                "body": json.dumps({"status": "enhanced_independent_tool_job_processed", "job_id": job_id})
             }
         finally:
             loop.close()
