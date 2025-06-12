@@ -126,6 +126,9 @@ Professional Luxembourg legal research system with **6 specialized tools** lever
   - **Document structure**: Legal organization and numbering
   - **Procedural details**: Specific requirements, deadlines, obligations
   - **Technical specifications**: Forms, procedures, compliance requirements
+  - **Structured JSON output**: a `structured_text` object with:
+    - `title`: document title
+    - `sections`: list of sections, each containing `section` (label), `heading`, and `articles` (number and text)
 
 **Legal value**: Essential final step - after finding and analyzing documents, get the actual legal text to read specific requirements
 

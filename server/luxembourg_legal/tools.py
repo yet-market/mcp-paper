@@ -5,10 +5,11 @@ Updated to return data matching Pydantic model field names for structured JSON o
 """
 
 import logging
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Tuple
 from functools import lru_cache
 from SPARQLWrapper import SPARQLWrapper
 from .config import Config
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -274,7 +275,7 @@ class LuxembourgLegalTools:
                         uri = law["doc"]
                     elif "uri" in law:
                         uri = law["uri"]
-                    
+
                     if not uri:
                         continue
 
@@ -291,7 +292,7 @@ class LuxembourgLegalTools:
 
                     # Add this discovery method
                     all_laws[uri]["discovery_methods"].append(method)
-                    
+
                     # Calculate importance score based on the method
                     if "citation_count" in law:
                         score = law["citation_count"] * 10
@@ -299,7 +300,7 @@ class LuxembourgLegalTools:
                         score = law["modification_count"] * 5
                     else:
                         score = 10  # Base score for other methods
-                    
+
                     all_laws[uri]["importance_scores"].append(score)
                     all_laws[uri]["method_count"] = len(all_laws[uri]["discovery_methods"])
 
@@ -348,7 +349,7 @@ class LuxembourgLegalTools:
         except Exception as e:
             logger.error(f"❌ Results comparison failed: {e}")
             return {
-                "error": f"Results comparison failed: {e}", 
+                "error": f"Results comparison failed: {e}",
                 "success": False,
                 "ranked_laws": [],
                 "multi_method_laws": [],
@@ -425,8 +426,8 @@ class LuxembourgLegalTools:
                 })
 
             # Sort by total connections
-            most_connected = sorted(connection_counts, 
-                                    key=lambda x: x["total_connections"], 
+            most_connected = sorted(connection_counts,
+                                    key=lambda x: x["total_connections"],
                                     reverse=True)
 
             logger.info(f"✅ Found {len(connections)} connections between important laws")
@@ -446,7 +447,7 @@ class LuxembourgLegalTools:
         except Exception as e:
             logger.error(f"❌ Connection analysis failed: {e}")
             return {
-                "error": f"Connection analysis failed: {e}", 
+                "error": f"Connection analysis failed: {e}",
                 "success": False,
                 "connections": [],
                 "connection_matrix": {},
@@ -505,7 +506,7 @@ class LuxembourgLegalTools:
         except Exception as e:
             logger.error(f"❌ Outbound reference analysis failed: {e}")
             return {
-                "error": f"Outbound reference analysis failed: {e}", 
+                "error": f"Outbound reference analysis failed: {e}",
                 "success": False,
                 "source_document": document_uri,
                 "references": [],
@@ -560,7 +561,7 @@ class LuxembourgLegalTools:
         except Exception as e:
             logger.error(f"❌ Inbound citation analysis failed: {e}")
             return {
-                "error": f"Inbound citation analysis failed: {e}", 
+                "error": f"Inbound citation analysis failed: {e}",
                 "success": False,
                 "target_document": document_uri,
                 "citing_laws": [],
@@ -580,12 +581,12 @@ class LuxembourgLegalTools:
             query = f"""
             PREFIX jolux: <http://data.legilux.public.lu/resource/ontology/jolux#>
             SELECT ?neighbor ?title ?date ?type ?direction WHERE {{
-              {{ 
+              {{
                 <{document_uri}> jolux:modifies ?neighbor .
                 BIND("outgoing" AS ?direction)
               }}
               UNION
-              {{ 
+              {{
                 ?neighbor jolux:modifies <{document_uri}> .
                 BIND("incoming" AS ?direction)
               }}
@@ -640,7 +641,7 @@ class LuxembourgLegalTools:
         except Exception as e:
             logger.error(f"❌ Amendment chain analysis failed: {e}")
             return {
-                "error": f"Amendment chain analysis failed: {e}", 
+                "error": f"Amendment chain analysis failed: {e}",
                 "success": False,
                 "document_uri": document_uri,
                 "amendments": [],
@@ -667,17 +668,17 @@ class LuxembourgLegalTools:
                 SELECT ?related ?title ?date ?relType ?entryDate ?expiryDate WHERE {{
                   OPTIONAL {{ <{uri}> jolux:entryIntoForceDate ?entryDate }}
                   OPTIONAL {{ <{uri}> jolux:eventEndDate ?expiryDate }}
-                  {{ 
+                  {{
                     <{uri}> jolux:repeals ?related .
                     BIND("repeals" AS ?relType)
                   }}
                   UNION
-                  {{ 
+                  {{
                     ?related jolux:repeals <{uri}> .
                     BIND("repealedBy" AS ?relType)
                   }}
                   UNION
-                  {{ 
+                  {{
                     <{uri}> jolux:consolidates ?related .
                     BIND("consolidates" AS ?relType)
                   }}
@@ -748,7 +749,7 @@ class LuxembourgLegalTools:
         except Exception as e:
             logger.error(f"❌ Legal status verification failed: {e}")
             return {
-                "error": f"Legal status verification failed: {e}", 
+                "error": f"Legal status verification failed: {e}",
                 "success": False,
                 "law_statuses": [],
                 "valid_laws": [],
@@ -882,7 +883,7 @@ class LuxembourgLegalTools:
         except Exception as e:
             logger.error(f"❌ Final ranking failed: {e}")
             return {
-                "error": f"Final ranking failed: {e}", 
+                "error": f"Final ranking failed: {e}",
                 "success": False,
                 "ranked_laws": [],
                 "tiers": {"critical": [], "very_high": [], "high": [], "medium": [], "low": []},
@@ -963,7 +964,7 @@ class LuxembourgLegalTools:
                     continue  # Skip invalid laws
 
                 importance = law.get("importance_tier", "low")
-                
+
                 # Simple classification based on importance tier
                 if importance == "critical":
                     hierarchy["codes"].append(law)
@@ -1057,7 +1058,7 @@ class LuxembourgLegalTools:
         except Exception as e:
             logger.error(f"❌ Legal map creation failed: {e}")
             return {
-                "error": f"Legal map creation failed: {e}", 
+                "error": f"Legal map creation failed: {e}",
                 "success": False,
                 "legal_map": {
                     "hierarchy": {"codes": [], "foundational_laws": [], "active_laws": [], "supporting_laws": [], "historical_laws": []},
@@ -1079,11 +1080,16 @@ class LuxembourgLegalTools:
             prefer_html: Try HTML first (faster) then fallback to PDF
 
         Returns:
-            Complete legal content with text, metadata, and document analysis
+            Complete legal content with structured text, metadata, and document analysis
         """
         logger.info(f"📄 EXTRACTING CONTENT: {len(document_uris)} documents (max: {max_documents})")
 
         try:
+            # Check if content processor is available
+            if not self.content_processor:
+                logger.error("❌ Content processor not available!")
+                return {"error": "Content processor not available", "success": False}
+
             # Limit documents to avoid context explosion
             limited_uris = document_uris[:max_documents]
 
@@ -1120,6 +1126,44 @@ class LuxembourgLegalTools:
                         'extraction_method': f"{content.get('content_type', 'unknown')}_with_fallback"
                     }
 
+                    # DEBUG: Log before structured parsing
+                    logger.info(f"🔧 DEBUG: About to parse structured content for {uri}")
+                    raw_text = content.get('text', '')
+                    logger.info(f"🔧 DEBUG: Text length: {len(raw_text)}")
+                    logger.info(f"🔧 DEBUG: First 500 chars: {raw_text[:500]}")
+
+                    try:
+                        # Parse structured content
+                        if raw_text:
+                            logger.info(f"🔧 DEBUG: Calling _parse_structured_content...")
+                            structured = self._parse_structured_content(raw_text)
+                            doc_info['structured_text'] = structured
+
+                            # Add debug info about structured parsing
+                            sections_count = len(structured.get('sections', []))
+                            total_articles = sum(len(section.get('articles', [])) for section in structured.get('sections', []))
+
+                            logger.info(f"✅ DEBUG: Structured parsing SUCCESS: {sections_count} sections, {total_articles} articles")
+
+                            # Log section details for debugging
+                            for i_sec, section in enumerate(structured.get('sections', []), 1):
+                                section_name = section.get('section', 'Unknown')
+                                articles_count = len(section.get('articles', []))
+                                logger.info(f"      Section {i_sec}: {section_name} ({articles_count} articles)")
+                                # Log first few articles
+                                for j, article in enumerate(section.get('articles', [])[:3]):
+                                    art_text = article.get('text', '')[:100] + ('...' if len(article.get('text', '')) > 100 else '')
+                                    logger.info(f"         Art. {article.get('number')}: {art_text}")
+                        else:
+                            logger.warning(f"🔧 DEBUG: No text content to parse")
+                            doc_info['structured_text'] = {'title': '', 'sections': [], 'error': 'No text content'}
+
+                    except Exception as e:
+                        logger.error(f"❌ DEBUG: Structured parsing failed: {e}")
+                        import traceback
+                        logger.error(f"❌ DEBUG: Traceback: {traceback.format_exc()}")
+                        doc_info['structured_text'] = {'title': '', 'sections': [], 'error': str(e)}
+
                     extracted_documents.append(doc_info)
                     logger.info(f"   ✅ Successfully extracted {doc_info['text_length']} characters from {doc_info['content_type'].upper()}")
 
@@ -1152,7 +1196,8 @@ class LuxembourgLegalTools:
                             'text_length': 0,
                             'extraction_status': 'failed',
                             'extraction_method': 'metadata_only_fallback',
-                            'error': 'Both HTML and PDF extraction failed'
+                            'error': 'Both HTML and PDF extraction failed',
+                            'structured_text': {'title': '', 'sections': [], 'error': 'Extraction failed'}
                         }
                         extracted_documents.append(doc_info)
 
@@ -1171,8 +1216,178 @@ class LuxembourgLegalTools:
 
         except Exception as e:
             logger.error(f"❌ Content extraction failed: {str(e)}")
-            return {"error": f"Content extraction failed: {str(e)}"}
-        
+            import traceback
+            logger.error(f"❌ Full traceback: {traceback.format_exc()}")
+            return {"error": f"Content extraction failed: {str(e)}", "success": False}
+
+    def _parse_structured_content(self, text: str) -> Dict[str, Any]:
+        """Parse legal text into a structure with title and sections containing articles."""
+        if not text:
+            return {'title': '', 'sections': []}
+
+        # Strip zero-width spaces and clean up escaped characters
+        text = text.replace('\u200b', '')
+        text = text.replace('\\n', '\n')  # Handle escaped newlines
+        text = text.replace('\xe2\x80\x8b', '')  # Remove zero-width space
+        text = text.replace('\\\\n', '\n')  # Handle double-escaped newlines
+
+        lines = text.splitlines()
+
+        # Extract document title from first matching law header
+        title = ''
+        for ln in lines:
+            ln_str = ln.strip()
+            if re.match(r'^(Loi|Règlement|Décret|Ordonnance|Arrêté|Convention|Déclaration)', ln_str, re.IGNORECASE):
+                title = ln_str.rstrip('.')
+                break
+
+        # If no title found, try to get it from the first substantial line
+        if not title:
+            for ln in lines[:10]:
+                ln_str = ln.strip()
+                if ln_str and len(ln_str) > 20 and not ln_str.lower().startswith(('journal', 'le contenu')):
+                    title = ln_str.rstrip('.')
+                    break
+
+        # Patterns for section headers and articles - Updated to handle the actual text format
+        section_line_re = re.compile(
+            r'^(Section\s+[IVXLCDM]+(?:er|re|ème)?|SECTION\s+[IVXLCDM]+(?:ER|RE|ÈME)?|§\s*[0-9]+(?:er|re|ème)?\.?)(?:\.)?(?:[–—-]\s*(.+))?$', re.IGNORECASE)
+
+        # Updated article regex to handle the actual format in the logs
+        article_re = re.compile(r'Art\.\s*([0-9]+)(?:er|re|ème)?\.\s*(.*?)(?=Art\.\s*[0-9]+|\Z)', re.DOTALL | re.MULTILINE)
+
+        # Simple article pattern for line-by-line matching
+        simple_article_re = re.compile(r'^Art\.\s*([0-9]+)(?:er|re|ème)?\.\s*(.+)', re.IGNORECASE)
+
+        # Find all section header positions
+        sections_meta = []  # list of (line_index, label, heading_or_None)
+        for idx, ln in enumerate(lines):
+            m = section_line_re.match(ln.strip())
+            if m:
+                lbl = m.group(1)
+                hdr = m.group(2) or None
+                sections_meta.append((idx, lbl, hdr and hdr.strip().rstrip('.')))
+
+        logger.info(f"📋 Found {len(sections_meta)} sections in document")
+
+        # Build structured sections by slicing blocks and extracting articles
+        structured_sections = []
+
+        if sections_meta:
+            for i, (idx, lbl, hdr) in enumerate(sections_meta):
+                # Determine heading: if inline not provided, use next non-empty line
+                heading = hdr
+                if not heading:
+                    j = idx + 1
+                    while j < len(lines) and not lines[j].strip():
+                        j += 1
+                    if j < len(lines):
+                        potential_heading = lines[j].strip().rstrip('.')
+                        # Only use as heading if it's not an article
+                        if not re.match(r'^Art\.\s*[0-9]+', potential_heading, re.IGNORECASE):
+                            heading = potential_heading
+
+                # Determine section block boundaries
+                end = sections_meta[i+1][0] if i+1 < len(sections_meta) else len(lines)
+                block = '\n'.join(lines[idx:end])
+
+                # Extract articles in this block using the main regex
+                articles = []
+                for art in article_re.finditer(block):
+                    try:
+                        num = int(art.group(1))
+                        txt = art.group(2).strip()
+                        # Clean up the text - handle escaped characters
+                        txt = txt.replace('\\n', ' ')
+                        txt = re.sub(r'\s+', ' ', txt)  # Replace multiple spaces with single space
+                        txt = txt.strip()
+                        if txt:  # Only add if there's actual content
+                            articles.append({'number': num, 'text': txt})
+                    except (ValueError, AttributeError) as e:
+                        logger.warning(f"Failed to parse article: {e}")
+                        continue
+
+                # If no articles found with complex regex, try simple line-by-line approach
+                if not articles:
+                    block_lines = block.split('\n')
+                    for line in block_lines:
+                        line = line.strip()
+                        if line.startswith('Art.'):
+                            m = simple_article_re.match(line)
+                            if m:
+                                try:
+                                    num = int(m.group(1))
+                                    txt = m.group(2).strip()
+                                    if txt:
+                                        articles.append({'number': num, 'text': txt})
+                                except (ValueError, AttributeError):
+                                    continue
+
+                # Only include sections that actually contain articles
+                if articles:
+                    structured_sections.append({
+                        'section': lbl,
+                        'heading': heading or 'No heading',
+                        'articles': sorted(articles, key=lambda x: x['number'])  # Sort by article number
+                    })
+                    logger.info(f"   📖 Section {lbl}: {len(articles)} articles")
+
+        # If no sections found, try to extract articles from the entire document
+        if not structured_sections:
+            logger.info("🔍 No sections found, extracting articles from entire document")
+            articles = []
+
+            # Try simple line-by-line approach first for this format
+            for line in lines:
+                line = line.strip()
+                if line.startswith('Art.'):
+                    m = simple_article_re.match(line)
+                    if m:
+                        try:
+                            num = int(m.group(1))
+                            txt = m.group(2).strip()
+                            # Clean up escaped characters
+                            txt = txt.replace('\\n', ' ')
+                            txt = re.sub(r'\s+', ' ', txt)
+                            if txt:
+                                articles.append({'number': num, 'text': txt})
+                        except (ValueError, AttributeError):
+                            continue
+
+            # Try the main article regex on entire text as fallback
+            if not articles:
+                full_text_cleaned = text.replace('\\n', '\n')
+                for art in article_re.finditer(full_text_cleaned):
+                    try:
+                        num = int(art.group(1))
+                        txt = art.group(2).strip()
+                        txt = re.sub(r'\s+', ' ', txt)
+                        if txt:
+                            articles.append({'number': num, 'text': txt})
+                    except (ValueError, AttributeError):
+                        continue
+
+            if articles:
+                structured_sections.append({
+                    'section': 'Document Content',
+                    'heading': 'All Articles',
+                    'articles': sorted(articles, key=lambda x: x['number'])
+                })
+                logger.info(f"   📖 Standalone articles: {len(articles)} found")
+
+        total_articles = sum(len(section.get('articles', [])) for section in structured_sections)
+        logger.info(f"✅ Structured parsing complete: {len(structured_sections)} sections, {total_articles} total articles")
+
+        return {
+            'title': title or 'Unknown Document',
+            'sections': structured_sections,
+            'parsing_stats': {
+                'sections_found': len(structured_sections),
+                'total_articles': total_articles,
+                'has_structure': len(structured_sections) > 0
+            }
+        }
+
     def basic_document_search(self, keywords: List[str], limit: int = 50) -> Dict[str, Any]:
         """
         BONUS TOOL: Simple keyword search for when you just need to find specific documents.
@@ -1230,7 +1445,7 @@ class LuxembourgLegalTools:
         except Exception as e:
             logger.error(f"❌ Basic document search failed: {e}")
             return {
-                "error": f"Basic document search failed: {e}", 
+                "error": f"Basic document search failed: {e}",
                 "success": False,
                 "documents": [],
                 "total_found": 0,
