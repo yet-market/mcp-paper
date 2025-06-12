@@ -469,6 +469,41 @@ class LegalIntelligenceCLI:
                 except (json.JSONDecodeError, AttributeError) as e:
                     return f"❌ Failed to parse result JSON: {e}\nRaw data: {data}"
 
+        # For extract_content, display parsed structure (but keep full_text for analysis)
+        if tool_name == 'extract_content' and isinstance(data, dict):
+            for doc in data.get('extracted_documents', []):
+                structured = doc.get('structured_text')
+                if not isinstance(structured, dict):
+                    print(f"\n❌ No structured_text field in extract_content output for '{doc.get('title', '')}'.")
+                    print("💡 Make sure you restarted the server after updating the code.\n")
+                else:
+                    print(f"\n📋 STRUCTURED CONTENT FOR: {doc.get('title', 'Unknown')}")
+                    print("="*60)
+                    if structured.get('title'):
+                        print(f"📄 Document Title: {structured['title']}")
+                    sections = structured.get('sections', [])
+                    if not sections:
+                        if structured.get('error'):
+                            print(f"❌ Parsing error: {structured['error']}")
+                        else:
+                            print("❌ No sections with articles found in structured_text.")
+                    else:
+                        print(f"📚 Found {len(sections)} sections with articles:")
+                        for section in sections:
+                            print(f"\n🔖 {section.get('section', 'Unknown Section')}: {section.get('heading', 'No heading')}")
+                            articles = section.get('articles', [])
+                            print(f"   📝 Articles: {len(articles)}")
+                            for article in articles[:5]:  # Show more articles for debugging
+                                txt = article.get('text', '')
+                                preview = txt[:150] + ('...' if len(txt) > 150 else '')
+                                print(f"      Art. {article.get('number')}: {preview}")
+                            if len(articles) > 5:
+                                print(f"      ... and {len(articles) - 5} more articles")
+                    print("="*60)
+
+                # Remove full_text only for final JSON display to avoid huge dumps
+                doc.pop('full_text', None)
+
         # Pretty print the JSON result
         try:
             formatted = json.dumps(data, indent=2, ensure_ascii=False)
