@@ -9,7 +9,12 @@ import json
 import boto3
 import logging
 import time
+import asyncio
 from typing import Dict, Any
+
+# MCP client for dynamic tool invocation
+from fastmcp import Client
+from fastmcp.client.transports import StreamableHttpTransport
 
 # Import shared DynamoDB manager
 import sys
@@ -47,6 +52,12 @@ def lambda_handler(event, context):
             return handle_health()
         elif path == "/tools" and http_method == "GET":
             return handle_tools()
+        # Single-tool synchronous invocation
+        elif path.startswith("/tool/") and http_method == "POST":
+            parts = path.split("/")
+            if len(parts) == 3 and parts[2]:
+                tool_name = parts[2]
+                return handle_tool_call(tool_name, request_data)
         elif path.startswith("/job/") and http_method == "GET":
             # Handle job status and result endpoints
             parts = path.split("/")
@@ -278,22 +289,36 @@ def handle_job_result(job_id: str):
 def handle_tools():
     """Handle /tools endpoint."""
     try:
+        # Dynamically fetch available MCP tools and their schemas
+        mcp_url = os.environ.get("MCP_SERVER_URL", "https://yet-mcp-legilux.site/mcp/")
+        async def list_tools_async():
+            transport = StreamableHttpTransport(url=mcp_url)
+            async with Client(transport) as client:
+                return await client.list_tools()
+
+        tools_list = asyncio.run(list_tools_async())
+        available = []
+        for tool in tools_list:
+            entry = {"name": tool.name, "description": tool.description}
+            if hasattr(tool, "inputSchema"):
+                entry["inputSchema"] = tool.inputSchema
+            if hasattr(tool, "outputSchema"):
+                entry["outputSchema"] = tool.outputSchema
+            available.append(entry)
+
         tools_info = {
-            "total_tools": 6,  # Known MCP tools
-            "available_tools": [
-                "search_documents", "get_citations", "get_amendments", 
-                "check_legal_status", "get_relationships", "extract_content"
-            ],
+            "total_tools": len(available),
+            "available_tools": available,
             "providers": {
                 "available": ["anthropic", "groq", "openai"],
-                "default": "anthropic",
+                "default": os.environ.get("MODEL_PROVIDER", "anthropic"),
                 "models": {
                     "anthropic": "claude-3-5-sonnet-20241022",
                     "groq": "llama-3.3-70b-versatile",
                     "openai": "gpt-4.1-mini"
                 }
             },
-            "mcp_server": os.environ.get("MCP_SERVER_URL", "https://yet-mcp-legilux.site/mcp/"),
+            "mcp_server": mcp_url,
             "storage": "DynamoDB",
             "pattern": "2-Function Serverless",
             "timestamp": int(time.time())
@@ -310,6 +335,37 @@ def handle_tools():
         
     except Exception as e:
         logger.error(f"Tools handler error: {e}")
+        return {
+            "statusCode": 500,
+            "headers": {"Content-Type": "application/json"},
+            "body": json.dumps({"error": str(e)})
+        }
+
+def handle_tool_call(tool_name: str, params: Dict[str, Any]) -> Dict[str, Any]:
+    """Handle POST /tool/{tool_name} - invoke an MCP tool synchronously."""
+    try:
+        mcp_url = os.environ.get("MCP_SERVER_URL", "https://yet-mcp-legilux.site/mcp/")
+        async def call_tool_async():
+            transport = StreamableHttpTransport(url=mcp_url)
+            async with Client(transport) as client:
+                return await client.call_tool(tool_name, params)
+
+        result = asyncio.run(call_tool_async())
+        if not result.get("success", False):
+            return {
+                "statusCode": 400,
+                "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"},
+                "body": json.dumps({"error": result.get("error", "Tool invocation failed")})
+            }
+
+        # Return the raw tool result JSON
+        return {
+            "statusCode": 200,
+            "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"},
+            "body": json.dumps(result.get("result", {}), ensure_ascii=False)
+        }
+    except Exception as e:
+        logger.error(f"Tool call handler error for {tool_name}: {e}")
         return {
             "statusCode": 500,
             "headers": {"Content-Type": "application/json"},

@@ -118,17 +118,40 @@ Response: {
 ```bash
 GET /tools
 
-Response: {
+Response (dynamic list of all tools with schemas):
+```
+{
+  "total_tools": 6,
   "available_tools": [
-    "search_documents", "get_citations", "get_amendments",
-    "check_legal_status", "get_relationships", "extract_content"
+    {
+      "name": "search_documents",
+      "description": "Find documents by keyword",
+      "inputSchema": { /* JSON Schema for search_documents */ }
+    },
+    /* … other tools … */
   ],
   "providers": {
     "default": "anthropic",
     "models": {
-      "anthropic": "claude-3-5-sonnet-20241022"
+      "anthropic": "claude-3-5-sonnet-20241022",
+      "groq": "llama-3.3-70b-versatile",
+      "openai": "gpt-4.1-mini"
     }
-  }
+  },
+  "mcp_server": "https://yet-mcp-legilux.site/mcp/",
+  "pattern": "2-Function Serverless"
+}
+```
+
+#### 6. Invoke Single MCP Tool
+```bash
+POST /tool/{tool_name}
+Headers: X-API-Key: {api_key}, Content-Type: application/json
+Body: { /* parameters matching the tool's inputSchema */ }
+
+# Response: raw JSON result from the specified MCP tool
+{
+  /* tool-specific JSON output */
 }
 ```
 

@@ -67,7 +67,8 @@ chmod +x deploy_2_functions.sh
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/health` | GET | System health and provider info |
-| `/tools` | GET | Available MCP tools and capabilities |
+| `/tools` | GET | List all MCP tools with input/output schemas |
+| `/tool/{tool_name}` | POST | Invoke a single MCP tool synchronously |
 | `/chat` | POST | Create async legal research job |
 | `/job/{id}` | GET | Job status and progress |
 | `/job/{id}/result` | GET | Complete structured legal analysis |
@@ -121,7 +122,26 @@ curl 'https://your-api-gateway-url/prod/job/uuid-job-id'
 }
 ```
 
-### 3. Get Structured Legal Analysis
+### 3. Invoke a Single MCP Tool
+
+```bash
+curl -X POST 'https://your-api-gateway-url/prod/tool/extract_content' \
+  -H 'Content-Type: application/json' \
+  -H 'X-API-Key: your-api-key' \
+  -d '{
+    "document_uris": ["http://data.legilux.public.lu/..."],
+    "max_documents": 1
+  }'
+
+# Response: Tool-specific structured JSON directly from MCP
+{
+  "extracted_documents": [ ... ],
+  "total_requested": 1,
+  ...
+}
+```
+
+### 4. Get Structured Legal Analysis
 
 ```bash
 curl 'https://your-api-gateway-url/prod/job/uuid-job-id/result'
