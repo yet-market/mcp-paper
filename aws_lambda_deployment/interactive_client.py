@@ -279,9 +279,9 @@ class LegalAssistantClient:
 def main():
     """Main interactive function."""
     parser = argparse.ArgumentParser(description='Luxembourg Legal Assistant Interactive Client')
-    parser.add_argument('--api-url', default='https://nbrdgmnqxh.execute-api.eu-west-2.amazonaws.com/prod',
+    parser.add_argument('--api-url', default='https://ymtocda5s2.execute-api.eu-west-2.amazonaws.com/prod',
                        help='API Gateway URL')
-    parser.add_argument('--api-key', default='5F08MQFO4d6j8gC0AxtVh4WUqGRYN5Q07FeweAVj',
+    parser.add_argument('--api-key', default='o7tKNwreM48ojccC4ck6j5ZtIhWiNVFj7ffrGuMw',
                        help='API Key')
     parser.add_argument('--provider', choices=['anthropic', 'openai', 'groq'], default='anthropic',
                        help='AI provider to use')
