@@ -69,7 +69,7 @@ Options:
 
 ## 🎯 Usage Examples
 
-### Basic Legal Questions
+### A) Asynchronous Multi-Tool Research (ask_question)
 
 ```bash
 # Corporate law
@@ -82,7 +82,16 @@ Options:
 ./ask_question.sh "Comment calculer l'impôt sur les sociétés?"
 ```
 
-### Advanced Usage
+### B) Single-Tool Invocations (tool_cli_client)
+
+```bash
+# Run the tool CLI to pick and execute one MCP tool
+python tool_cli_client.py
+
+# Example manual invocation:
+#   (choose extract_content when prompted)
+python tool_cli_client.py
+```
 
 ```bash
 # Long analysis with Claude
