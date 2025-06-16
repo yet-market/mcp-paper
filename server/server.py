@@ -6,7 +6,7 @@ Clean, modular implementation with streamlined workflow tools and HTTP transport
 
 import argparse
 import logging
-from typing import List
+from typing import List, Optional
 from fastmcp import FastMCP
 from luxembourg_legal.config import setup_logging, initialize_sparql
 from luxembourg_legal.config import Config
@@ -53,6 +53,19 @@ def find_newest_active_laws(keywords: List[str], limit: int = 10):
 def find_highest_authority_laws(keywords: List[str], limit: int = 10):
     """Find LOI and CODE documents = most powerful legal authority."""
     return legal_tools.find_highest_authority_laws(keywords, limit)
+
+
+@mcp.tool(description="STEP 1E: Unified discovery with area/type/active/keyword filters in one SPARQL query")
+def run_full_discovery(
+    keywords: List[str],
+    limit: int = 10,
+    areas: Optional[List[str]] = None,
+    types: Optional[List[str]] = None,
+):
+    """Run all Phase 1 discovery methods (citation, modification, recency, authority)
+    with optional area/type filters, then return merged, ranked results."""
+    logger.info(f"🔍 RUN FULL DISCOVERY: keywords={keywords}, areas={areas}, types={types}, limit={limit}")
+    return legal_tools.super_discovery(keywords, areas, types, limit)
 
 
 # PHASE 2: Analysis Tools (Check Results)
@@ -135,7 +148,7 @@ if __name__ == "__main__":
     # Run server
     logger.info(f"🚀 Starting Luxembourg Legal Intelligence MCP Server - HTTP Edition")
     logger.info(f"📊 SPARQL endpoint: {args.endpoint}")
-    logger.info(f"🔧 Phase 1 (Discovery): find_most_cited_laws, find_most_changed_laws, find_newest_active_laws, find_highest_authority_laws")
+    logger.info(f"🔧 Phase 1 (Discovery): find_most_cited_laws, find_most_changed_laws, find_newest_active_laws, find_highest_authority_laws, run_full_discovery")
     logger.info(f"🔍 Phase 2 (Analysis): compare_results, check_connections")
     logger.info(f"🕸️ Phase 3 (Relationships): find_what_law_references, find_what_references_law, find_amendment_chain")
     logger.info(f"🏆 Phase 4 (Final): verify_still_valid, rank_by_importance, create_final_map")

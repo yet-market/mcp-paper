@@ -29,14 +29,30 @@ class LuxembourgLegalTools:
             logger.warning(f"⚠️ Content processor not available: {e}")
             self.content_processor = None
 
-    def find_most_cited_laws(self, keywords: List[str], limit: int = 10) -> Dict[str, Any]:
+    def find_most_cited_laws(
+        self,
+        keywords: List[str],
+        limit: int = 10,
+        areas: Optional[List[str]] = None,
+        types: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
         """
         STEP 1A: Find laws that other laws reference a lot = important foundational laws.
         Returns data matching CitedLawItem model.
         """
-        logger.info(f"📚 FINDING MOST CITED LAWS: {keywords}")
+        logger.info(f"📚 FINDING MOST CITED LAWS: {keywords}, areas={areas}, types={types}")
 
         try:
+            # Build optional area/type filters
+            area_clause = ""
+            if areas:
+                vals = " ".join(f"<{a}>" for a in areas)
+                area_clause = f"    ?cited_doc jolux:subjectLevel1 ?area .\n    FILTER(?area IN ({vals}))\n"
+            type_clause = ""
+            if types:
+                vals = " ".join(f"<{t}>" for t in types)
+                type_clause = f"    ?cited_doc jolux:typeDocument ?type_doc .\n    FILTER(?type_doc IN ({vals}))\n"
+
             # Build keyword filter
             keyword_filters = []
             for keyword in keywords:
@@ -46,12 +62,12 @@ class LuxembourgLegalTools:
             query = f"""
             PREFIX jolux: <http://data.legilux.public.lu/resource/ontology/jolux#>
             SELECT ?cited_doc ?title ?date (COUNT(?citing_doc) as ?citation_count) WHERE {{
-                ?citing_doc jolux:cites ?cited_doc .
-                ?cited_doc jolux:isRealizedBy ?expr .
-                ?expr jolux:title ?title .
-                ?cited_doc jolux:dateDocument ?date .
-                FILTER({filter_clause})
-            }}
+{area_clause}{type_clause}    ?citing_doc jolux:cites ?cited_doc .
+    ?cited_doc jolux:isRealizedBy ?expr .
+    ?expr jolux:title ?title .
+    ?cited_doc jolux:dateDocument ?date .
+    FILTER({filter_clause})
+}}
             GROUP BY ?cited_doc ?title ?date
             ORDER BY DESC(?citation_count)
             LIMIT {limit}
@@ -83,14 +99,30 @@ class LuxembourgLegalTools:
             logger.error(f"❌ Citation analysis failed: {e}")
             return {"error": f"Citation analysis failed: {e}", "success": False, "laws": [], "keywords": keywords, "method": "citation_analysis", "total_found": 0}
 
-    def find_most_changed_laws(self, keywords: List[str], limit: int = 10) -> Dict[str, Any]:
+    def find_most_changed_laws(
+        self,
+        keywords: List[str],
+        limit: int = 10,
+        areas: Optional[List[str]] = None,
+        types: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
         """
         STEP 1B: Find laws that get updated frequently = active/important laws.
         Returns data matching ModifiedLawItem model.
         """
-        logger.info(f"🔄 FINDING MOST CHANGED LAWS: {keywords}")
+        logger.info(f"🔄 FINDING MOST CHANGED LAWS: {keywords}, areas={areas}, types={types}")
 
         try:
+            # Build optional area/type filters
+            area_clause = ""
+            if areas:
+                vals = " ".join(f"<{a}>" for a in areas)
+                area_clause = f"    ?modified_doc jolux:subjectLevel1 ?area .\n    FILTER(?area IN ({vals}))\n"
+            type_clause = ""
+            if types:
+                vals = " ".join(f"<{t}>" for t in types)
+                type_clause = f"    ?modified_doc jolux:typeDocument ?type_doc .\n    FILTER(?type_doc IN ({vals}))\n"
+
             # Build keyword filter
             keyword_filters = []
             for keyword in keywords:
@@ -100,12 +132,12 @@ class LuxembourgLegalTools:
             query = f"""
             PREFIX jolux: <http://data.legilux.public.lu/resource/ontology/jolux#>
             SELECT ?modified_doc ?title ?date (COUNT(?modifier) as ?modification_count) WHERE {{
-                ?modifier jolux:modifies ?modified_doc .
-                ?modified_doc jolux:isRealizedBy ?expr .
-                ?expr jolux:title ?title .
-                ?modified_doc jolux:dateDocument ?date .
-                FILTER({filter_clause})
-            }}
+{area_clause}{type_clause}    ?modifier jolux:modifies ?modified_doc .
+    ?modified_doc jolux:isRealizedBy ?expr .
+    ?expr jolux:title ?title .
+    ?modified_doc jolux:dateDocument ?date .
+    FILTER({filter_clause})
+}}
             GROUP BY ?modified_doc ?title ?date
             ORDER BY DESC(?modification_count)
             LIMIT {limit}
@@ -137,14 +169,30 @@ class LuxembourgLegalTools:
             logger.error(f"❌ Modification analysis failed: {e}")
             return {"error": f"Modification analysis failed: {e}", "success": False, "laws": [], "keywords": keywords, "method": "modification_analysis", "total_found": 0}
 
-    def find_newest_active_laws(self, keywords: List[str], limit: int = 10) -> Dict[str, Any]:
+    def find_newest_active_laws(
+        self,
+        keywords: List[str],
+        limit: int = 10,
+        areas: Optional[List[str]] = None,
+        types: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
         """
         STEP 1C: Find recent laws that haven't been canceled = current legal framework.
         Returns data matching ActiveLawItem model.
         """
-        logger.info(f"📅 FINDING NEWEST ACTIVE LAWS: {keywords}")
+        logger.info(f"📅 FINDING NEWEST ACTIVE LAWS: {keywords}, areas={areas}, types={types}")
 
         try:
+            # Build optional area/type filters
+            area_clause = ""
+            if areas:
+                vals = " ".join(f"<{a}>" for a in areas)
+                area_clause = f"    ?doc jolux:subjectLevel1 ?area .\n    FILTER(?area IN ({vals}))\n"
+            type_clause = ""
+            if types:
+                vals = " ".join(f"<{t}>" for t in types)
+                type_clause = f"    ?doc jolux:typeDocument ?type_doc .\n    FILTER(?type_doc IN ({vals}))\n"
+
             # Build keyword filter
             keyword_filters = []
             for keyword in keywords:
@@ -154,13 +202,13 @@ class LuxembourgLegalTools:
             query = f"""
             PREFIX jolux: <http://data.legilux.public.lu/resource/ontology/jolux#>
             SELECT ?doc ?title ?date ?type_doc WHERE {{
-                ?doc jolux:isRealizedBy ?expr .
-                ?expr jolux:title ?title .
-                ?doc jolux:dateDocument ?date .
-                OPTIONAL {{ ?doc jolux:typeDocument ?type_doc }}
-                FILTER({filter_clause})
-                FILTER NOT EXISTS {{ ?repealer jolux:repeals ?doc }}
-            }}
+{area_clause}{type_clause}    ?doc jolux:isRealizedBy ?expr .
+    ?expr jolux:title ?title .
+    ?doc jolux:dateDocument ?date .
+    OPTIONAL {{ ?doc jolux:typeDocument ?type_doc }}
+    FILTER({filter_clause})
+    FILTER NOT EXISTS {{ ?repealer jolux:repeals ?doc }}
+}}
             ORDER BY DESC(?date)
             LIMIT {limit}
             """
@@ -191,14 +239,30 @@ class LuxembourgLegalTools:
             logger.error(f"❌ Active laws analysis failed: {e}")
             return {"error": f"Active laws analysis failed: {e}", "success": False, "laws": [], "keywords": keywords, "method": "recency_analysis", "total_found": 0}
 
-    def find_highest_authority_laws(self, keywords: List[str], limit: int = 10) -> Dict[str, Any]:
+    def find_highest_authority_laws(
+        self,
+        keywords: List[str],
+        limit: int = 10,
+        areas: Optional[List[str]] = None,
+        types: Optional[List[str]] = None,
+    ) -> Dict[str, Any]:
         """
         STEP 1D: Find LOI and CODE documents = most powerful legal authority.
         Returns data matching HighestAuthorityLawItem model.
         """
-        logger.info(f"⚖️ FINDING HIGHEST AUTHORITY LAWS: {keywords}")
+        logger.info(f"⚖️ FINDING HIGHEST AUTHORITY LAWS: {keywords}, areas={areas}, types={types}")
 
         try:
+            # Build optional area/type filters
+            area_clause = ""
+            if areas:
+                vals = " ".join(f"<{a}>" for a in areas)
+                area_clause = f"    ?doc jolux:subjectLevel1 ?area .\n    FILTER(?area IN ({vals}))\n"
+            type_clause = ""
+            if types:
+                vals = " ".join(f"<{t}>" for t in types)
+                type_clause = f"    ?doc jolux:typeDocument ?type_doc .\n    FILTER(?type_doc IN ({vals}))\n"
+
             # Build keyword filter
             keyword_filters = []
             for keyword in keywords:
@@ -208,13 +272,13 @@ class LuxembourgLegalTools:
             query = f"""
             PREFIX jolux: <http://data.legilux.public.lu/resource/ontology/jolux#>
             SELECT ?doc ?title ?date ?type_doc WHERE {{
-                ?doc jolux:isRealizedBy ?expr .
-                ?expr jolux:title ?title .
-                ?doc jolux:dateDocument ?date .
-                ?doc jolux:typeDocument ?type_doc .
-                FILTER({filter_clause})
-                FILTER(CONTAINS(STR(?type_doc), "LOI") || CONTAINS(STR(?type_doc), "CODE"))
-            }}
+{area_clause}{type_clause}    ?doc jolux:isRealizedBy ?expr .
+    ?expr jolux:title ?title .
+    ?doc jolux:dateDocument ?date .
+    ?doc jolux:typeDocument ?type_doc .
+    FILTER({filter_clause})
+    FILTER(CONTAINS(STR(?type_doc), "LOI") || CONTAINS(STR(?type_doc), "CODE"))
+}}
             ORDER BY ?date
             LIMIT {limit}
             """
@@ -244,6 +308,70 @@ class LuxembourgLegalTools:
         except Exception as e:
             logger.error(f"❌ Authority analysis failed: {e}")
             return {"error": f"Authority analysis failed: {e}", "success": False, "laws": [], "keywords": keywords, "method": "authority_analysis", "total_found": 0}
+
+    def super_discovery(
+        self,
+        keywords: List[str],
+        areas: Optional[List[str]] = None,
+        types: Optional[List[str]] = None,
+        limit: int = 10,
+    ) -> Dict[str, Any]:
+        """
+        STEP 1E: Super discovery in one SPARQL call.
+        Apply area, type, active and keyword filters, then return matching laws.
+        """
+        logger.info(f"🔍 SUPER DISCOVERY: keywords={keywords}, areas={areas}, types={types}, limit={limit}")
+
+        area_clause = ""
+        if areas:
+            vals = ", ".join(f"<{a}>" for a in areas)
+            area_clause = f"    ?doc jolux:subjectLevel1 ?area .\n    FILTER(?area IN ({vals}))\n"
+
+        # Always bind document type, and build optional type filter
+        type_clause = "    ?doc jolux:typeDocument ?type_doc .\n"
+        type_filter = ""
+        if types:
+            vals = ", ".join(f"<{t}>" for t in types)
+            type_filter = f"    FILTER(?type_doc IN ({vals}))\n"
+
+        # Build keyword filter using CONTAINS for each keyword (case-insensitive)
+        keyword_filters = [f'CONTAINS(LCASE(?title), "{kw.lower()}")' for kw in keywords]
+        filter_clause = " || ".join(keyword_filters) if keyword_filters else "true"
+
+        query = f"""
+        PREFIX jolux: <http://data.legilux.public.lu/resource/ontology/jolux#>
+
+        SELECT ?doc ?title ?date ?type_doc WHERE {{
+{area_clause}{type_clause}{type_filter}    FILTER NOT EXISTS {{ ?repealer jolux:repeals ?doc }}
+            ?doc jolux:isRealizedBy/jolux:title ?title .
+            ?doc jolux:dateDocument ?date .
+        FILTER({filter_clause})
+        }}
+        ORDER BY DESC(?date)
+        LIMIT {limit}
+        """
+
+        self.sparql.setQuery(query)
+        results = self.sparql.query().convert()
+
+        laws = []
+        for b in results.get("results", {}).get("bindings", []):
+            laws.append({
+                "doc": b["doc"]["value"],
+                "title": b["title"]["value"],
+                "date": b["date"]["value"],
+                "type_doc": b.get("type_doc", {}).get("value")
+            })
+
+        return {
+            "laws": laws,
+            "total_found": len(laws),
+            "keywords": keywords,
+            "areas": areas,
+            "types": types,
+            "method": "super_discovery",
+            "success": True
+        }
 
     def compare_results(self, result_sets: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
